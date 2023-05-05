@@ -1106,16 +1106,8 @@
           "kind": "js",
           "name": "DashboardGroup",
           "declaration": {
-            "name": "DashboardGroup",
-            "module": "src/gen/pb/config/config.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Configuration",
-          "declaration": {
-            "name": "Configuration",
-            "module": "src/gen/pb/config/config.ts"
+            "name": "RespectiveDashboards",
+            "module": "out-tsc/stories/testgrid-index.stories.js"
           }
         }
       ]
