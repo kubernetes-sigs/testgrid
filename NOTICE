@@ -1,0 +1,13 @@
+When forking the GoogleCloudPlatform/testgrid repo into a CNCF repository, not
+all contributors were reached to sign the CNCF CLA. As such, we are adding a
+NOTICE referencing section 7 of the CLA with a list of developers who could not
+be reached.
+
+`7. Should You wish to submit work that is not Your original creation, You may
+submit it to the Foundation separately from any Contribution, identifying the
+complete details of its source and of any license or other restriction
+(including, but not limited to, related patents, trademarks, and license
+agreements) of which you are personally aware, and conspicuously marking the
+work as "Submitted on behalf of a third-party: [named here]".`
+
+Submitted on behalf of a third-party: @ankur12-1610
