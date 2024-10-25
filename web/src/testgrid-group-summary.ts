@@ -1,8 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ListDashboardSummariesResponse } from './gen/pb/api/v1/data';
-import { DashboardSummary } from './gen/pb/api/v1/data';
 import { map } from 'lit/directives/map.js';
+import { ListDashboardSummariesResponse , DashboardSummary } from './gen/pb/api/v1/data';
 import { TabStatusIcon } from './testgrid-dashboard-summary';
 
 /**
@@ -66,7 +65,7 @@ export class TestgridGroupSummary extends LitElement {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = ListDashboardSummariesResponse.fromJson(await response.json());
-      var summaries: RenderedDashboardSummary[] = [];
+      const summaries: RenderedDashboardSummary[] = [];
       data.dashboardSummaries.forEach(summary => summaries.push(this.convertResponse(summary)));
       this.dashboardSummaries = summaries;
     } catch (error) {
@@ -85,8 +84,8 @@ export class TestgridGroupSummary extends LitElement {
       "PENDING"
     ]
 
-    var numPassing = 0;
-    var total = 0;
+    let numPassing = 0;
+    let total = 0;
     for (const key in summary.tabStatusCount){
       if (key === "PASSING"){
         numPassing = summary.tabStatusCount[key];
@@ -94,8 +93,8 @@ export class TestgridGroupSummary extends LitElement {
       total += summary.tabStatusCount[key];
     }
 
-    var prefix = `${numPassing} / ${total} PASSING`;
-    var descriptions: string [] = [];
+    let prefix = `${numPassing} / ${total} PASSING`;
+    const descriptions: string [] = [];
     sortedStatuses.forEach(status => {
       if (summary.tabStatusCount[status] > 0){
         descriptions.push(`${summary.tabStatusCount[status]} ${status}`);
@@ -103,7 +102,7 @@ export class TestgridGroupSummary extends LitElement {
     });
 
     if (descriptions.length >0){
-      prefix += " ("+ descriptions.join(", ") +")";
+      prefix += ` (${ descriptions.join(", ") })`;
     }
 
     const rds: RenderedDashboardSummary = {

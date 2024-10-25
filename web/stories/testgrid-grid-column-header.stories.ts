@@ -17,9 +17,7 @@ interface Args {
 
 const Template: Story<Args> = ({
   name = '',
-}: Args) => {
-  return html`<testgrid-grid-column-header .name="${name}"></testgrid-grid-column-header>`;
-};
+}: Args) => html`<testgrid-grid-column-header .name="${name}"></testgrid-grid-column-header>`;
 
 export const Empty = Template.bind({});
 Empty.args = {name: ''};

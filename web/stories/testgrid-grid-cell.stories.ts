@@ -19,9 +19,7 @@ interface Args {
 
 const Template: Story<Args> = ({
   icon = '', status = '',
-}: Args) => {
-  return html`<testgrid-grid-cell .icon="${icon}" .status="${status}"></testgrid-grid-cell>`;
-};
+}: Args) => html`<testgrid-grid-cell .icon="${icon}" .status="${status}"></testgrid-grid-cell>`;
 
 export const NoResult = Template.bind({});
 NoResult.args = {icon: '', status: TestStatus[TestStatus.NO_RESULT]};

@@ -24,14 +24,13 @@ describe('Testgrid Index page', () => {
 
   // TODO - add accessibility tests
   it('fetches dashboards and dashboard-groups after loading the component', async () => {
-
     // waiting until list items (dashboards and groups) are fully rendered
     await waitUntil(
       () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
       'Index did not render dashboards',
       {
         timeout: 5000,
-      },
+      }
     );
 
     await waitUntil(
@@ -39,7 +38,7 @@ describe('Testgrid Index page', () => {
       'Index did not render dashboard groups',
       {
         timeout: 5000,
-      },
+      }
     );
     // check if dashboards and dashboard groups exist
     expect(element.dashboards).to.not.be.empty;
@@ -56,17 +55,19 @@ describe('Testgrid Index page', () => {
       'Index did not render dashboard groups',
       {
         timeout: 4000,
-      },
+      }
     );
 
     expect(element.dashboardGroups).to.not.be.empty;
 
     // click on first dashboard group to fetch respective dashboards
-    const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector('mwc-list-item.dashboard-group')!;
+    const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector(
+      'mwc-list-item.dashboard-group'
+    )!;
     dashboardGroup.click();
 
     await aTimeout(3000);
-    
+
     expect(element.show).to.be.false;
     expect(element.respectiveDashboards).to.not.be.empty;
   });
@@ -80,11 +81,13 @@ describe('Testgrid Index page', () => {
       'Index did not render dashboard groups',
       {
         timeout: 4000,
-      },
+      }
     );
 
     // click on first dashboard group to fetch respective dashboards
-    const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector('mwc-list-item.dashboard-group')!;
+    const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector(
+      'mwc-list-item.dashboard-group'
+    )!;
     dashboardGroup.click();
 
     expect(element.show).to.be.false;
@@ -94,28 +97,30 @@ describe('Testgrid Index page', () => {
       'Element did not render children',
       {
         timeout: 4000,
-      },
+      }
     );
-    
-    const closeBtn: Button = element.shadowRoot!.querySelector('mwc-button.column')!;
+
+    const closeBtn: Button =
+      element.shadowRoot!.querySelector('mwc-button.column')!;
     closeBtn.click();
     expect(element.show).to.be.true;
   });
 
-  it('navigates to /dashboards after clicking on dashboard',async () => {
- 
-     await waitUntil(
-       () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
-       'Index did not render dashboards',
-       {
-         timeout: 4000,
-       },
-     );
- 
-     // click on first dashboard group to fetch respective dashboards
-     const dashboard: ListItemBase = element.shadowRoot!.querySelector('mwc-list-item.dashboard')!;
-     dashboard.click();
+  it('navigates to /dashboards after clicking on dashboard', async () => {
+    await waitUntil(
+      () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
+      'Index did not render dashboards',
+      {
+        timeout: 4000,
+      }
+    );
 
-     expect(location.pathname).to.not.equal('/');
+    // click on first dashboard group to fetch respective dashboards
+    const dashboard: ListItemBase = element.shadowRoot!.querySelector(
+      'mwc-list-item.dashboard'
+    )!;
+    dashboard.click();
+
+    expect(location.pathname).to.not.equal('/');
   });
 });

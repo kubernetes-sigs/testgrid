@@ -80,7 +80,7 @@ export class TestgridDataContent extends LitElement {
    * Invoked on each update to perform rendering tasks.
    */
   render() {
-    var tabBar = html`${
+    const tabBar = html`${
       // make sure we only render the tabs when there are tabs
       when(this.tabNames.length > 0, () => html`
         <mwc-tab-bar .activeIndex=${this.activeIndex} @MDCTabBar:activated="${this.onTabActivated}">
@@ -107,7 +107,7 @@ export class TestgridDataContent extends LitElement {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = ListDashboardTabsResponse.fromJson(await response.json());
-      var tabNames: string[] = ['Summary'];
+      const tabNames: string[] = ['Summary'];
       data.dashboardTabs.forEach(tab => {
         tabNames.push(tab.name);
       });
@@ -124,7 +124,7 @@ export class TestgridDataContent extends LitElement {
       this.activeIndex = 0;
       return
     }
-    var index = this.tabNames.indexOf(tabName);
+    const index = this.tabNames.indexOf(tabName);
     if (index > -1){
       this.activeIndex = index;
     }

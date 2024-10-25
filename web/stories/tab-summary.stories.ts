@@ -60,8 +60,8 @@ const Template: Story<Args> = ({
     lastUpdateTimestamp: 'today',
     latestGreenBuild: 'HULK!',
     dashboardName: 'TEST1',
-    failuresSummary: failuresSummary,
-    healthinessSummary: healthinessSummary,
+    failuresSummary,
+    healthinessSummary,
   };
 
   return html`<link

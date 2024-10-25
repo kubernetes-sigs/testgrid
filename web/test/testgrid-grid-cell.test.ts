@@ -31,8 +31,8 @@ describe('TestGrid grid cell', () => {
         {icon: 'P', status: TestStatus.PASS},
         {icon: 'F', status: TestStatus.FAIL},
         {icon: 'R', status: TestStatus.RUNNING},
-    ].forEach(function(testCase) {
-        it("renders with status " + TestStatus[testCase.status], async() => {
+    ].forEach((testCase) => {
+        it(`renders with status ${  TestStatus[testCase.status]}`, async() => {
             const tagName = defineCE(class extends TestgridGridCell { });
             const tag = unsafeStatic(tagName);
             let el: TestgridGridCell;
