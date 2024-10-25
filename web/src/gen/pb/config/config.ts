@@ -572,6 +572,14 @@ export interface TestGroup_ResultSource {
          */
         gcsConfig: GCSConfig;
     } | {
+        oneofKind: "resultstoreConfig";
+        /**
+         * Invocations stored in ResultStore.
+         *
+         * @generated from protobuf field: testgrid.config.ResultStoreConfig resultstore_config = 6;
+         */
+        resultstoreConfig: ResultStoreConfig;
+    } | {
         oneofKind: undefined;
     };
 }
@@ -671,6 +679,26 @@ export interface GCSConfig {
      * @generated from protobuf field: string pubsub_subscription = 3;
      */
     pubsubSubscription: string;
+}
+/**
+ * ResultStoreConfig specifies results stored in ResultStore.
+ *
+ * @generated from protobuf message testgrid.config.ResultStoreConfig
+ */
+export interface ResultStoreConfig {
+    /**
+     * Google Cloud Platform project ID where ResultStore results are stored.
+     *
+     * @generated from protobuf field: string project = 1;
+     */
+    project: string;
+    /**
+     * A simple query to filter for particular results.
+     * Currently, only allows a query in the form of `target:"<target>"`.
+     *
+     * @generated from protobuf field: string query = 2;
+     */
+    query: string;
 }
 /**
  * Options for where to gather linked issues from.
@@ -2261,7 +2289,8 @@ export const TestGroup_KeyValue = new TestGroup_KeyValue$Type();
 class TestGroup_ResultSource$Type extends MessageType<TestGroup_ResultSource> {
     constructor() {
         super("testgrid.config.TestGroup.ResultSource", [
-            { no: 2, name: "gcs_config", kind: "message", oneof: "resultSourceConfig", T: () => GCSConfig }
+            { no: 2, name: "gcs_config", kind: "message", oneof: "resultSourceConfig", T: () => GCSConfig },
+            { no: 6, name: "resultstore_config", kind: "message", oneof: "resultSourceConfig", T: () => ResultStoreConfig }
         ]);
     }
     create(value?: PartialMessage<TestGroup_ResultSource>): TestGroup_ResultSource {
@@ -2282,6 +2311,12 @@ class TestGroup_ResultSource$Type extends MessageType<TestGroup_ResultSource> {
                         gcsConfig: GCSConfig.internalBinaryRead(reader, reader.uint32(), options, (message.resultSourceConfig as any).gcsConfig)
                     };
                     break;
+                case /* testgrid.config.ResultStoreConfig resultstore_config */ 6:
+                    message.resultSourceConfig = {
+                        oneofKind: "resultstoreConfig",
+                        resultstoreConfig: ResultStoreConfig.internalBinaryRead(reader, reader.uint32(), options, (message.resultSourceConfig as any).resultstoreConfig)
+                    };
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2297,6 +2332,9 @@ class TestGroup_ResultSource$Type extends MessageType<TestGroup_ResultSource> {
         /* testgrid.config.GCSConfig gcs_config = 2; */
         if (message.resultSourceConfig.oneofKind === "gcsConfig")
             GCSConfig.internalBinaryWrite(message.resultSourceConfig.gcsConfig, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* testgrid.config.ResultStoreConfig resultstore_config = 6; */
+        if (message.resultSourceConfig.oneofKind === "resultstoreConfig")
+            ResultStoreConfig.internalBinaryWrite(message.resultSourceConfig.resultstoreConfig, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -2368,6 +2406,60 @@ class GCSConfig$Type extends MessageType<GCSConfig> {
  * @generated MessageType for protobuf message testgrid.config.GCSConfig
  */
 export const GCSConfig = new GCSConfig$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class ResultStoreConfig$Type extends MessageType<ResultStoreConfig> {
+    constructor() {
+        super("testgrid.config.ResultStoreConfig", [
+            { no: 1, name: "project", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "query", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<ResultStoreConfig>): ResultStoreConfig {
+        const message = { project: "", query: "" };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial<ResultStoreConfig>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ResultStoreConfig): ResultStoreConfig {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string project */ 1:
+                    message.project = reader.string();
+                    break;
+                case /* string query */ 2:
+                    message.query = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: ResultStoreConfig, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string project = 1; */
+        if (message.project !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.project);
+        /* string query = 2; */
+        if (message.query !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.query);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message testgrid.config.ResultStoreConfig
+ */
+export const ResultStoreConfig = new ResultStoreConfig$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class IssueGatherOptions$Type extends MessageType<IssueGatherOptions> {
     constructor() {

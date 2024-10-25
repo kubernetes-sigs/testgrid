@@ -69,6 +69,18 @@
                 "text": "TabSummaryInfo | undefined"
               },
               "attribute": "info"
+            },
+            {
+              "kind": "method",
+              "name": "changeTab",
+              "privacy": "private",
+              "description": "Lets the data content element know that the tab changed",
+              "parameters": [
+                {
+                  "description": "string",
+                  "name": "tabName"
+                }
+              ]
             }
           ],
           "attributes": [
@@ -356,6 +368,73 @@
           "declaration": {
             "name": "TestgridDataContent",
             "module": "src/testgrid-data-content.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/testgrid-failures-summary.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TestgridFailuresSummary",
+          "members": [
+            {
+              "kind": "field",
+              "name": "showFailureSummary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "info",
+              "type": {
+                "text": "TabSummaryInfo | undefined"
+              },
+              "attribute": "info"
+            },
+            {
+              "kind": "method",
+              "name": "dropdownTable",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "info",
+              "type": {
+                "text": "TabSummaryInfo | undefined"
+              },
+              "fieldName": "info"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "testgrid-failures-summary",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridFailuresSummary",
+          "declaration": {
+            "name": "TestgridFailuresSummary",
+            "module": "src/testgrid-failures-summary.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "testgrid-failures-summary",
+          "declaration": {
+            "name": "TestgridFailuresSummary",
+            "module": "src/testgrid-failures-summary.ts"
           }
         }
       ]
@@ -829,6 +908,73 @@
           "declaration": {
             "name": "TestgridGroupSummary",
             "module": "src/testgrid-group-summary.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/testgrid-healthiness-summary.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TestgridTabTable",
+          "members": [
+            {
+              "kind": "field",
+              "name": "showHealthinesSummary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "info",
+              "type": {
+                "text": "TabSummaryInfo | undefined"
+              },
+              "attribute": "info"
+            },
+            {
+              "kind": "method",
+              "name": "dropdownTable",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "info",
+              "type": {
+                "text": "TabSummaryInfo | undefined"
+              },
+              "fieldName": "info"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "testgrid-healthiness-summary",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridTabTable",
+          "declaration": {
+            "name": "TestgridTabTable",
+            "module": "src/testgrid-healthiness-summary.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "testgrid-healthiness-summary",
+          "declaration": {
+            "name": "TestgridTabTable",
+            "module": "src/testgrid-healthiness-summary.ts"
           }
         }
       ]
@@ -1616,7 +1762,7 @@
         {
           "kind": "variable",
           "name": "TabSummary",
-          "default": "class TabSummary extends LitElement {\n    render() {\n        var _a, _b, _c, _d, _e, _f, _g, _h;\n        return html `\n      <link\n        rel=\"stylesheet\"\n        href=\"https://fonts.googleapis.com/icon?family=Material+Icons\"\n      />\n      <div class=\"tab\">\n        <div class=\"left\">\n          <div class=\"icon-wrapper\">\n            <i class=\"material-icons ${(_a = this.info) === null || _a === void 0 ? void 0 : _a.overallStatus}\"\n              >${(_b = this.info) === null || _b === void 0 ? void 0 : _b.icon}</i\n            >\n          </div>\n        </div>\n        <div class=\"mid\">\n          <div class=\"name\">\n            ${(_c = this.info) === null || _c === void 0 ? void 0 : _c.name}: ${(_d = this.info) === null || _d === void 0 ? void 0 : _d.overallStatus}\n          </div>\n          <div class=\"detailed-status\">${(_e = this.info) === null || _e === void 0 ? void 0 : _e.detailedStatusMsg}</div>\n        </div>\n        <div class=\"right\">\n          <div class=\"stats\">\n            Last update: ${(_f = this.info) === null || _f === void 0 ? void 0 : _f.lastUpdateTimestamp}\n          </div>\n          <div class=\"stats\">\n            Tests last ran: ${(_g = this.info) === null || _g === void 0 ? void 0 : _g.lastRunTimestamp}\n          </div>\n          <div class=\"stats\">\n            Last green run: ${(_h = this.info) === null || _h === void 0 ? void 0 : _h.latestGreenBuild}\n          </div>\n        </div>\n      </div>\n    `;\n    }\n}"
+          "default": "class TabSummary extends LitElement {\n    render() {\n        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;\n        return html `\n      <link\n        rel=\"stylesheet\"\n        href=\"https://fonts.googleapis.com/icon?family=Material+Icons\"\n      />\n      <div class=\"tab\">\n        <div class=\"left\">\n          <div class=\"icon-wrapper\">\n            <i class=\"material-icons ${(_a = this.info) === null || _a === void 0 ? void 0 : _a.overallStatus}\"\n              >${(_b = this.info) === null || _b === void 0 ? void 0 : _b.icon}</i\n            >\n          </div>\n        </div>\n        <div class=\"mid\">\n          <div @click=${() => this.changeTab()} class=\"tab-name\">\n            ${(_c = this.info) === null || _c === void 0 ? void 0 : _c.name}: ${(_d = this.info) === null || _d === void 0 ? void 0 : _d.overallStatus}\n          </div>\n          <div class=\"detailed-status\">${(_e = this.info) === null || _e === void 0 ? void 0 : _e.detailedStatusMsg}</div>\n        </div>\n        <div class=\"right\">\n          <div class=\"stats\">\n            Last update: ${(_f = this.info) === null || _f === void 0 ? void 0 : _f.lastUpdateTimestamp}\n          </div>\n          <div class=\"stats\">\n            Tests last ran: ${(_g = this.info) === null || _g === void 0 ? void 0 : _g.lastRunTimestamp}\n          </div>\n          <div class=\"stats\">\n            Last green run: ${(_h = this.info) === null || _h === void 0 ? void 0 : _h.latestGreenBuild}\n          </div>\n        </div>\n      </div>\n      ${((_j = this.info) === null || _j === void 0 ? void 0 : _j.failuresSummary) !== undefined ?\n            html `<testgrid-failures-summary .info=${this.info}>\n        </testgrid-failures-summary>` : ''}\n      ${((_k = this.info) === null || _k === void 0 ? void 0 : _k.healthinessSummary) !== undefined ?\n            html `<testgrid-healthiness-summary .info=${this.info}>\n        </testgrid-healthiness-summary>` : ''}\n    `;\n    }\n    /**\n     * Lets the data content element know that the tab changed\n     *\n     * @fires tab-changed\n     * @param tabName string\n     */\n    changeTab() {\n        var _a;\n        window.dispatchEvent(new CustomEvent('tab-changed', {\n            detail: {\n                tabName: (_a = this.info) === null || _a === void 0 ? void 0 : _a.name\n            },\n        }));\n    }\n}"
         }
       ],
       "exports": [
@@ -1694,7 +1840,7 @@
         {
           "kind": "variable",
           "name": "TestgridDataContent",
-          "default": "class TestgridDataContent extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.tabNames = [];\n        this.activeIndex = 0;\n        this.showTab = false;\n        this.dashboardName = '';\n    }\n    // set the functionality when any tab is clicked on\n    onTabActivated(event) {\n        const tabIndex = event.detail.index;\n        if (tabIndex === this.activeIndex) {\n            return;\n        }\n        this.tabName = this.tabNames[tabIndex];\n        if (this.activeIndex === 0 || tabIndex === 0) {\n            this.showTab = !this.showTab;\n        }\n        this.activeIndex = tabIndex;\n        navigateTab(this.dashboardName, this.tabName);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        super.connectedCallback();\n        this.fetchTabNames();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        var tabBar = html `${\n        // make sure we only render the tabs when there are tabs\n        when(this.tabNames.length > 0, () => html `\n        <mwc-tab-bar .activeIndex=${this.activeIndex} @MDCTabBar:activated=\"${this.onTabActivated}\">\n          ${map(this.tabNames, (name) => html `<mwc-tab label=${name}></mwc-tab>`)}\n        </mwc-tab-bar>`)}`;\n        return html `\n      ${tabBar}\n      ${!this.showTab ?\n            html `<testgrid-dashboard-summary .dashboardName=${this.dashboardName}></testgrid-dashboard-summary>` :\n            html `<testgrid-grid .dashboardName=${this.dashboardName} .tabName=${this.tabName}></testgrid-grid>`}\n    `;\n    }\n    // fetch the tab names to populate the tab bar\n    async fetchTabNames() {\n        try {\n            const response = await fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards/${this.dashboardName}/tabs`);\n            if (!response.ok) {\n                throw new Error(`HTTP error: ${response.status}`);\n            }\n            const data = ListDashboardTabsResponse.fromJson(await response.json());\n            var tabNames = ['Summary'];\n            data.dashboardTabs.forEach(tab => {\n                tabNames.push(tab.name);\n            });\n            this.tabNames = tabNames;\n            this.highlightIndex(this.tabName);\n        }\n        catch (error) {\n            console.error(`Could not get dashboard summaries: ${error}`);\n        }\n    }\n    // identify which tab to highlight on the tab bar\n    highlightIndex(tabName) {\n        if (tabName === undefined) {\n            return;\n        }\n        var index = this.tabNames.indexOf(tabName);\n        if (index > -1) {\n            this.activeIndex = index;\n        }\n    }\n}",
+          "default": "class TestgridDataContent extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.tabNames = [];\n        this.activeIndex = 0;\n        this.showTab = false;\n        this.dashboardName = '';\n    }\n    // set the functionality when any tab is clicked on\n    onTabActivated(event) {\n        const tabIndex = event.detail.index;\n        if (tabIndex === this.activeIndex) {\n            return;\n        }\n        this.tabName = this.tabNames[tabIndex];\n        if (this.activeIndex === 0 || tabIndex === 0) {\n            this.showTab = !this.showTab;\n        }\n        this.activeIndex = tabIndex;\n        navigateTab(this.dashboardName, this.tabName);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        super.connectedCallback();\n        this.fetchTabNames();\n        window.addEventListener('tab-changed', (evt) => {\n            this.tabName = evt.detail.tabName;\n            this.showTab = !this.showTab;\n            this.highlightIndex(this.tabName);\n            navigateTab(this.dashboardName, this.tabName);\n        });\n        window.addEventListener('popstate', () => {\n            console.log(location.pathname);\n            console.log(location.pathname.split('/'));\n            if (location.pathname.split('/').length === 2) {\n                this.showTab = false;\n                this.tabName = undefined;\n                this.highlightIndex(this.tabName);\n                navigateTab(this.dashboardName, this.tabName);\n            }\n        });\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        var tabBar = html `${\n        // make sure we only render the tabs when there are tabs\n        when(this.tabNames.length > 0, () => html `\n        <mwc-tab-bar .activeIndex=${this.activeIndex} @MDCTabBar:activated=\"${this.onTabActivated}\">\n          ${map(this.tabNames, (name) => html `<mwc-tab label=${name}></mwc-tab>`)}\n        </mwc-tab-bar>`)}`;\n        return html `\n      ${tabBar}\n      ${!this.showTab ?\n            html `<testgrid-dashboard-summary .dashboardName=${this.dashboardName}></testgrid-dashboard-summary>` :\n            html `<testgrid-grid .dashboardName=${this.dashboardName} .tabName=${this.tabName}></testgrid-grid>`}\n    `;\n    }\n    // fetch the tab names to populate the tab bar\n    async fetchTabNames() {\n        try {\n            const response = await fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards/${this.dashboardName}/tabs`);\n            if (!response.ok) {\n                throw new Error(`HTTP error: ${response.status}`);\n            }\n            const data = ListDashboardTabsResponse.fromJson(await response.json());\n            var tabNames = ['Summary'];\n            data.dashboardTabs.forEach(tab => {\n                tabNames.push(tab.name);\n            });\n            this.tabNames = tabNames;\n            this.highlightIndex(this.tabName);\n        }\n        catch (error) {\n            console.error(`Could not get dashboard summaries: ${error}`);\n        }\n    }\n    // identify which tab to highlight on the tab bar\n    highlightIndex(tabName) {\n        if (tabName === undefined) {\n            this.activeIndex = 0;\n            return;\n        }\n        var index = this.tabNames.indexOf(tabName);\n        if (index > -1) {\n            this.activeIndex = index;\n        }\n    }\n}",
           "description": "Class definition for the `testgrid-data-content` element.\nActs as a container for dashboard summary or grid data."
         }
       ],
@@ -1705,6 +1851,27 @@
           "declaration": {
             "name": "TestgridDataContent",
             "module": "out-tsc/src/testgrid-data-content.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-failures-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridFailuresSummary",
+          "default": "class TestgridFailuresSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.showFailureSummary = false;\n    }\n    render() {\n        var _a;\n        return html `\n    <div class=\"dropdown-container\">\n        <button @click=\"${() => this.dropdownTable()}\" class=\"btn\">\n          ${this.showFailureSummary ? html `- Hide Alerts -` : html `- Show Alerts -`}\n        </button>\n      ${this.showFailureSummary ? html `\n          <table class=\"dropdown-menu\">\n            <tr>\n              <th>Test Name</th>\n              <th># Fails</th>\n              <th>First Failed</th>\n              <th>Last Passed</th>\n            </tr>\n            ${map((_a = this.info) === null || _a === void 0 ? void 0 : _a.failuresSummary.topFailingTests, (test) => html `\n                <tr>\n                  <td>${test.displayName}</td>\n                  <td>${test.failCount}</td>\n                  <td>${test.passTimestamp}</td>\n                  <td>${test.failTimestamp}</td>\n                </tr>\n              `)}\n          </table>`\n            : ''}\n      </div>\n    `;\n    }\n    dropdownTable() {\n        this.showFailureSummary = !this.showFailureSummary;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridFailuresSummary",
+          "declaration": {
+            "name": "TestgridFailuresSummary",
+            "module": "out-tsc/src/testgrid-failures-summary.js"
           }
         }
       ]
@@ -1768,27 +1935,6 @@
           "declaration": {
             "name": "TestgridGridHeaderRow",
             "module": "out-tsc/src/testgrid-grid-header-row.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-row-id.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridRowId",
-          "default": "class TestgridGridRowId extends LitElement {\n    render() {\n        return html `${this.name}`;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridRowId",
-          "declaration": {
-            "name": "TestgridGridRowId",
-            "module": "out-tsc/src/testgrid-grid-row-id.js"
           }
         }
       ]
@@ -1880,12 +2026,33 @@
     },
     {
       "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-healthiness-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridTabTable",
+          "default": "class TestgridTabTable extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.showHealthinesSummary = false;\n    }\n    render() {\n        var _a;\n        return html `\n    <div class=\"dropdown-container\">\n        <button @click=\"${() => this.dropdownTable()}\" class=\"btn\">\n          ${this.showHealthinesSummary ? html `- Hide Healthiness Report -` : html `- Show Healthiness Report -`}\n        </button>\n      ${this.showHealthinesSummary ? html `\n          <table class=\"dropdown-menu\">\n            <tr>\n              <th>Test Name</th>\n              <th>Flakiness (Previous)</th>\n              <th>Flakiness (Current)</th>\n              <th>Trend</th>\n              <th>Infra Failure Rate</th>\n              <th>Flaky Tests Count</th>\n            </tr>\n            ${map((_a = this.info) === null || _a === void 0 ? void 0 : _a.healthinessSummary.topFlakyTests, (test) => {\n            var _a, _b, _c, _d, _e, _f;\n            return html `\n                <tr>\n                  <td>${test.displayName}</td>\n                  <td>${(_b = (_a = this.info) === null || _a === void 0 ? void 0 : _a.healthinessSummary) === null || _b === void 0 ? void 0 : _b.healthinessStats.previousFlakiness}</td>\n                  <td>${(_d = (_c = this.info) === null || _c === void 0 ? void 0 : _c.healthinessSummary) === null || _d === void 0 ? void 0 : _d.healthinessStats.averageFlakiness}</td>\n                  <td>N/A</td>\n                  <td>${test.flakiness}</td>\n                  <td>${(_f = (_e = this.info) === null || _e === void 0 ? void 0 : _e.healthinessSummary) === null || _f === void 0 ? void 0 : _f.healthinessStats.numFlakyTests}</td>\n                </tr>\n              `;\n        })}\n          </table>`\n            : ''}\n      </div>\n    `;\n    }\n    dropdownTable() {\n        this.showHealthinesSummary = !this.showHealthinesSummary;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridTabTable",
+          "declaration": {
+            "name": "TestgridTabTable",
+            "module": "out-tsc/src/testgrid-healthiness-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "out-tsc/src/testgrid-index.js",
       "declarations": [
         {
           "kind": "variable",
           "name": "TestgridIndex",
-          "default": "class TestgridIndex extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboards = [];\n        this.dashboardGroups = [];\n        this.respectiveDashboards = [];\n        // toggles between the dashboards of a particular group or a dashboard without a group\n        this.show = true;\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        super.connectedCallback();\n        this.fetchDashboardGroups();\n        this.fetchDashboards();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `\n      <div class=\"flex-container\">\n        <!-- loading dashboard groups -->\n        <mwc-list style=\"min-width: 760px\">\n          ${map(this.dashboardGroups, (dash, index) => html `\n              <mwc-list-item\n                id=${index}\n                class=\"column card dashboard-group\"\n                raised\n                @click=\"${() => this.fetchRespectiveDashboards(dash)}\"\n              >\n                <div class=\"container\">\n                  <p>${dash}</p>\n                </div>\n              </mwc-list-item>\n            `)}\n        </mwc-list>\n\n        <!-- loading dashboards -->\n        ${this.show ? dashboardTemplate(this.dashboards) : ''}\n\n        <!-- loading respective dashboards -->\n        ${!this.show ? dashboardTemplate(this.respectiveDashboards) : ''}\n        ${!this.show ? html `\n              <mwc-button class=\"column\" raised @click=\"${() => this.show = !this.show}\">X</mwc-button>\n            `\n            : ''}\n      </div>\n    `;\n    }\n    // fetch the the list of dashboards from the API\n    async fetchDashboards() {\n        try {\n            fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`).then(async (response) => {\n                const resp = ListDashboardsResponse.fromJson(await response.json());\n                const dashboards = [];\n                resp.dashboards.forEach(db => {\n                    console.log(db.dashboardGroupName);\n                    dashboards.push(db.name);\n                });\n                this.dashboards = dashboards;\n            });\n        }\n        catch (error) {\n            console.log(`failed to fetch: ${error}`);\n        }\n    }\n    // fetch the list of dashboard groups from API\n    async fetchDashboardGroups() {\n        try {\n            fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`).then(async (response) => {\n                const resp = ListDashboardGroupsResponse.fromJson(await response.json());\n                const dashboardGroups = [];\n                resp.dashboardGroups.forEach(db => {\n                    dashboardGroups.push(db.name);\n                });\n                this.dashboardGroups = dashboardGroups;\n            });\n        }\n        catch (error) {\n            console.log(`failed to fetch: ${error}`);\n        }\n    }\n    // fetch the list of respective dashboards for a group from API\n    async fetchRespectiveDashboards(name) {\n        this.show = false;\n        try {\n            fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${name}`).then(async (response) => {\n                const resp = ListDashboardsResponse.fromJson(await response.json());\n                const respectiveDashboards = [];\n                resp.dashboards.forEach(ts => {\n                    respectiveDashboards.push(ts.name);\n                });\n                this.respectiveDashboards = respectiveDashboards;\n            });\n        }\n        catch (error) {\n            console.error(`Could not get dashboard summaries: ${error}`);\n        }\n    }\n}",
+          "default": "class TestgridIndex extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboards = [];\n        this.dashboardGroups = [];\n        this.respectiveDashboards = [];\n        // toggles between the dashboards of a particular group or a dashboard without a group\n        this.show = true;\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        super.connectedCallback();\n        this.fetchDashboardGroups();\n        this.fetchDashboards();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `\n      <div class=\"flex-container\">\n        <!-- loading dashboard groups -->\n        <mwc-list style=\"min-width: 760px\">\n          ${map(this.dashboardGroups, (dash, index) => html `\n              <mwc-list-item\n                id=${index}\n                class=\"column card dashboard-group\"\n                raised\n                @click=\"${() => this.fetchRespectiveDashboards(dash)}\"\n              >\n                <div class=\"container\">\n                  <p>${dash}</p>\n                </div>\n              </mwc-list-item>\n            `)}\n        </mwc-list>\n\n        <!-- loading dashboards -->\n        ${this.show ? dashboardTemplate(this.dashboards) : ''}\n\n        <!-- loading respective dashboards -->\n        ${!this.show ? dashboardTemplate(this.respectiveDashboards) : ''}\n        ${!this.show ? html `\n              <mwc-button class=\"column\" raised @click=\"${() => this.show = !this.show}\">X</mwc-button>\n            `\n            : ''}\n      </div>\n    `;\n    }\n    // fetch the the list of dashboards from the API\n    async fetchDashboards() {\n        try {\n            fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`).then(async (response) => {\n                const resp = ListDashboardsResponse.fromJson(await response.json());\n                const dashboards = [];\n                resp.dashboards.forEach(db => {\n                    if (db.dashboardGroupName === \"\") {\n                        dashboards.push(db.name);\n                    }\n                });\n                this.dashboards = dashboards;\n            });\n        }\n        catch (error) {\n            console.log(`failed to fetch: ${error}`);\n        }\n    }\n    // fetch the list of dashboard groups from API\n    async fetchDashboardGroups() {\n        try {\n            fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`).then(async (response) => {\n                const resp = ListDashboardGroupsResponse.fromJson(await response.json());\n                const dashboardGroups = [];\n                resp.dashboardGroups.forEach(db => {\n                    dashboardGroups.push(db.name);\n                });\n                this.dashboardGroups = dashboardGroups;\n            });\n        }\n        catch (error) {\n            console.log(`failed to fetch: ${error}`);\n        }\n    }\n    // fetch the list of respective dashboards for a group from API\n    async fetchRespectiveDashboards(name) {\n        this.show = false;\n        try {\n            fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${name}`).then(async (response) => {\n                const resp = ListDashboardsResponse.fromJson(await response.json());\n                const respectiveDashboards = [];\n                resp.dashboards.forEach(ts => {\n                    respectiveDashboards.push(ts.name);\n                });\n                this.respectiveDashboards = respectiveDashboards;\n            });\n        }\n        catch (error) {\n            console.error(`Could not get dashboard summaries: ${error}`);\n        }\n    }\n}",
           "description": "Class definition for the `testgrid-index` element.\nRenders the list of dashboards and dashboard groups available."
         }
       ],
@@ -2275,57 +2442,6 @@
           "declaration": {
             "name": "Long",
             "module": "out-tsc/stories/testgrid-grid-column-header.stories.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/stories/testgrid-grid-row-header.stories.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Empty"
-        },
-        {
-          "kind": "variable",
-          "name": "Short"
-        },
-        {
-          "kind": "variable",
-          "name": "Long"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "out-tsc/stories/testgrid-grid-row-header.stories.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Empty",
-          "declaration": {
-            "name": "Empty",
-            "module": "out-tsc/stories/testgrid-grid-row-header.stories.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Short",
-          "declaration": {
-            "name": "Short",
-            "module": "out-tsc/stories/testgrid-grid-row-header.stories.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Long",
-          "declaration": {
-            "name": "Long",
-            "module": "out-tsc/stories/testgrid-grid-row-header.stories.js"
           }
         }
       ]
@@ -2990,66 +3106,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/gen/pb/custom_evaluator/custom_evaluator.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "RuleSet",
-          "default": "new RuleSet$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "Rule",
-          "default": "new Rule$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "TestResultComparison",
-          "default": "new TestResultComparison$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "Comparison",
-          "default": "new Comparison$Type()"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RuleSet",
-          "declaration": {
-            "name": "RuleSet",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Rule",
-          "declaration": {
-            "name": "Rule",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TestResultComparison",
-          "declaration": {
-            "name": "TestResultComparison",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Comparison",
-          "declaration": {
-            "name": "Comparison",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/gen/pb/state/state.ts",
       "declarations": [
         {
@@ -3208,6 +3264,66 @@
           "declaration": {
             "name": "ClusterRow",
             "module": "src/gen/pb/state/state.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/gen/pb/custom_evaluator/custom_evaluator.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "RuleSet",
+          "default": "new RuleSet$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "Rule",
+          "default": "new Rule$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "TestResultComparison",
+          "default": "new TestResultComparison$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "Comparison",
+          "default": "new Comparison$Type()"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RuleSet",
+          "declaration": {
+            "name": "RuleSet",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Rule",
+          "declaration": {
+            "name": "Rule",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TestResultComparison",
+          "declaration": {
+            "name": "TestResultComparison",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Comparison",
+          "declaration": {
+            "name": "Comparison",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
           }
         }
       ]
@@ -3735,78 +3851,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Comparison_Operator"
-        },
-        {
-          "kind": "variable",
-          "name": "RuleSet",
-          "default": "new RuleSet$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "Rule",
-          "default": "new Rule$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "TestResultComparison",
-          "default": "new TestResultComparison$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "Comparison",
-          "default": "new Comparison$Type()"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Comparison_Operator",
-          "declaration": {
-            "name": "Comparison_Operator",
-            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RuleSet",
-          "declaration": {
-            "name": "RuleSet",
-            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Rule",
-          "declaration": {
-            "name": "Rule",
-            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TestResultComparison",
-          "declaration": {
-            "name": "TestResultComparison",
-            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Comparison",
-          "declaration": {
-            "name": "Comparison",
-            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "out-tsc/src/gen/pb/state/state.js",
       "declarations": [
         {
@@ -3965,6 +4009,78 @@
           "declaration": {
             "name": "ClusterRow",
             "module": "out-tsc/src/gen/pb/state/state.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Comparison_Operator"
+        },
+        {
+          "kind": "variable",
+          "name": "RuleSet",
+          "default": "new RuleSet$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "Rule",
+          "default": "new Rule$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "TestResultComparison",
+          "default": "new TestResultComparison$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "Comparison",
+          "default": "new Comparison$Type()"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Comparison_Operator",
+          "declaration": {
+            "name": "Comparison_Operator",
+            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RuleSet",
+          "declaration": {
+            "name": "RuleSet",
+            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Rule",
+          "declaration": {
+            "name": "Rule",
+            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TestResultComparison",
+          "declaration": {
+            "name": "TestResultComparison",
+            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Comparison",
+          "declaration": {
+            "name": "Comparison",
+            "module": "out-tsc/src/gen/pb/custom_evaluator/custom_evaluator.js"
           }
         }
       ]

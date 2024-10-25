@@ -180,6 +180,14 @@ export interface AlertInfo {
      * @generated from protobuf field: repeated string email_addresses = 15;
      */
     emailAddresses: string[];
+    /**
+     * Maps (custom column headers name):(custom column headers value) for arbitrary alert properties.
+     *
+     * @generated from protobuf field: map<string, string> custom_column_headers = 16;
+     */
+    customColumnHeaders: {
+        [key: string]: string;
+    };
 }
 /**
  * Info on default test metadata for a dashboard tab.
@@ -758,11 +766,12 @@ class AlertInfo$Type extends MessageType<AlertInfo> {
             { no: 14, name: "latest_fail_test_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 12, name: "properties", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } },
             { no: 13, name: "hotlist_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 15, name: "email_addresses", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 15, name: "email_addresses", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 16, name: "custom_column_headers", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
         ]);
     }
     create(value?: PartialMessage<AlertInfo>): AlertInfo {
-        const message = { failCount: 0, failBuildId: "", failTestId: "", passBuildId: "", failureMessage: "", buildLink: "", buildLinkText: "", buildUrlText: "", latestFailBuildId: "", latestFailTestId: "", properties: {}, hotlistIds: [], emailAddresses: [] };
+        const message = { failCount: 0, failBuildId: "", failTestId: "", passBuildId: "", failureMessage: "", buildLink: "", buildLinkText: "", buildUrlText: "", latestFailBuildId: "", latestFailTestId: "", properties: {}, hotlistIds: [], emailAddresses: [], customColumnHeaders: {} };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<AlertInfo>(this, message, value);
@@ -818,6 +827,9 @@ class AlertInfo$Type extends MessageType<AlertInfo> {
                 case /* repeated string email_addresses */ 15:
                     message.emailAddresses.push(reader.string());
                     break;
+                case /* map<string, string> custom_column_headers */ 16:
+                    this.binaryReadMap16(message.customColumnHeaders, reader, options);
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -841,6 +853,22 @@ class AlertInfo$Type extends MessageType<AlertInfo> {
                     val = reader.string();
                     break;
                 default: throw new globalThis.Error("unknown map entry field for field testgrid.state.AlertInfo.properties");
+            }
+        }
+        map[key ?? ""] = val ?? "";
+    }
+    private binaryReadMap16(map: AlertInfo["customColumnHeaders"], reader: IBinaryReader, options: BinaryReadOptions): void {
+        let len = reader.uint32(), end = reader.pos + len, key: keyof AlertInfo["customColumnHeaders"] | undefined, val: AlertInfo["customColumnHeaders"][any] | undefined;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case 1:
+                    key = reader.string();
+                    break;
+                case 2:
+                    val = reader.string();
+                    break;
+                default: throw new globalThis.Error("unknown map entry field for field testgrid.state.AlertInfo.custom_column_headers");
             }
         }
         map[key ?? ""] = val ?? "";
@@ -891,6 +919,9 @@ class AlertInfo$Type extends MessageType<AlertInfo> {
         /* repeated string email_addresses = 15; */
         for (let i = 0; i < message.emailAddresses.length; i++)
             writer.tag(15, WireType.LengthDelimited).string(message.emailAddresses[i]);
+        /* map<string, string> custom_column_headers = 16; */
+        for (let k of Object.keys(message.customColumnHeaders))
+            writer.tag(16, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.customColumnHeaders[k]).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
