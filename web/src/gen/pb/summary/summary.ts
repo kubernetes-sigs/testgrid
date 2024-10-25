@@ -134,14 +134,6 @@ export interface FailingTestSummary {
      * @generated from protobuf field: repeated string email_addresses = 18;
      */
     emailAddresses: string[];
-    /**
-     * map of custom column headers
-     *
-     * @generated from protobuf field: map<string, string> custom_column_headers = 19;
-     */
-    customColumnHeaders: {
-        [key: string]: string;
-    };
 }
 /**
  * Metrics about a specific test, i.e. passes, fails, total runs, etc.
@@ -501,12 +493,11 @@ class FailingTestSummary$Type extends MessageType<FailingTestSummary> {
             { no: 14, name: "latest_fail_build_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 15, name: "properties", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } },
             { no: 16, name: "hotlist_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 18, name: "email_addresses", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 19, name: "custom_column_headers", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
+            { no: 18, name: "email_addresses", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<FailingTestSummary>): FailingTestSummary {
-        const message = { displayName: "", testName: "", failBuildId: "", failTimestamp: 0, passBuildId: "", passTimestamp: 0, failCount: 0, buildLink: "", buildLinkText: "", buildUrlText: "", failureMessage: "", linkedBugs: [], failTestLink: "", latestFailTestLink: "", latestFailBuildId: "", properties: {}, hotlistIds: [], emailAddresses: [], customColumnHeaders: {} };
+        const message = { displayName: "", testName: "", failBuildId: "", failTimestamp: 0, passBuildId: "", passTimestamp: 0, failCount: 0, buildLink: "", buildLinkText: "", buildUrlText: "", failureMessage: "", linkedBugs: [], failTestLink: "", latestFailTestLink: "", latestFailBuildId: "", properties: {}, hotlistIds: [], emailAddresses: [] };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<FailingTestSummary>(this, message, value);
@@ -571,9 +562,6 @@ class FailingTestSummary$Type extends MessageType<FailingTestSummary> {
                 case /* repeated string email_addresses */ 18:
                     message.emailAddresses.push(reader.string());
                     break;
-                case /* map<string, string> custom_column_headers */ 19:
-                    this.binaryReadMap19(message.customColumnHeaders, reader, options);
-                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -597,22 +585,6 @@ class FailingTestSummary$Type extends MessageType<FailingTestSummary> {
                     val = reader.string();
                     break;
                 default: throw new globalThis.Error("unknown map entry field for field testgrid.summary.FailingTestSummary.properties");
-            }
-        }
-        map[key ?? ""] = val ?? "";
-    }
-    private binaryReadMap19(map: FailingTestSummary["customColumnHeaders"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof FailingTestSummary["customColumnHeaders"] | undefined, val: FailingTestSummary["customColumnHeaders"][any] | undefined;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case 1:
-                    key = reader.string();
-                    break;
-                case 2:
-                    val = reader.string();
-                    break;
-                default: throw new globalThis.Error("unknown map entry field for field testgrid.summary.FailingTestSummary.custom_column_headers");
             }
         }
         map[key ?? ""] = val ?? "";
@@ -672,9 +644,6 @@ class FailingTestSummary$Type extends MessageType<FailingTestSummary> {
         /* repeated string email_addresses = 18; */
         for (let i = 0; i < message.emailAddresses.length; i++)
             writer.tag(18, WireType.LengthDelimited).string(message.emailAddresses[i]);
-        /* map<string, string> custom_column_headers = 19; */
-        for (let k of Object.keys(message.customColumnHeaders))
-            writer.tag(19, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.customColumnHeaders[k]).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
