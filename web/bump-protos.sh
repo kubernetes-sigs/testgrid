@@ -17,27 +17,16 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-if [ "$#" -lt 1 ]
-then
-  echo "Usage: $0 [path to local GCP/testgrid repo]"
-  exit 1
-fi
-
-# The location of your local https://github.com/GoogleCloudPlatform/testgrid repo, where the proto files live.
-TESTGRID_REPO=$1
-
-WORKDIR="$(git rev-parse --show-toplevel)" # The root directory of your repository
+WORKDIR="${HOME}/github/testgrid" # The root directory of your repository
 PROTO_DEST="${WORKDIR}/web/src/gen"
-
-echo "Generating protos from source $TESTGRID_REPO to destination $PROTO_DEST..."
 
 cd "${WORKDIR}/web"
 
 # See https://github.com/timostamm/protobuf-ts/blob/master/MANUAL.md
-npx protoc --ts_out ${PROTO_DEST} --proto_path ${TESTGRID_REPO} --ts_opt long_type_string \
-  ${TESTGRID_REPO}/pb/custom_evaluator/custom_evaluator.proto \
-  ${TESTGRID_REPO}/pb/state/state.proto \
-  ${TESTGRID_REPO}/pb/summary/summary.proto \
-  ${TESTGRID_REPO}/pb/config/config.proto \
-  ${TESTGRID_REPO}/pb/test_status/test_status.proto \
-  ${TESTGRID_REPO}/pb/api/v1/data.proto
+npx protoc --ts_out ${PROTO_DEST} --proto_path ${WORKDIR} --ts_opt long_type_string \
+  ${WORKDIR}/pb/custom_evaluator/custom_evaluator.proto \
+  ${WORKDIR}/pb/state/state.proto \
+  ${WORKDIR}/pb/summary/summary.proto \
+  ${WORKDIR}/pb/config/config.proto \
+  ${WORKDIR}/pb/test_status/test_status.proto \
+  ${WORKDIR}/pb/api/v1/data.proto
