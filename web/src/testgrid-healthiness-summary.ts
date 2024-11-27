@@ -1,48 +1,62 @@
 import { LitElement, html, css } from 'lit';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { customElement, property, state } from 'lit/decorators.js';
-import { TabSummaryInfo } from './testgrid-dashboard-summary';
 import { map } from 'lit/directives/map.js';
+import { TabSummaryInfo } from './testgrid-dashboard-summary';
 
 @customElement('testgrid-healthiness-summary')
 export class TestgridTabTable extends LitElement {
   @state() showHealthinesSummary = false;
+
   @property() info?: TabSummaryInfo;
 
   render() {
     return html`
-    <div class="dropdown-container">
+      <div class="dropdown-container">
         <button @click="${() => this.dropdownTable()}" class="btn">
-          ${this.showHealthinesSummary ? html`- Hide Healthiness Report -`: html `- Show Healthiness Report -`}
+          ${this.showHealthinesSummary
+            ? html`- Hide Healthiness Report -`
+            : html`- Show Healthiness Report -`}
         </button>
-      ${this.showHealthinesSummary ? html`
-          <table class="dropdown-menu">
-            <tr>
-              <th>Test Name</th>
-              <th>Flakiness (Previous)</th>
-              <th>Flakiness (Current)</th>
-              <th>Trend</th>
-              <th>Infra Failure Rate</th>
-              <th>Flaky Tests Count</th>
-            </tr>
-            ${map(
-              this.info?.healthinessSummary!.topFlakyTests,
-              (test: any) => html`
-                <tr>
-                  <td>${test.displayName}</td>
-                  <td>${this.info?.healthinessSummary?.healthinessStats.previousFlakiness}</td>
-                  <td>${this.info?.healthinessSummary?.healthinessStats.averageFlakiness}</td>
-                  <td>N/A</td>
-                  <td>${test.flakiness}</td>
-                  <td>${this.info?.healthinessSummary?.healthinessStats.numFlakyTests}</td>
-                </tr>
-              `)}
-          </table>`
+        ${this.showHealthinesSummary
+          ? html` <table class="dropdown-menu">
+              <tr>
+                <th>Test Name</th>
+                <th>Flakiness (Previous)</th>
+                <th>Flakiness (Current)</th>
+                <th>Trend</th>
+                <th>Infra Failure Rate</th>
+                <th>Flaky Tests Count</th>
+              </tr>
+              ${map(
+                this.info?.healthinessSummary!.topFlakyTests,
+                (test: any) => html`
+                  <tr>
+                    <td>${test.displayName}</td>
+                    <td>
+                      ${this.info?.healthinessSummary?.healthinessStats
+                        .previousFlakiness}
+                    </td>
+                    <td>
+                      ${this.info?.healthinessSummary?.healthinessStats
+                        .averageFlakiness}
+                    </td>
+                    <td>N/A</td>
+                    <td>${test.flakiness}</td>
+                    <td>
+                      ${this.info?.healthinessSummary?.healthinessStats
+                        .numFlakyTests}
+                    </td>
+                  </tr>
+                `
+              )}
+            </table>`
           : ''}
       </div>
-    `
+    `;
   }
-  private dropdownTable(){
+
+  private dropdownTable() {
     this.showHealthinesSummary = !this.showHealthinesSummary;
   }
 
@@ -74,5 +88,5 @@ export class TestgridTabTable extends LitElement {
     th {
       text-align: left;
     }
-  `
+  `;
 }

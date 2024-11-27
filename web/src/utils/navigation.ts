@@ -3,10 +3,10 @@
  * @fires location-changed
  * @param {string} path
  */
-export function navigate(name: string){
-  const url = new URL(location.href);
+export function navigate(name: string) {
+  const url = new URL(window.location.href);
   url.pathname = name;
-  history.pushState(null, '', url);
+  window.history.pushState(null, '', url);
   window.dispatchEvent(new CustomEvent('location-changed'));
 }
 
@@ -15,12 +15,12 @@ export function navigate(name: string){
  * @param {string} dashboard
  * @param {string} tab
  */
-export function navigateTab(dashboard: string, tab: string){
-  const url = new URL(location.href)
-  if (tab === 'Summary' || tab === undefined){
-    url.pathname = `${dashboard}`
+export function navigateTab(dashboard: string, tab: string) {
+  const url = new URL(window.location.href);
+  if (tab === 'Summary' || tab === undefined) {
+    url.pathname = `${dashboard}`;
   } else {
-    url.pathname = `${dashboard}/${tab}`
+    url.pathname = `${dashboard}/${tab}`;
   }
-  history.pushState(null, '', url);
+  window.history.pushState(null, '', url);
 }

@@ -7,8 +7,8 @@ import {
   waitUntil,
 } from '@open-wc/testing';
 
-import { TestgridDataContent} from '../src/testgrid-data-content';
 import { Tab } from '@material/mwc-tab';
+import { TestgridDataContent} from '../src/testgrid-data-content';
 
 describe('Testgrid Data Content page', () => {
   let element: TestgridDataContent;

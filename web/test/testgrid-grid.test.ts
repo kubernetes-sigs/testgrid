@@ -16,7 +16,9 @@ describe('Testgrid Grid page', () => {
     // See https://open-wc.org/docs/testing/helpers/#test-a-custom-class-with-properties
     const tagName = defineCE(class extends TestgridGrid {});
     const tag = unsafeStatic(tagName);
-    element = await fixture(html`<${tag} .dashboardName=${'fake-dashboard-1'} .tabName=${'fake-tab-3'}></${tag}>`);
+    element = await fixture(
+      html`<${tag} .dashboardName=${'fake-dashboard-1'} .tabName=${'fake-tab-3'}></${tag}>`
+    );
   });
 
   // TODO - add accessibility tests
@@ -26,11 +28,17 @@ describe('Testgrid Grid page', () => {
       'Grid display did not render grid data',
       {
         timeout: 4000,
-      },
+      }
     );
     expect(element).to.exist;
-    expect(element.shadowRoot?.children.length).to.be.equal(3, 'ShadowRoot children differ');
+    expect(element.shadowRoot?.children.length).to.be.equal(
+      3,
+      'ShadowRoot children differ'
+    );
     expect(element.tabGridRows.length).to.be.equal(2, 'Number of rows differ');
-    expect(element.tabGridHeaders?.headers.length).to.be.equal(5, 'Number of columns differ');
+    expect(element.tabGridHeaders?.headers.length).to.be.equal(
+      5,
+      'Number of columns differ'
+    );
   });
 });

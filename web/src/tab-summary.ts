@@ -44,30 +44,36 @@ export class TabSummary extends LitElement {
           </div>
         </div>
       </div>
-      ${this.info?.failuresSummary !== undefined ?
-        html `<testgrid-failures-summary .info=${this.info}>
-        </testgrid-failures-summary>`:''}
-      ${this.info?.healthinessSummary !== undefined ?
-        html `<testgrid-healthiness-summary .info=${this.info}>
-        </testgrid-healthiness-summary>`:''}
+      ${this.info?.failuresSummary !== undefined
+        ? html`<testgrid-failures-summary .info=${this.info}>
+          </testgrid-failures-summary>`
+        : ''}
+      ${this.info?.healthinessSummary !== undefined
+        ? html`<testgrid-healthiness-summary .info=${this.info}>
+          </testgrid-healthiness-summary>`
+        : ''}
     `;
   }
+
   /**
    * Lets the data content element know that the tab changed
    *
    * @fires tab-changed
    * @param tabName string
    */
-  private changeTab(){
-    window.dispatchEvent(new CustomEvent('tab-changed',{
-      detail: {
-        tabName: this.info?.name!
-      },
-    }))
+  private changeTab() {
+    window.dispatchEvent(
+      new CustomEvent('tab-changed', {
+        detail: {
+          tabName: this.info?.name!,
+        },
+      })
+    );
   }
 
   static styles = css`
-    .tab-name { // title/link in each Summary card
+    .tab-name {
+      // title/link in each Summary card
       cursor: pointer;
       position: relative;
       padding: 4px 8px;
@@ -86,7 +92,8 @@ export class TabSummary extends LitElement {
       align-items: center;
     }
 
-    .tab-name { // title/link in each Summary card
+    .tab-name {
+      // title/link in each Summary card
       cursor: pointer;
       position: relative;
       padding: 4px 8px;
@@ -136,5 +143,4 @@ export class TabSummary extends LitElement {
       background-color: #000;
     }
   `;
-
 }

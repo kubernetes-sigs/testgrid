@@ -162,7 +162,7 @@ export class TestgridDashboardSummary extends LitElement {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = ListTabSummariesResponse.fromJson(await response.json());
-      var tabSummaries: Array<TabSummaryInfo> = [];
+      const tabSummaries: Array<TabSummaryInfo> = [];
       data.tabSummaries.forEach(ts => {
         const si = convertResponse(ts);
         tabSummaries.push(si);

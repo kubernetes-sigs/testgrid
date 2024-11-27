@@ -15,11 +15,11 @@ interface Args {
   name: string;
 }
 
-const Template: Story<Args> = ({ name = '' }: Args) => {
-  return html`<testgrid-grid-row-name
-    .name="${name}"
-  ></testgrid-grid-row-name>`;
-};
+const Template: Story<Args> = ({
+  name = '',
+}: Args) => html`<testgrid-grid-row-name
+  .name="${name}"
+></testgrid-grid-row-name>`;
 
 export const Empty = Template.bind({});
 Empty.args = { name: '' };
