@@ -1,7 +1,11 @@
-import { LitElement, html, PropertyValues } from "lit";
-import { map } from "lit/directives/map.js";
-import { customElement, property, state } from "lit/decorators.js";
-import { ListHeadersResponse, ListRowsResponse, ListRowsResponse_Row } from './gen/pb/api/v1/data.js';
+import { LitElement, html, PropertyValues } from 'lit';
+import { map } from 'lit/directives/map.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import {
+  ListHeadersResponse,
+  ListRowsResponse,
+  ListRowsResponse_Row,
+} from './gen/pb/api/v1/data.js';
 import './testgrid-grid-row';
 import './testgrid-grid-header-row';
 
@@ -11,7 +15,6 @@ import './testgrid-grid-header-row';
  */
 @customElement('testgrid-grid')
 export class TestgridGrid extends LitElement {
-
   @property({ type: String, reflect: true })
   dashboardName: String = '';
 
@@ -40,10 +43,17 @@ export class TestgridGrid extends LitElement {
    */
   render() {
     return html`
-    <testgrid-grid-header-row .headers="${this.tabGridHeaders}"></testgrid-grid-header-row>
-    ${map(this.tabGridRows,
-      (row: ListRowsResponse_Row) => html`<testgrid-grid-row .name="${row.name}" .rowData="${row}"></testgrid-grid-row>`
-    )}
+      <testgrid-grid-header-row
+        .headers="${this.tabGridHeaders}"
+      ></testgrid-grid-header-row>
+      ${map(
+        this.tabGridRows,
+        (row: ListRowsResponse_Row) =>
+          html`<testgrid-grid-row
+            .name="${row.name}"
+            .rowData="${row}"
+          ></testgrid-grid-row>`
+      )}
     `;
   }
 
@@ -62,7 +72,7 @@ export class TestgridGrid extends LitElement {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = ListRowsResponse.fromJson(await response.json());
-      var rows: Array<ListRowsResponse_Row> = [];
+      const rows: Array<ListRowsResponse_Row> = [];
       data.rows.forEach(row => rows.push(row));
       this.tabGridRows = rows;
     } catch (error) {

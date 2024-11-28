@@ -16,11 +16,11 @@ interface Args {
   tabName: String;
 }
 
-const Template: Story<Args> = ({
-  dashboardName = '', tabName = '',
-}: Args) => {
-  return html`<testgrid-grid .dashboardName="${dashboardName}" .tabName="${tabName}"></testgrid-grid>`;
-};
+const Template: Story<Args> = ({ dashboardName = '', tabName = '' }: Args) =>
+  html`<testgrid-grid
+    .dashboardName="${dashboardName}"
+    .tabName="${tabName}"
+  ></testgrid-grid>`;
 
 export const Grid = Template.bind({});
-Grid.args = {dashboardName: 'fake-dashboard-1', tabName: 'fake_tab_3'}
+Grid.args = { dashboardName: 'fake-dashboard-1', tabName: 'fake_tab_3' };

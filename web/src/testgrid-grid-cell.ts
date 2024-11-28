@@ -59,6 +59,7 @@ export class TestgridGridCell extends LitElement{
   `;
 
     @property({reflect: true, attribute: 'status'}) status: String;
+
     @property() icon: String;
 
     render(){

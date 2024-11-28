@@ -1,12 +1,13 @@
 import { LitElement, html, css } from 'lit';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { customElement, property, state } from 'lit/decorators.js';
-import { TabSummaryInfo } from './testgrid-dashboard-summary';
 import { map } from 'lit/directives/map.js';
+import { TabSummaryInfo } from './testgrid-dashboard-summary';
 
 @customElement('testgrid-failures-summary')
 export class TestgridFailuresSummary extends LitElement {
   @state() showFailureSummary = false;
+
   @property() info?: TabSummaryInfo;
 
   render() {
@@ -38,6 +39,7 @@ export class TestgridFailuresSummary extends LitElement {
       </div>
     `
   }
+
   private dropdownTable(){
     this.showFailureSummary = !this.showFailureSummary;
   }

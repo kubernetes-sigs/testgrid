@@ -1,8 +1,10 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ListDashboardSummariesResponse } from './gen/pb/api/v1/data';
-import { DashboardSummary } from './gen/pb/api/v1/data';
 import { map } from 'lit/directives/map.js';
+import {
+  ListDashboardSummariesResponse,
+  DashboardSummary,
+} from './gen/pb/api/v1/data';
 import { TabStatusIcon } from './testgrid-dashboard-summary';
 
 /**
@@ -17,7 +19,6 @@ interface RenderedDashboardSummary {
 
 @customElement('testgrid-group-summary')
 export class TestgridGroupSummary extends LitElement {
-
   @property({ type: String })
   groupName = '';
 
@@ -39,14 +40,18 @@ export class TestgridGroupSummary extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${map(this.dashboardSummaries,
+          ${map(
+            this.dashboardSummaries,
             (ds: RenderedDashboardSummary) => html`
               <tr>
-                <td><i class="material-icons ${ds.overallStatus}">${ds.icon}</i></td>
+                <td>
+                  <i class="material-icons ${ds.overallStatus}">${ds.icon}</i>
+                </td>
                 <td>${ds.name}</td>
                 <td>${ds.tabDescription}</td>
               </tr>
-            `)}
+            `
+          )}
         </tbody>
       </table>
     `;
@@ -65,72 +70,76 @@ export class TestgridGroupSummary extends LitElement {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      const data = ListDashboardSummariesResponse.fromJson(await response.json());
-      var summaries: RenderedDashboardSummary[] = [];
-      data.dashboardSummaries.forEach(summary => summaries.push(this.convertResponse(summary)));
+      const data = ListDashboardSummariesResponse.fromJson(
+        await response.json()
+      );
+      const summaries: RenderedDashboardSummary[] = [];
+      data.dashboardSummaries.forEach(summary =>
+        summaries.push(this.convertResponse(summary))
+      );
       this.dashboardSummaries = summaries;
     } catch (error) {
       console.error(`Could not get grid rows: ${error}`);
     }
   }
 
-  private convertResponse(summary: DashboardSummary){
+  private convertResponse(summary: DashboardSummary) {
     const sortedStatuses: string[] = [
-      "PASSING",
-      "ACCEPTABLE",
-      "FLAKY",
-      "FAILING",
-      "STALE",
-      "BROKEN",
-      "PENDING"
-    ]
+      'PASSING',
+      'ACCEPTABLE',
+      'FLAKY',
+      'FAILING',
+      'STALE',
+      'BROKEN',
+      'PENDING',
+    ];
 
-    var numPassing = 0;
-    var total = 0;
-    for (const key in summary.tabStatusCount){
-      if (key === "PASSING"){
+    let numPassing = 0;
+    let total = 0;
+    for (const key in summary.tabStatusCount) {
+      if (key === 'PASSING') {
         numPassing = summary.tabStatusCount[key];
       }
       total += summary.tabStatusCount[key];
     }
 
-    var prefix = `${numPassing} / ${total} PASSING`;
-    var descriptions: string [] = [];
+    let prefix = `${numPassing} / ${total} PASSING`;
+    const descriptions: string[] = [];
     sortedStatuses.forEach(status => {
-      if (summary.tabStatusCount[status] > 0){
+      if (summary.tabStatusCount[status] > 0) {
         descriptions.push(`${summary.tabStatusCount[status]} ${status}`);
       }
     });
 
-    if (descriptions.length >0){
-      prefix += " ("+ descriptions.join(", ") +")";
+    if (descriptions.length > 0) {
+      prefix += ` (${descriptions.join(', ')})`;
     }
 
     const rds: RenderedDashboardSummary = {
       name: summary.name,
       overallStatus: summary.overallStatus,
       icon: TabStatusIcon.get(summary.overallStatus)!,
-      tabDescription: prefix
+      tabDescription: prefix,
     };
 
     return rds;
   }
 
   static styles = css`
-
-    body{
+    body {
       font-size: 12px;
     }
 
-    .material-icons{
+    .material-icons {
       font-size: 2em;
     }
 
-    th, td {
+    th,
+    td {
       padding: 0.5em 2em;
     }
 
-    thead{
+    thead {
       background-color: #e0e0e0;
     }
 

@@ -2,11 +2,13 @@ import { LitElement, html, css } from 'lit';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
-import { ListDashboardsResponse, ListDashboardGroupsResponse } from './gen/pb/api/v1/data.js';
-import { navigate } from './utils/navigation';
+import {
+  ListDashboardsResponse,
+  ListDashboardGroupsResponse,
+} from './gen/pb/api/v1/data.js';
+import { navigate } from './utils/navigation.js';
 import '@material/mwc-button';
 import '@material/mwc-list';
-
 
 // dashboards template
 // clicking on any dashboard should navigate to the /dashboards view
@@ -16,7 +18,8 @@ const dashboardTemplate = (dashboards: Array<string>) => html`
       ${map(
         dashboards,
         (dash: string, index: number) => html`
-          <mwc-list-item id=${index} @click=${() => navigate(dash)} class="column card dashboard">
+          <mwc-list-item id=${index} @click=${() =>
+          navigate(dash)} class="column card dashboard">
               <div class="container">
                 <p>${dash}</p>
               </div>
@@ -35,18 +38,17 @@ const dashboardTemplate = (dashboards: Array<string>) => html`
 @customElement('testgrid-index')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class TestgridIndex extends LitElement {
-
-  @property({ type: Array<string> }) 
+  @property({ type: Array<string> })
   dashboards: Array<string> = [];
 
-  @property({ type: Array<string> }) 
+  @property({ type: Array<string> })
   dashboardGroups: Array<string> = [];
 
-  @property({ type: Array<string> }) 
+  @property({ type: Array<string> })
   respectiveDashboards: Array<string> = [];
 
   // toggles between the dashboards of a particular group or a dashboard without a group
-  @property({ type: Boolean }) 
+  @property({ type: Boolean })
   show = true;
 
   /**
@@ -68,19 +70,22 @@ export class TestgridIndex extends LitElement {
       <div class="flex-container">
         <!-- loading dashboard groups -->
         <mwc-list style="min-width: 760px">
-          ${map(this.dashboardGroups, (dash: string, index: number) => 
-            html`
-              <mwc-list-item
-                id=${index}
-                class="column card dashboard-group"
-                raised
-                @click="${() => this.fetchRespectiveDashboards(dash)}"
-              >
-                <div class="container">
-                  <p>${dash}</p>
-                </div>
-              </mwc-list-item>
-            `)}
+          ${map(
+            this.dashboardGroups,
+            (dash: string, index: number) =>
+              html`
+                <mwc-list-item
+                  id=${index}
+                  class="column card dashboard-group"
+                  raised
+                  @click="${() => this.fetchRespectiveDashboards(dash)}"
+                >
+                  <div class="container">
+                    <p>${dash}</p>
+                  </div>
+                </mwc-list-item>
+              `
+          )}
         </mwc-list>
 
         <!-- loading dashboards -->
@@ -88,8 +93,14 @@ export class TestgridIndex extends LitElement {
 
         <!-- loading respective dashboards -->
         ${!this.show ? dashboardTemplate(this.respectiveDashboards) : ''}
-        ${!this.show ? html`
-              <mwc-button class="column" raised @click="${() => this.show = !this.show }">X</mwc-button>
+        ${!this.show
+          ? html`
+              <mwc-button
+                class="column"
+                raised
+                @click="${() => (this.show = !this.show)}"
+                >X</mwc-button
+              >
             `
           : ''}
       </div>
@@ -98,20 +109,20 @@ export class TestgridIndex extends LitElement {
 
   // fetch the the list of dashboards from the API
   async fetchDashboards() {
-    try{
-      fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`).then(
-        async response => {
-          const resp = ListDashboardsResponse.fromJson(await response.json());
-          const dashboards: string[] = [];
+    try {
+      fetch(
+        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`
+      ).then(async response => {
+        const resp = ListDashboardsResponse.fromJson(await response.json());
+        const dashboards: string[] = [];
 
-          resp.dashboards.forEach(db => {
-            if (db.dashboardGroupName === ""){
-              dashboards.push(db.name);
-            }
-          });
-          this.dashboards = dashboards;
-        }
-      );
+        resp.dashboards.forEach(db => {
+          if (db.dashboardGroupName === '') {
+            dashboards.push(db.name);
+          }
+        });
+        this.dashboards = dashboards;
+      });
     } catch (error) {
       console.log(`failed to fetch: ${error}`);
     }
@@ -119,20 +130,22 @@ export class TestgridIndex extends LitElement {
 
   // fetch the list of dashboard groups from API
   async fetchDashboardGroups() {
-    try{
-      fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`).then(
-        async response => {
-          const resp = ListDashboardGroupsResponse.fromJson(await response.json());
-          const dashboardGroups: string[] = [];
+    try {
+      fetch(
+        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`
+      ).then(async response => {
+        const resp = ListDashboardGroupsResponse.fromJson(
+          await response.json()
+        );
+        const dashboardGroups: string[] = [];
 
-          resp.dashboardGroups.forEach(db => {
-            dashboardGroups.push(db.name);
-          });
+        resp.dashboardGroups.forEach(db => {
+          dashboardGroups.push(db.name);
+        });
 
-          this.dashboardGroups = dashboardGroups;
-        }
-      );
-    } catch(error){
+        this.dashboardGroups = dashboardGroups;
+      });
+    } catch (error) {
       console.log(`failed to fetch: ${error}`);
     }
   }
@@ -141,18 +154,18 @@ export class TestgridIndex extends LitElement {
   async fetchRespectiveDashboards(name: string) {
     this.show = false;
     try {
-      fetch(`http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${name}`).then(
-        async response => {
-          const resp = ListDashboardsResponse.fromJson(await response.json());
-          const respectiveDashboards: string[] = [];
+      fetch(
+        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${name}`
+      ).then(async response => {
+        const resp = ListDashboardsResponse.fromJson(await response.json());
+        const respectiveDashboards: string[] = [];
 
-          resp.dashboards.forEach(ts => {
-            respectiveDashboards.push(ts.name);
-          });
+        resp.dashboards.forEach(ts => {
+          respectiveDashboards.push(ts.name);
+        });
 
-          this.respectiveDashboards = respectiveDashboards;
-        }
-      );
+        this.respectiveDashboards = respectiveDashboards;
+      });
     } catch (error) {
       console.error(`Could not get dashboard summaries: ${error}`);
     }

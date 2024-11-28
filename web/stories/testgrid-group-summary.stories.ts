@@ -15,16 +15,12 @@ interface Args {
   groupName: string;
 }
 
-const Template: Story<Args> = ({
-  groupName = '',
-}: Args) => {
-  return html`
+const Template: Story<Args> = ({ groupName = '' }: Args) => html`
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <testgrid-group-summary .groupName="${groupName}" "></testgrid-group-summary>`;
-};
 
 export const DashboardGroup = Template.bind({});
-DashboardGroup.args = {groupName:'fake-dashboard-group-1'}
+DashboardGroup.args = { groupName: 'fake-dashboard-group-1' };

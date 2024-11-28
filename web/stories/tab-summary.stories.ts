@@ -1,6 +1,14 @@
 import { html, TemplateResult } from 'lit';
 import '../src/tab-summary.js';
-import { FailingTestInfo, FailuresSummaryInfo, FailureStats, FlakyTestInfo, HealthinessStats, HealthinessSummaryInfo, TabSummaryInfo } from '../src/testgrid-dashboard-summary';
+import {
+  FailingTestInfo,
+  FailuresSummaryInfo,
+  FailureStats,
+  FlakyTestInfo,
+  HealthinessStats,
+  HealthinessSummaryInfo,
+  TabSummaryInfo,
+} from '../src/testgrid-dashboard-summary';
 
 export default {
   title: 'Tab summary',
@@ -21,35 +29,35 @@ const Template: Story<Args> = ({
   icon = 'done',
   overallStatus = 'PASSING',
 }: Args) => {
-  const failuresSummary = {} as FailuresSummaryInfo
+  const failuresSummary = {} as FailuresSummaryInfo;
   const failureStats: FailureStats = {
-    numFailingTests: 1
-  }
+    numFailingTests: 1,
+  };
   const FailingTest = {
-    displayName: "TEST0",
+    displayName: 'TEST0',
     failCount: 1,
-    passTimestamp: "today",
-    failTimestamp: "today",
-  } as FailingTestInfo
+    passTimestamp: 'today',
+    failTimestamp: 'today',
+  } as FailingTestInfo;
 
-  failuresSummary.failureStats = failureStats
+  failuresSummary.failureStats = failureStats;
   failuresSummary.topFailingTests = [FailingTest];
 
-  const healthinessSummary = {} as HealthinessSummaryInfo
+  const healthinessSummary = {} as HealthinessSummaryInfo;
   const healthinessStats: HealthinessStats = {
-    startTimestamp: "today",
-    endTimestamp: "today",
+    startTimestamp: 'today',
+    endTimestamp: 'today',
     numFlakyTests: 1,
     averageFlakiness: 0,
     previousFlakiness: 100,
-  }
+  };
   const FlakyTest = {
-    displayName: "TEST1",
+    displayName: 'TEST1',
     flakiness: 0,
-  } as FlakyTestInfo
+  } as FlakyTestInfo;
 
-  healthinessSummary.healthinessStats = healthinessStats
-  healthinessSummary.topFlakyTests = [FlakyTest]
+  healthinessSummary.healthinessStats = healthinessStats;
+  healthinessSummary.topFlakyTests = [FlakyTest];
 
   const tsi: TabSummaryInfo = {
     icon,
@@ -60,8 +68,8 @@ const Template: Story<Args> = ({
     lastUpdateTimestamp: 'today',
     latestGreenBuild: 'HULK!',
     dashboardName: 'TEST1',
-    failuresSummary: failuresSummary,
-    healthinessSummary: healthinessSummary,
+    failuresSummary,
+    healthinessSummary,
   };
 
   return html`<link
