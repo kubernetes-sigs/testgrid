@@ -9,14 +9,15 @@
     "format": "eslint --ext .ts,.html . --fix && prettier \"**/*.ts\" --write",
     "test": "tsc && concurrently -k -r -s first \"json-server src/fake-api/data.json --routes src/fake-api/routes.json\" \"wtr --playwright --browsers chromium --coverage\"",
     "test:watch": "tsc && concurrently -k -r -s first \"tsc --watch --preserveWatchOutput\" \"json-server src/fake-api/data.json --routes src/fake-api/routes.json\" \"wtr --watch\"",
-    "storybook": "tsc && npm run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"json-server src/fake-api/data.json --routes src/fake-api/routes.json\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && npm run analyze -- --exclude dist",
+    "storybook": "tsc && pnpm analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"json-server src/fake-api/data.json --routes src/fake-api/routes.json\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "tsc && pnpm analyze -- --exclude dist && build-storybook",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && pnpm analyze -- --exclude dist",
     "start:build": "web-dev-server --config web-dev-server-k8s.config.mjs --root-dir dist --app-index index.html --open",
     "analyze": "cem analyze --litelement",
     "start:local": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"json-server src/fake-api/data.json --routes src/fake-api/routes.json\" \"wds --config web-dev-server-local.config.mjs\"",
     "start:k8s": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --config web-dev-server-k8s.config.mjs\"",
-    "reinstall": "npm ci"
+    "reinstall": "npm ci",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@lit-labs/router": "^0.1.1",
@@ -100,23 +101,6 @@
   },
   "customElements": "custom-elements.json",
   "pnpm": {
-    "overrides": {
-      "trim@<0.0.3": ">=0.0.3",
-      "express@<4.19.2": ">=4.19.2",
-      "ip@<1.1.9": ">=1.1.9",
-      "braces@<3.0.3": ">=3.0.3",
-      "ejs@<3.1.10": ">=3.1.10",
-      "ws@>=8.0.0 <8.17.1": ">=8.17.1",
-      "ws@>=7.0.0 <7.5.10": ">=7.5.10",
-      "micromatch@<4.0.8": ">=4.0.8",
-      "body-parser@<1.20.3": ">=1.20.3",
-      "send@<0.19.0": ">=0.19.0",
-      "serve-static@<1.16.0": ">=1.16.0",
-      "express@<4.20.0": ">=4.20.0",
-      "path-to-regexp@>=0.2.0 <1.9.0": ">=1.9.0",
-      "path-to-regexp@<0.1.10": ">=0.1.10",
-      "rollup@<2.79.2": ">=2.79.2",
-      "cookie@<0.7.0": ">=0.7.0"
-    }
+    "overrides": {}
   }
 }
