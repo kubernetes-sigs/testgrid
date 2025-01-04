@@ -113,7 +113,7 @@ export class TestgridIndex extends LitElement {
       fetch(
         `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`
       ).then(async response => {
-        const resp = ListDashboardsResponse.fromJson(await response.json());
+        const resp = ListDashboardsResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
         const dashboards: string[] = [];
 
         resp.dashboards.forEach(db => {
@@ -135,7 +135,7 @@ export class TestgridIndex extends LitElement {
         `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`
       ).then(async response => {
         const resp = ListDashboardGroupsResponse.fromJson(
-          await response.json()
+          await response.json(), {ignoreUnknownFields: true}
         );
         const dashboardGroups: string[] = [];
 
@@ -157,7 +157,7 @@ export class TestgridIndex extends LitElement {
       fetch(
         `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${name}`
       ).then(async response => {
-        const resp = ListDashboardsResponse.fromJson(await response.json());
+        const resp = ListDashboardsResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
         const respectiveDashboards: string[] = [];
 
         resp.dashboards.forEach(ts => {

@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import './testgrid-router';
 
@@ -8,6 +8,14 @@ import './testgrid-router';
  */
 @customElement('testgrid-app')
 export class TestgridApp extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+  `;
+
   /**
    * Lit-element lifecycle method.
    * Invoked on each update to perform rendering tasks.

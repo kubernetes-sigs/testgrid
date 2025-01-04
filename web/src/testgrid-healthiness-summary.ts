@@ -5,8 +5,8 @@ import { map } from 'lit/directives/map.js';
 import { TabSummaryInfo } from './testgrid-dashboard-summary';
 
 @customElement('testgrid-healthiness-summary')
-export class TestgridTabTable extends LitElement {
-  @state() showHealthinesSummary = false;
+export class TestgridHealthinessSummary extends LitElement {
+  @state() showHealthinessSummary = false;
 
   @property() info?: TabSummaryInfo;
 
@@ -14,11 +14,11 @@ export class TestgridTabTable extends LitElement {
     return html`
       <div class="dropdown-container">
         <button @click="${() => this.dropdownTable()}" class="btn">
-          ${this.showHealthinesSummary
+          ${this.showHealthinessSummary
             ? html`- Hide Healthiness Report -`
             : html`- Show Healthiness Report -`}
         </button>
-        ${this.showHealthinesSummary
+        ${this.showHealthinessSummary
           ? html` <table class="dropdown-menu">
               <tr>
                 <th>Test Name</th>
@@ -57,7 +57,7 @@ export class TestgridTabTable extends LitElement {
   }
 
   private dropdownTable() {
-    this.showHealthinesSummary = !this.showHealthinesSummary;
+    this.showHealthinessSummary = !this.showHealthinessSummary;
   }
 
   static styles = css`

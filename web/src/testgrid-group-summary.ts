@@ -71,7 +71,7 @@ export class TestgridGroupSummary extends LitElement {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = ListDashboardSummariesResponse.fromJson(
-        await response.json()
+        await response.json(), {ignoreUnknownFields: true}
       );
       const summaries: RenderedDashboardSummary[] = [];
       data.dashboardSummaries.forEach(summary =>
