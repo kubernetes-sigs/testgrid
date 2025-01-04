@@ -1,10 +1,10 @@
-import { LitElement, html, css } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { LitElement, html, css } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('testgrid-grid-column-header')
-export class TestgridGridColumnHeader extends LitElement{
-    // TODO(michelle192837): Collate column headers with the same value.
-    static styles = css`
+export class TestgridGridColumnHeader extends LitElement {
+  static styles = css`
     :host {
       text-align: center;
       font-family: Roboto, Verdana, sans-serif;
@@ -13,20 +13,24 @@ export class TestgridGridColumnHeader extends LitElement{
       color: #224;
       min-height: 22px;
       max-height: 22px;
-      max-width: 80px;
-      width:80px;
-      min-width: 80px;
-      padding: .1em .3em;
+      padding: 0.1em 0.3em;
       box-sizing: border-box;
-      white-space:nowrap;
+      white-space: nowrap;
       overflow-x: hidden;
       text-overflow: ellipsis;
     }
+    span {
+      position: sticky;
+      left: 0;
+      right: 0;
+      width: fit-content;
+      margin: auto;
+    }
   `;
 
-    @property() name: String;
+  @property() value: string;
 
-    render(){
-        return html`${this.name}`;
-    }
+  render() {
+    return html`<span>${this.value}</span>`;
+  }
 }

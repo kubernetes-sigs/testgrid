@@ -1,3 +1,6 @@
+// See https://modern-web.dev/docs/test-runner/cli-and-configuration/.
+
+// TODO: Enable tests against all browsers.
 // import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { fromRollup } from '@web/dev-server-rollup';
@@ -40,21 +43,32 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
       'process.env.API_PORT': '3000',
     }),
   ],
-  /** Compile JS for older browsers. Requires @web/dev-server-esbuild plugin */
-  // esbuildTarget: 'auto',
 
   /** Amount of browsers to run concurrently */
-  // concurrentBrowsers: 2,
+  concurrentBrowsers: 2,
 
   /** Amount of test files per browser to test concurrently */
-  // concurrency: 1,
+  concurrency: 10,
 
   /** Browsers to run tests on */
   // browsers: [
-  //   playwrightLauncher({ product: 'chromium' }),
-  //   playwrightLauncher({ product: 'firefox' }),
-  //   playwrightLauncher({ product: 'webkit' }),
+    // playwrightLauncher({ product: 'chromium' }),
+    // playwrightLauncher({ product: 'firefox' }),
+    // playwrightLauncher({ product: 'webkit' }),
   // ],
 
-  // See documentation for all available options
+  coverageConfig: {
+    report: true,
+    include: ['**'],
+    exclude: [
+      '**/node_modules/**',
+      '**/src/gen/**'
+    ],
+    threshold: {
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
+    },
+  },
 });

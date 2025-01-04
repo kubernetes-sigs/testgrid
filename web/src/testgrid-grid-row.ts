@@ -16,14 +16,17 @@ export class TestgridGridRow extends LitElement {
       flex-flow: row nowrap;
       gap: 0px 2px;
       margin: 2px;
+      width: fit-content;
     }
   `;
 
   @property() rowData: ListRowsResponse_Row;
 
   render() {
-    return html`<testgrid-grid-row-name .name="${this.rowData?.name}">
-      </testgrid-grid-row-name>
+    return html`
+      <testgrid-grid-row-name
+        .name="${this.rowData?.name}"
+      ></testgrid-grid-row-name>
       ${map(
         this.rowData?.cells,
         cell =>
@@ -31,6 +34,7 @@ export class TestgridGridRow extends LitElement {
             .icon="${cell.icon}"
             .status="${TestStatus[cell.result]}"
           ></testgrid-grid-cell>`
-      )} `;
+      )}
+    `;
   }
 }
