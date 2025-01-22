@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { Router } from '@lit-labs/router';
 import './testgrid-data-content';
@@ -15,6 +15,14 @@ interface RouteParameter {
  */
 @customElement('testgrid-router')
 export class TestgridRouter extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  `;
+
   private router = new Router(this, [
     {
       path: '/:dashboard/*',

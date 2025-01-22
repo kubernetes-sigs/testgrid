@@ -1,4 +1,4 @@
-import { LitElement, html, PropertyValues } from 'lit';
+import { LitElement, html, PropertyValues, css } from 'lit';
 import { map } from 'lit/directives/map.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import {
@@ -6,8 +6,8 @@ import {
   ListRowsResponse,
   ListRowsResponse_Row,
 } from './gen/pb/api/v1/data.js';
+import './testgrid-grid-headers-block';
 import './testgrid-grid-row';
-import './testgrid-grid-header-row';
 
 /**
  * Class definition for `testgrid-grid` component.
@@ -15,6 +15,15 @@ import './testgrid-grid-header-row';
  */
 @customElement('testgrid-grid')
 export class TestgridGrid extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      overflow: scroll;
+      width: 100%;
+      height: 100%;
+    }
+  `;
+
   @property({ type: String, reflect: true })
   dashboardName: String = '';
 
@@ -43,9 +52,9 @@ export class TestgridGrid extends LitElement {
    */
   render() {
     return html`
-      <testgrid-grid-header-row
+      <testgrid-grid-headers-block
         .headers="${this.tabGridHeaders}"
-      ></testgrid-grid-header-row>
+      ></testgrid-grid-headers-block>
       ${map(
         this.tabGridRows,
         (row: ListRowsResponse_Row) =>
@@ -71,7 +80,9 @@ export class TestgridGrid extends LitElement {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      const data = ListRowsResponse.fromJson(await response.json());
+      const data = ListRowsResponse.fromJson(await response.json(), {
+        ignoreUnknownFields: true,
+      });
       const rows: Array<ListRowsResponse_Row> = [];
       data.rows.forEach(row => rows.push(row));
       this.tabGridRows = rows;
@@ -88,7 +99,9 @@ export class TestgridGrid extends LitElement {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      const data = ListHeadersResponse.fromJson(await response.json());
+      const data = ListHeadersResponse.fromJson(await response.json(), {
+        ignoreUnknownFields: true,
+      });
       this.tabGridHeaders = data;
     } catch (error) {
       console.error(`Could not get grid headers: ${error}`);

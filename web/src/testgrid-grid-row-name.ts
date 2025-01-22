@@ -19,8 +19,10 @@ export class TestgridGridRowName extends LitElement{
       max-height: 22px;
       white-space:nowrap;
       min-width: 300px;
-      overflow-x: hidden;
+      overflow-x: clip;
       text-overflow: ellipsis;
+      position: sticky;
+      left: 0;
     }
   `;
 

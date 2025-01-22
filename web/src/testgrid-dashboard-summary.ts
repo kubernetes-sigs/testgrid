@@ -3,7 +3,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { Timestamp } from './gen/google/protobuf/timestamp.js';
-import { FailuresSummary, ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
+import { ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
 import './tab-summary.js';
 
 export interface TabSummaryInfo {
@@ -161,7 +161,7 @@ export class TestgridDashboardSummary extends LitElement {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      const data = ListTabSummariesResponse.fromJson(await response.json());
+      const data = ListTabSummariesResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
       const tabSummaries: Array<TabSummaryInfo> = [];
       data.tabSummaries.forEach(ts => {
         const si = convertResponse(ts);

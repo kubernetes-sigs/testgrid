@@ -3,8 +3,10 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
+import { provide } from '@lit/context';
 import { navigateTab } from './utils/navigation.js';
 import { ListDashboardTabsResponse } from './gen/pb/api/v1/data.js';
+import { type TestGridLinkTemplate, linkContext } from './testgrid-context.js';
 import '@material/mwc-tab';
 import '@material/mwc-tab-bar';
 import './testgrid-dashboard-summary';
@@ -17,6 +19,21 @@ import './testgrid-grid';
 @customElement('testgrid-data-content')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class TestgridDataContent extends LitElement {
+  static styles = css`
+    :host {
+      display: grid;
+      grid-template-rows: minmax(1em, auto) minmax(0, 100%);
+      width: 100%;
+      height: 100%;
+    }
+
+    mwc-tab {
+      --mdc-typography-button-letter-spacing: 0;
+      --mdc-tab-horizontal-padding: 12px;
+      --mdc-typography-button-font-size: 0.8rem;
+    }
+  `;
+
   @state()
   tabNames: string[] = [];
 
@@ -31,6 +48,9 @@ export class TestgridDataContent extends LitElement {
 
   @property({ type: String })
   tabName?: string;
+
+  @provide({ context: linkContext })
+  linkTemplate: TestGridLinkTemplate = { url: new URL('https://prow.k8s.io/') };
 
   // set the functionality when any tab is clicked on
   private onTabActivated(event: CustomEvent<{ index: number }>) {
@@ -84,6 +104,7 @@ export class TestgridDataContent extends LitElement {
       when(
         this.tabNames.length > 0,
         () => html` <mwc-tab-bar
+          style="width: 100vw"
           .activeIndex=${this.activeIndex}
           @MDCTabBar:activated="${this.onTabActivated}"
         >
@@ -116,7 +137,9 @@ export class TestgridDataContent extends LitElement {
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      const data = ListDashboardTabsResponse.fromJson(await response.json());
+      const data = ListDashboardTabsResponse.fromJson(await response.json(), {
+        ignoreUnknownFields: true,
+      });
       const tabNames: string[] = ['Summary'];
       data.dashboardTabs.forEach(tab => {
         tabNames.push(tab.name);
@@ -139,12 +162,4 @@ export class TestgridDataContent extends LitElement {
       this.activeIndex = index;
     }
   }
-
-  static styles = css`
-    mwc-tab {
-      --mdc-typography-button-letter-spacing: 0;
-      --mdc-tab-horizontal-padding: 12px;
-      --mdc-typography-button-font-size: 0.8rem;
-    }
-  `;
 }

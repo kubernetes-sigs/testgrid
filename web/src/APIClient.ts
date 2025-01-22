@@ -15,7 +15,7 @@ export class APIClientImpl implements APIClient {
     const dashboards: Array<String> = [];
 
     fetch(`${this.host}/api/v1/dashboards`).then(async response => {
-      const resp = ListDashboardsResponse.fromJson(await response.json());
+      const resp = ListDashboardsResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
       resp.dashboards.forEach(db => {
         dashboards.push(db.name);
       });
@@ -28,7 +28,7 @@ export class APIClientImpl implements APIClient {
     const dashboardGroups: Array<String> = [];
 
     fetch(`${this.host}/api/v1/dashboard-groups`).then(async response => {
-      const resp = ListDashboardGroupsResponse.fromJson(await response.json());
+      const resp = ListDashboardGroupsResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
       resp.dashboardGroups.forEach(db => {
         dashboardGroups.push(db.name);
       });
