@@ -15,7 +15,7 @@ export function navigate(name: string) {
  * @param {string} dashboard
  * @param {string} tab
  */
-export function navigateTab(dashboard: string, tab: string) {
+export function navigateTab(dashboard: string, tab?: string) {
   const url = new URL(window.location.href);
   if (tab === 'Summary' || tab === undefined) {
     url.pathname = `${dashboard}`;
@@ -23,4 +23,5 @@ export function navigateTab(dashboard: string, tab: string) {
     url.pathname = `${dashboard}/${tab}`;
   }
   window.history.pushState(null, '', url);
+  window.dispatchEvent(new CustomEvent('location-changed'));
 }

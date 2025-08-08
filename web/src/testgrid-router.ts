@@ -46,15 +46,28 @@ export class TestgridRouter extends LitElement {
     },
   ]);
 
+  private goToCurrentPath = () => this.router.goto(window.location.pathname);
+
   /**
    * Lit-element lifecycle method.
    * Invoked when a component is added to the document's DOM.
    */
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('location-changed', () => {
-      this.router.goto(window.location.pathname);
-    });
+    window.addEventListener('location-changed', this.goToCurrentPath);
+    window.addEventListener('popstate', this.goToCurrentPath);
+    // Ensure initial render reflects current URL (including direct loads on nested paths)
+    this.goToCurrentPath();
+  }
+
+  /**
+   * Lit-element lifecycle method.
+   * Invoked when a component is removed from the document's DOM.
+   */
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('location-changed', this.goToCurrentPath);
+    window.removeEventListener('popstate', this.goToCurrentPath);
   }
 
   /**

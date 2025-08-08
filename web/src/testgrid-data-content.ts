@@ -82,16 +82,6 @@ export class TestgridDataContent extends LitElement {
       this.highlightIndex(this.tabName);
       navigateTab(this.dashboardName, this.tabName!);
     });
-    window.addEventListener('popstate', () => {
-      console.log(window.location.pathname);
-      console.log(window.location.pathname.split('/'));
-      if (location.pathname.split('/').length === 2) {
-        this.showTab = false;
-        this.tabName = undefined;
-        this.highlightIndex(this.tabName);
-        navigateTab(this.dashboardName, this.tabName!);
-      }
-    });
   }
 
   /**
