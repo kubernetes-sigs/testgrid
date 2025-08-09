@@ -8,7 +8,7 @@ import {
 } from '@open-wc/testing';
 
 import { Tab } from '@material/mwc-tab';
-import { TestgridDataContent } from '../src/testgrid-data-content';
+import { TestgridDataContent } from '../src/testgrid-data-content.js';
 
 describe('Testgrid Data Content page', () => {
   let element: TestgridDataContent;

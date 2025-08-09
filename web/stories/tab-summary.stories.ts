@@ -8,7 +8,7 @@ import {
   HealthinessStats,
   HealthinessSummaryInfo,
   TabSummaryInfo,
-} from '../src/testgrid-dashboard-summary';
+} from '../src/testgrid-dashboard-summary.js';
 
 export default {
   title: 'Tab summary',

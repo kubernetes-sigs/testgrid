@@ -9,8 +9,8 @@ import { ListDashboardTabsResponse } from './gen/pb/api/v1/data.js';
 import { type TestGridLinkTemplate, linkContext } from './testgrid-context.js';
 import '@material/mwc-tab';
 import '@material/mwc-tab-bar';
-import './testgrid-dashboard-summary';
-import './testgrid-grid';
+import './testgrid-dashboard-summary.js';
+import './testgrid-grid.js';
 
 /**
  * Class definition for the `testgrid-data-content` element.

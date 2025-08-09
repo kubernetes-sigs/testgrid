@@ -5,7 +5,7 @@ import {
   unsafeStatic,
   expect,
 } from '@open-wc/testing';
-import { TestgridGridHeadersBlock } from '../src/testgrid-grid-headers-block';
+import { TestgridGridHeadersBlock } from '../src/testgrid-grid-headers-block.js';
 
 describe('TestGrid grid headers block', () => {
   let element: TestgridGridHeadersBlock;

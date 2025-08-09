@@ -2,8 +2,8 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { ListHeadersResponse } from './gen/pb/api/v1/data.js';
-import { CombinedHeader } from './testgrid-grid-header-row';
-import './testgrid-grid-header-row';
+import { CombinedHeader } from './testgrid-grid-header-row.js';
+import './testgrid-grid-header-row.js';
 
 function runLengthEncode(values: string[]): CombinedHeader[] {
   if (values.length == 0) {

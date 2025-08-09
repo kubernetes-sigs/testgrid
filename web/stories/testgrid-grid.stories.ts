@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import '../src/testgrid-grid';
+import '../src/testgrid-grid.js';
 
 export default {
   title: 'Grid',
