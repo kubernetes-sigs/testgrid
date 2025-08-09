@@ -51,6 +51,9 @@ export class TestgridIndex extends LitElement {
   @property({ type: Boolean })
   show = true;
 
+  @property({ type: String })
+  searchTerm = '';
+
   /**
    * Lit-element lifecycle method.
    * Invoked when a component is added to the document's DOM.
@@ -61,17 +64,52 @@ export class TestgridIndex extends LitElement {
     this.fetchDashboards();
   }
 
+  get filteredDashboardGroups() {
+    if (!this.searchTerm) return this.dashboardGroups;
+    return this.dashboardGroups.filter(group =>
+      group.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  get filteredDashboards() {
+    if (!this.searchTerm) return this.dashboards;
+    return this.dashboards.filter(dashboard =>
+      dashboard.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  get filteredRespectiveDashboards() {
+    if (!this.searchTerm) return this.respectiveDashboards;
+    return this.respectiveDashboards.filter(dashboard =>
+      dashboard.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  private handleSearchInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm = input.value;
+  }
+
   /**
    * Lit-element lifecycle method.
    * Invoked on each update to perform rendering tasks.
    */
   render() {
     return html`
+      <div class="search-container">
+        <input
+          type="text"
+          placeholder="Search dashboards and groups..."
+          .value=${this.searchTerm}
+          @input=${this.handleSearchInput}
+          class="search-input"
+        />
+      </div>
       <div class="flex-container">
         <!-- loading dashboard groups -->
         <mwc-list style="min-width: 760px">
           ${map(
-            this.dashboardGroups,
+            this.filteredDashboardGroups,
             (dash: string, index: number) =>
               html`
                 <mwc-list-item
@@ -89,10 +127,10 @@ export class TestgridIndex extends LitElement {
         </mwc-list>
 
         <!-- loading dashboards -->
-        ${this.show ? dashboardTemplate(this.dashboards) : ''}
+        ${this.show ? dashboardTemplate(this.filteredDashboards) : ''}
 
         <!-- loading respective dashboards -->
-        ${!this.show ? dashboardTemplate(this.respectiveDashboards) : ''}
+        ${!this.show ? dashboardTemplate(this.filteredRespectiveDashboards) : ''}
         ${!this.show
           ? html`
               <mwc-button
@@ -183,6 +221,28 @@ export class TestgridIndex extends LitElement {
       margin: 0 auto;
       text-align: center;
       background-color: var(--example-app-background-color);
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .search-input {
+      width: 400px;
+      max-width: 90%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .search-input:focus {
+      border-color: #707df1;
     }
 
     .flex-container {
