@@ -207,18 +207,19 @@ export class TestgridIndex extends LitElement {
     .dashboard {
       background-color: #9e60eb;
       color: #fff;
+      border: 2px solid transparent;
     }
 
     .dashboard-group {
       background-color: #707df1;
       color: #fff;
+      border: 2px solid transparent;
     }
 
     .dashboard-group:focus,
     .dashboard-group:hover {
       background-color: #fff;
       color: #707df1;
-      border-style: solid;
       border-color: #707df1;
     }
 
@@ -226,7 +227,6 @@ export class TestgridIndex extends LitElement {
     .dashboard:focus {
       background-color: #fff;
       color: #9e60eb;
-      border-style: solid;
       border-color: #9e60eb;
     }
 
