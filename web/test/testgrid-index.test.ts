@@ -123,4 +123,93 @@ describe('Testgrid Index page', () => {
 
     expect(location.pathname).to.not.equal('/');
   });
+
+  describe('Search functionality', () => {
+    it('filters dashboard groups based on search term', async () => {
+      await waitUntil(
+        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
+        'Index did not render dashboard groups',
+        {
+          timeout: 4000,
+        }
+      );
+
+      element.searchTerm = 'group-1';
+      await element.updateComplete;
+
+      expect(element.filteredDashboardGroups).to.have.lengthOf(1);
+      expect(element.filteredDashboardGroups[0]).to.include('group-1');
+    });
+
+    it('filters dashboards based on search term', async () => {
+      await waitUntil(
+        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
+        'Index did not render dashboards',
+        {
+          timeout: 4000,
+        }
+      );
+
+      element.searchTerm = 'dashboard-8';
+      await element.updateComplete;
+
+      expect(element.filteredDashboards).to.have.lengthOf(1);
+      expect(element.filteredDashboards[0]).to.include('dashboard-8');
+    });
+
+    it('shows no results when search term matches nothing', async () => {
+      await waitUntil(
+        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
+        'Index did not render dashboards',
+        {
+          timeout: 4000,
+        }
+      );
+
+      element.searchTerm = 'nonexistent';
+      await element.updateComplete;
+
+      expect(element.filteredDashboards).to.have.lengthOf(0);
+      expect(element.filteredDashboardGroups).to.have.lengthOf(0);
+    });
+
+    it('filters respective dashboards when in group view', async () => {
+      await waitUntil(
+        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
+        'Index did not render dashboard groups',
+        {
+          timeout: 4000,
+        }
+      );
+
+      // click on a dashboard group to show respective dashboards
+      const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector(
+        'mwc-list-item.dashboard-group'
+      )!;
+      dashboardGroup.click();
+      await aTimeout(3000);
+
+      element.searchTerm = 'dashboard-1';
+      await element.updateComplete;
+
+      expect(element.filteredRespectiveDashboards).to.have.lengthOf(1);
+      expect(element.filteredRespectiveDashboards[0]).to.include('dashboard-1');
+    });
+
+    it('performs case-insensitive search', async () => {
+      await waitUntil(
+        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
+        'Index did not render dashboards',
+        {
+          timeout: 4000,
+        }
+      );
+
+      element.searchTerm = 'DASHBOARD-8';
+      await element.updateComplete;
+
+      expect(element.filteredDashboards).to.have.lengthOf(1);
+      expect(element.filteredDashboards[0]).to.include('dashboard-8');
+    });
+  });
 });
