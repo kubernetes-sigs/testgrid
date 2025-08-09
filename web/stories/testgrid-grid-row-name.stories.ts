@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import '../src/testgrid-grid-row-name';
+import '../src/testgrid-grid-row-name.js';
 
 export default {
   title: 'Grid Row Name',

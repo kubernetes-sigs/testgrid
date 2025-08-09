@@ -6,8 +6,8 @@ import {
   ListRowsResponse,
   ListRowsResponse_Row,
 } from './gen/pb/api/v1/data.js';
-import './testgrid-grid-headers-block';
-import './testgrid-grid-row';
+import './testgrid-grid-headers-block.js';
+import './testgrid-grid-row.js';
 
 /**
  * Class definition for `testgrid-grid` component.

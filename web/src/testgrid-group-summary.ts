@@ -4,8 +4,8 @@ import { map } from 'lit/directives/map.js';
 import {
   ListDashboardSummariesResponse,
   DashboardSummary,
-} from './gen/pb/api/v1/data';
-import { TabStatusIcon } from './testgrid-dashboard-summary';
+} from './gen/pb/api/v1/data.js';
+import { TabStatusIcon } from './testgrid-dashboard-summary.js';
 
 /**
  * RenderedDashboardSummary defines the dashboard summary representation required for rendering

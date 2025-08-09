@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import {consume} from '@lit/context';
 import { customElement, property } from 'lit/decorators.js';
-import { linkContext, TestGridLinkTemplate } from './testgrid-context';
+import { linkContext, TestGridLinkTemplate } from './testgrid-context.js';
 
 @customElement('testgrid-grid-cell')
 export class TestgridGridCell extends LitElement {

@@ -2,8 +2,8 @@ import { LitElement, html, css } from 'lit';
 import { map } from 'lit/directives/map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { customElement, property } from 'lit/decorators.js';
-import './testgrid-grid-row-name';
-import './testgrid-grid-column-header';
+import './testgrid-grid-row-name.js';
+import './testgrid-grid-column-header.js';
 
 // CombinedHeader represents a header element that spans multiple columns
 // (when a header value is repeated multiple times in a row).

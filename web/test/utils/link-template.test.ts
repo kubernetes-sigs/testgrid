@@ -4,7 +4,7 @@ import {
 import {
   TestGridLinkTemplate,
   substitute,
-} from '../../src/utils/link-template';
+} from '../../src/utils/link-template.js';
 
 describe('Link template', () => {
   it('returns url', async () => {

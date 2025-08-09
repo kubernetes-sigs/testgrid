@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import '../src/testgrid-grid-column-header';
+import '../src/testgrid-grid-column-header.js';
 
 export default {
   title: 'Grid Column Header',
