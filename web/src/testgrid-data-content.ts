@@ -69,6 +69,13 @@ export class TestgridDataContent extends LitElement {
     navigateTab(this.dashboardName, this.tabName);
   }
 
+  private handleTabChanged = (evt: Event) => {
+    this.tabName = (<CustomEvent>evt).detail.tabName;
+    this.showTab = !this.showTab;
+    this.highlightIndex(this.tabName);
+    navigateTab(this.dashboardName, this.tabName!);
+  };
+
   /**
    * Lit-element lifecycle method.
    * Invoked when a component is added to the document's DOM.
@@ -76,12 +83,16 @@ export class TestgridDataContent extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.fetchTabNames();
-    window.addEventListener('tab-changed', (evt: Event) => {
-      this.tabName = (<CustomEvent>evt).detail.tabName;
-      this.showTab = !this.showTab;
-      this.highlightIndex(this.tabName);
-      navigateTab(this.dashboardName, this.tabName!);
-    });
+    window.addEventListener('tab-changed', this.handleTabChanged);
+  }
+
+  /**
+   * Lit-element lifecycle method.
+   * Invoked when a component is removed from the document's DOM.
+   */
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('tab-changed', this.handleTabChanged);
   }
 
   /**

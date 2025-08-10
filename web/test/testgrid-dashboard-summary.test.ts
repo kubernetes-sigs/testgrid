@@ -5,11 +5,9 @@ import {
   unsafeStatic,
   expect,
   waitUntil,
-  aTimeout,
 } from '@open-wc/testing';
 
 import { TestgridDashboardSummary } from '../src/testgrid-dashboard-summary.js';
-import { TestgridFailuresSummary } from '../src/testgrid-failures-summary.js';
 import { TabSummary } from '../src/tab-summary.js';
 
 describe('Testgrid Dashboard Summary page', () => {
