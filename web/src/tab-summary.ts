@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { map } from 'lit/directives/map.js';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { customElement, property } from 'lit/decorators.js';
 import { TabSummaryInfo } from './testgrid-dashboard-summary.js';

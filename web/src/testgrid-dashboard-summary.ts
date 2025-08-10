@@ -86,7 +86,7 @@ function convertResponse(ts: TabSummary) {
     tsi.failuresSummary!.failureStats = failureStats
 
     tsi.failuresSummary!.topFailingTests = [];
-    ts.failuresSummary?.topFailingTests.forEach( (test, i) => {
+    ts.failuresSummary?.topFailingTests.forEach( (test) => {
     const failingTest: FailingTestInfo = {
       displayName: test.displayName,
       failCount: test.failCount,

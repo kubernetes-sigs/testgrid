@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { customElement, property } from 'lit/decorators.js';
 
 @customElement('testgrid-grid-column-header')
