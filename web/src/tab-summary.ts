@@ -26,7 +26,14 @@ export class TabSummary extends LitElement {
           </div>
         </div>
         <div class="mid">
-          <div @click=${() => this.changeTab()} class="tab-name">
+          <div
+            @click=${() => this.changeTab()}
+            @keydown=${this.handleKeyDown}
+            class="tab-name"
+            tabindex="0"
+            role="button"
+            aria-label="Select tab ${this.info?.name}"
+          >
             ${this.info?.name}: ${this.info?.overallStatus}
           </div>
           <div class="detailed-status">${this.info?.detailedStatusMsg}</div>
@@ -52,6 +59,16 @@ export class TabSummary extends LitElement {
           </testgrid-healthiness-summary>`
         : ''}
     `;
+  }
+
+  /**
+   * Handles keyboard events for accessibility
+   */
+  private handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.changeTab();
+    }
   }
 
   /**

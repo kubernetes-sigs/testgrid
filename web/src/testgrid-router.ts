@@ -53,6 +53,7 @@ export class TestgridRouter extends LitElement {
    * Invoked when a component is added to the document's DOM.
    */
   connectedCallback() {
+    // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
     window.addEventListener('location-changed', this.goToCurrentPath);
     window.addEventListener('popstate', this.goToCurrentPath);
@@ -65,6 +66,7 @@ export class TestgridRouter extends LitElement {
    * Invoked when a component is removed from the document's DOM.
    */
   disconnectedCallback() {
+    // eslint-disable-next-line wc/guard-super-call
     super.disconnectedCallback();
     window.removeEventListener('location-changed', this.goToCurrentPath);
     window.removeEventListener('popstate', this.goToCurrentPath);

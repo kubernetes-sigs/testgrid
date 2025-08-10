@@ -6,24 +6,6 @@ import { Timestamp } from './gen/google/protobuf/timestamp.js';
 import { ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
 import './tab-summary.js';
 
-export interface TabSummaryInfo {
-  icon: string;
-  name: string;
-  overallStatus: string;
-  detailedStatusMsg: string;
-  lastUpdateTimestamp: string;
-  lastRunTimestamp: string;
-  latestGreenBuild: string;
-  dashboardName: string;
-  failuresSummary?: FailuresSummaryInfo;
-  healthinessSummary?: HealthinessSummaryInfo;
-}
-
-export interface FailuresSummaryInfo {
-  topFailingTests: FailingTestInfo[];
-  failureStats: FailureStats;
-}
-
 export interface FailingTestInfo {
   displayName: string;
   failCount: number;
@@ -33,11 +15,6 @@ export interface FailingTestInfo {
 
 export interface FailureStats {
   numFailingTests: number;
-}
-
-export interface HealthinessSummaryInfo {
-  topFlakyTests: FlakyTestInfo[];
-  healthinessStats: HealthinessStats;
 }
 
 export interface FlakyTestInfo {
@@ -51,6 +28,29 @@ export interface HealthinessStats {
   numFlakyTests: number;
   averageFlakiness: number;
   previousFlakiness: number;
+}
+
+export interface FailuresSummaryInfo {
+  topFailingTests: FailingTestInfo[];
+  failureStats: FailureStats;
+}
+
+export interface HealthinessSummaryInfo {
+  topFlakyTests: FlakyTestInfo[];
+  healthinessStats: HealthinessStats;
+}
+
+export interface TabSummaryInfo {
+  icon: string;
+  name: string;
+  overallStatus: string;
+  detailedStatusMsg: string;
+  lastUpdateTimestamp: string;
+  lastRunTimestamp: string;
+  latestGreenBuild: string;
+  dashboardName: string;
+  failuresSummary?: FailuresSummaryInfo;
+  healthinessSummary?: HealthinessSummaryInfo;
 }
 
 // TODO: define in a shared file (dashboard group also uses this)
@@ -135,6 +135,7 @@ export class TestgridDashboardSummary extends LitElement {
   tabSummariesInfo: Array<TabSummaryInfo> = [];
 
   connectedCallback(){
+    // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
     this.fetchTabSummaries();
   }

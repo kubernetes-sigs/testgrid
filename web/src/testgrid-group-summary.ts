@@ -58,6 +58,7 @@ export class TestgridGroupSummary extends LitElement {
   }
 
   connectedCallback() {
+    // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
     this.fetchDashboardSummaries();
   }
@@ -75,7 +76,7 @@ export class TestgridGroupSummary extends LitElement {
       );
       const summaries: RenderedDashboardSummary[] = [];
       data.dashboardSummaries.forEach(summary =>
-        summaries.push(this.convertResponse(summary))
+        summaries.push(TestgridGroupSummary.convertResponse(summary))
       );
       this.dashboardSummaries = summaries;
     } catch (error) {
@@ -83,7 +84,7 @@ export class TestgridGroupSummary extends LitElement {
     }
   }
 
-  private convertResponse(summary: DashboardSummary) {
+  private static convertResponse(summary: DashboardSummary) {
     const sortedStatuses: string[] = [
       'PASSING',
       'ACCEPTABLE',
@@ -96,11 +97,11 @@ export class TestgridGroupSummary extends LitElement {
 
     let numPassing = 0;
     let total = 0;
-    for (const key in summary.tabStatusCount) {
+    for (const [key, value] of Object.entries(summary.tabStatusCount)) {
       if (key === 'PASSING') {
-        numPassing = summary.tabStatusCount[key];
+        numPassing = value;
       }
-      total += summary.tabStatusCount[key];
+      total += value;
     }
 
     let prefix = `${numPassing} / ${total} PASSING`;

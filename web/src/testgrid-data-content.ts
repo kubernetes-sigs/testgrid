@@ -81,6 +81,7 @@ export class TestgridDataContent extends LitElement {
    * Invoked when a component is added to the document's DOM.
    */
   connectedCallback() {
+    // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
     this.fetchTabNames();
     window.addEventListener('tab-changed', this.handleTabChanged);
@@ -91,6 +92,7 @@ export class TestgridDataContent extends LitElement {
    * Invoked when a component is removed from the document's DOM.
    */
   disconnectedCallback() {
+    // eslint-disable-next-line wc/guard-super-call
     super.disconnectedCallback();
     window.removeEventListener('tab-changed', this.handleTabChanged);
   }
