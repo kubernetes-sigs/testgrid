@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import {
   html,
   fixture,
@@ -35,8 +36,7 @@ describe('TestGrid grid cell', () => {
     it(`renders with status ${TestStatus[testCase.status]}`, async () => {
       const tagName = defineCE(class extends TestgridGridCell {});
       const tag = unsafeStatic(tagName);
-      let el: TestgridGridCell;
-      el = await fixture(
+      const el: TestgridGridCell = await fixture(
         html`<${tag} .icon=${testCase.icon} .status=${
           TestStatus[testCase.status]
         }></${tag}>`

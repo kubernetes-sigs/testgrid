@@ -4,6 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import {
   ListHeadersResponse,
   ListRowsResponse,
+  // eslint-disable-next-line camelcase
   ListRowsResponse_Row,
 } from './gen/pb/api/v1/data.js';
 import './testgrid-grid-headers-block.js';
@@ -31,6 +32,7 @@ export class TestgridGrid extends LitElement {
   tabName: String = '';
 
   @state()
+  // eslint-disable-next-line camelcase
   tabGridRows: Array<ListRowsResponse_Row> = [];
 
   @state()
@@ -57,6 +59,7 @@ export class TestgridGrid extends LitElement {
       ></testgrid-grid-headers-block>
       ${map(
         this.tabGridRows,
+        // eslint-disable-next-line camelcase
         (row: ListRowsResponse_Row) =>
           html`<testgrid-grid-row
             .name="${row.name}"
@@ -83,6 +86,7 @@ export class TestgridGrid extends LitElement {
       const data = ListRowsResponse.fromJson(await response.json(), {
         ignoreUnknownFields: true,
       });
+      // eslint-disable-next-line camelcase
       const rows: Array<ListRowsResponse_Row> = [];
       data.rows.forEach(row => rows.push(row));
       this.tabGridRows = rows;

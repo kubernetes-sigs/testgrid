@@ -2,21 +2,24 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { ListHeadersResponse } from './gen/pb/api/v1/data.js';
+// eslint-disable-next-line import/no-duplicates
 import { CombinedHeader } from './testgrid-grid-header-row.js';
+// eslint-disable-next-line import/no-duplicates
 import './testgrid-grid-header-row.js';
 
 function runLengthEncode(values: string[]): CombinedHeader[] {
-  if (values.length == 0) {
+  if (values.length === 0) {
     return [];
   }
 
   const headers: CombinedHeader[] = [];
   let prev = values[0];
   let count = 1;
-  for (let i = 1; i < values.length; i++) {
+  for (let i = 1; i < values.length; i += 1) {
     const curr = values[i];
-    if (prev == curr) {
-      count++;
+    if (prev === curr) {
+      count += 1;
+      // eslint-disable-next-line no-continue
       continue;
     }
     headers.push({
@@ -55,19 +58,20 @@ export class TestgridGridHeadersBlock extends LitElement {
     const extras: string[][] = [];
     for (const header of this.headers?.headers || []) {
       builds.push(header.build);
-      for (let i = 0; i < header.extra.length; i++) {
+      for (let i = 0; i < header.extra.length; i += 1) {
         if (i >= extras.length) {
           extras[i] = [];
         }
         extras[i].push(header.extra[i]);
       }
-      if (header.started == undefined) {
+      if (header.started === undefined) {
         // This really shouldn't happen, but set a default value anyway to make that clear.
         dates.push('-');
         times.push('-');
+        // eslint-disable-next-line no-continue
         continue;
       }
-      const date = new Date(parseInt(header.started.seconds) * 1000);
+      const date = new Date(parseInt(header.started.seconds, 10) * 1000);
       dates.push(
         date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
       );

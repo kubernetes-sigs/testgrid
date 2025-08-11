@@ -121,6 +121,7 @@ describe('Testgrid Index page', () => {
     )!;
     dashboard.click();
 
+    // eslint-disable-next-line no-restricted-globals
     expect(location.pathname).to.not.equal('/');
   });
 

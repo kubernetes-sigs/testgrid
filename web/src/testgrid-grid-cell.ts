@@ -85,7 +85,7 @@ export class TestgridGridCell extends LitElement {
   public linkTemplate?: TestGridLinkTemplate;
 
   render() {
-    if (this.linkTemplate == undefined) {
+    if (this.linkTemplate === undefined) {
         return html `<span>${this.icon}</span>`
     }
     return html`<a href="${this.linkTemplate.url.toString()}"><span>${this.icon}</span></a>`;

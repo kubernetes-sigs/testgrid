@@ -38,13 +38,13 @@ const dashboardTemplate = (dashboards: Array<string>) => html`
 @customElement('testgrid-index')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class TestgridIndex extends LitElement {
-  @property({ type: Array<string> })
+  @property({ type: Array })
   dashboards: Array<string> = [];
 
-  @property({ type: Array<string> })
+  @property({ type: Array })
   dashboardGroups: Array<string> = [];
 
-  @property({ type: Array<string> })
+  @property({ type: Array })
   respectiveDashboards: Array<string> = [];
 
   // toggles between the dashboards of a particular group or a dashboard without a group
@@ -59,6 +59,7 @@ export class TestgridIndex extends LitElement {
    * Invoked when a component is added to the document's DOM.
    */
   connectedCallback() {
+    // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
     this.fetchDashboardGroups();
     this.fetchDashboards();
@@ -136,7 +137,7 @@ export class TestgridIndex extends LitElement {
               <mwc-button
                 class="column"
                 raised
-                @click="${() => (this.show = !this.show)}"
+                @click="${() => { this.show = !this.show; }}"
                 >X</mwc-button
               >
             `
