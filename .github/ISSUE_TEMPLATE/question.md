@@ -1,6 +1,6 @@
 ---
 name: Question
-about: Ask a question about using testgrid
+about: Ask a question about using TestGrid.
 labels: kind/support
 
 ---

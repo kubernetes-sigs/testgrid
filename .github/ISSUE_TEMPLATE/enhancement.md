@@ -1,6 +1,6 @@
 ---
 name: Enhancement Request
-about: Suggest an enhancement to the test-infra tooling
+about: Suggest an enhancement to the TestGrid tooling.
 
 ---
 <!-- Please only use this template for submitting enhancement requests -->

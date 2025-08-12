@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug encountered with test-infra
+about: Report a bug encountered with TestGrid.
 
 ---
 
