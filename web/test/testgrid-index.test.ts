@@ -1,13 +1,9 @@
-import { Button } from '@material/mwc-button';
-import { ListItemBase } from '@material/mwc-list/mwc-list-item-base.js';
 import {
   html,
   fixture,
   defineCE,
   unsafeStatic,
   expect,
-  waitUntil,
-  aTimeout,
 } from '@open-wc/testing';
 
 import { TestgridIndex } from '../src/testgrid-index.js';
@@ -15,202 +11,64 @@ import { TestgridIndex } from '../src/testgrid-index.js';
 describe('Testgrid Index page', () => {
   let element: TestgridIndex;
   beforeEach(async () => {
-    // Need to wrap an element to apply its properties (ex. @customElement)
-    // See https://open-wc.org/docs/testing/helpers/#test-a-custom-class-with-properties
-    const tagName = defineCE(class extends TestgridIndex {});
+    const tagName = defineCE(class extends TestgridIndex { });
     const tag = unsafeStatic(tagName);
     element = await fixture(html`<${tag}></${tag}>`);
   });
 
-  // TODO - add accessibility tests
-  it('fetches dashboards and dashboard-groups after loading the component', async () => {
-    // waiting until list items (dashboards and groups) are fully rendered
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
-      'Index did not render dashboards',
-      {
-        timeout: 5000,
-      }
-    );
+  it('renders data and handles search', async () => {
+    element.dashboardGroups = {
+      'group-alpha': ['dashboard-1', 'dashboard-2'],
+      'group-beta': ['dashboard-3']
+    };
+    element.ungroupedDashboards = ['standalone-dashboard'];
+    await element.updateComplete;
 
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
-      'Index did not render dashboard groups',
-      {
-        timeout: 5000,
-      }
-    );
-    // check if dashboards and dashboard groups exist
-    expect(element.dashboards).to.not.be.empty;
-    expect(element.dashboardGroups).not.to.be.empty;
-    expect(element.respectiveDashboards).to.be.empty;
+    let cards = element.shadowRoot!.querySelectorAll('.grid-card');
+    expect(cards).to.have.length(3); // 2 groups + 1 standalone
+
+    const searchInput = element.shadowRoot!.querySelector('.search-input') as HTMLInputElement;
+    searchInput.value = 'alpha';
+    searchInput.dispatchEvent(new Event('input'));
+    await element.updateComplete;
+
+    cards = element.shadowRoot!.querySelectorAll('.grid-card');
+    expect(cards).to.have.length(1);
+    expect(cards[0].querySelector('.card-title')?.textContent).to.equal('group-alpha');
+
+    searchInput.value = 'STANDALONE';
+    searchInput.dispatchEvent(new Event('input'));
+    await element.updateComplete;
+
+    cards = element.shadowRoot!.querySelectorAll('.grid-card');
+    expect(cards).to.have.length(1);
+    expect(cards[0].querySelector('.card-title')?.textContent).to.equal('standalone-dashboard');
   });
 
-  it('fetches respective dashboards after clicking on a dashboard-group', async () => {
-    // before click event, check if show (boolean) is true
-    expect(element.show).to.be.true;
+  it('shows dashboard tooltips for groups', async () => {
+    element.dashboardGroups = {
+      'group-alpha': ['dashboard-1', 'dashboard-2'],
+    };
+    element.ungroupedDashboards = ['standalone-dashboard'];
+    await element.updateComplete;
 
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
-      'Index did not render dashboard groups',
-      {
-        timeout: 4000,
-      }
+    const groupCard = element.shadowRoot!.querySelector('.grid-card.dashboard-group');
+    expect(groupCard).to.exist;
+
+    const tooltip = groupCard!.querySelector('.dashboard-tooltip');
+    expect(tooltip).to.exist;
+
+    const listItems = tooltip!.querySelectorAll('mwc-list-item');
+    expect(listItems).to.have.length(2);
+
+    const dashboardTexts = Array.from(listItems).map(item =>
+      item.querySelector('p')?.textContent
     );
+    expect(dashboardTexts).to.include('dashboard-1');
+    expect(dashboardTexts).to.include('dashboard-2');
 
-    expect(element.dashboardGroups).to.not.be.empty;
-
-    // click on first dashboard group to fetch respective dashboards
-    const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector(
-      'mwc-list-item.dashboard-group'
-    )!;
-    dashboardGroup.click();
-
-    await aTimeout(3000);
-
-    expect(element.show).to.be.false;
-    expect(element.respectiveDashboards).to.not.be.empty;
-  });
-
-  // check the functionality of the close button
-  it('renders the close button and changes the show attribute after clicking on it', async () => {
-    expect(element.show).to.be.true;
-
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
-      'Index did not render dashboard groups',
-      {
-        timeout: 4000,
-      }
-    );
-
-    // click on first dashboard group to fetch respective dashboards
-    const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector(
-      'mwc-list-item.dashboard-group'
-    )!;
-    dashboardGroup.click();
-
-    expect(element.show).to.be.false;
-
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-button.column'),
-      'Element did not render children',
-      {
-        timeout: 4000,
-      }
-    );
-
-    const closeBtn: Button =
-      element.shadowRoot!.querySelector('mwc-button.column')!;
-    closeBtn.click();
-    expect(element.show).to.be.true;
-  });
-
-  it('navigates to /dashboards after clicking on dashboard', async () => {
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
-      'Index did not render dashboards',
-      {
-        timeout: 4000,
-      }
-    );
-
-    // click on first dashboard group to fetch respective dashboards
-    const dashboard: ListItemBase = element.shadowRoot!.querySelector(
-      'mwc-list-item.dashboard'
-    )!;
-    dashboard.click();
-
-    // eslint-disable-next-line no-restricted-globals
-    expect(location.pathname).to.not.equal('/');
-  });
-
-  describe('Search functionality', () => {
-    it('filters dashboard groups based on search term', async () => {
-      await waitUntil(
-        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
-        'Index did not render dashboard groups',
-        {
-          timeout: 4000,
-        }
-      );
-
-      element.searchTerm = 'group-1';
-      await element.updateComplete;
-
-      expect(element.filteredDashboardGroups).to.have.lengthOf(1);
-      expect(element.filteredDashboardGroups[0]).to.include('group-1');
-    });
-
-    it('filters dashboards based on search term', async () => {
-      await waitUntil(
-        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
-        'Index did not render dashboards',
-        {
-          timeout: 4000,
-        }
-      );
-
-      element.searchTerm = 'dashboard-8';
-      await element.updateComplete;
-
-      expect(element.filteredDashboards).to.have.lengthOf(1);
-      expect(element.filteredDashboards[0]).to.include('dashboard-8');
-    });
-
-    it('shows no results when search term matches nothing', async () => {
-      await waitUntil(
-        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
-        'Index did not render dashboards',
-        {
-          timeout: 4000,
-        }
-      );
-
-      element.searchTerm = 'nonexistent';
-      await element.updateComplete;
-
-      expect(element.filteredDashboards).to.have.lengthOf(0);
-      expect(element.filteredDashboardGroups).to.have.lengthOf(0);
-    });
-
-    it('filters respective dashboards when in group view', async () => {
-      await waitUntil(
-        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard-group'),
-        'Index did not render dashboard groups',
-        {
-          timeout: 4000,
-        }
-      );
-
-      // click on a dashboard group to show respective dashboards
-      const dashboardGroup: ListItemBase = element.shadowRoot!.querySelector(
-        'mwc-list-item.dashboard-group'
-      )!;
-      dashboardGroup.click();
-      await aTimeout(3000);
-
-      element.searchTerm = 'dashboard-1';
-      await element.updateComplete;
-
-      expect(element.filteredRespectiveDashboards).to.have.lengthOf(1);
-      expect(element.filteredRespectiveDashboards[0]).to.include('dashboard-1');
-    });
-
-    it('performs case-insensitive search', async () => {
-      await waitUntil(
-        () => element.shadowRoot!.querySelector('mwc-list-item.dashboard'),
-        'Index did not render dashboards',
-        {
-          timeout: 4000,
-        }
-      );
-
-      element.searchTerm = 'DASHBOARD-8';
-      await element.updateComplete;
-
-      expect(element.filteredDashboards).to.have.lengthOf(1);
-      expect(element.filteredDashboards[0]).to.include('dashboard-8');
-    });
+    const standaloneCard = element.shadowRoot!.querySelector('.grid-card:not(.dashboard-group)');
+    expect(standaloneCard).to.exist;
+    expect(standaloneCard!.querySelector('.dashboard-tooltip')).to.not.exist;
   });
 });

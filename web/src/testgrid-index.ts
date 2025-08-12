@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import {
@@ -7,49 +6,22 @@ import {
   ListDashboardGroupsResponse,
 } from './gen/pb/api/v1/data.js';
 import { navigate } from './utils/navigation.js';
-import '@material/mwc-button';
 import '@material/mwc-list';
+import '@material/mwc-list/mwc-list-item.js';
 
-// dashboards template
-// clicking on any dashboard should navigate to the /dashboards view
-const dashboardTemplate = (dashboards: Array<string>) => html`
-  <div>
-    <mwc-list activatable style="min-width: 755px">
-      ${map(
-        dashboards,
-        (dash: string, index: number) => html`
-          <mwc-list-item id=${index} @click=${() =>
-          navigate(dash)} class="column card dashboard">
-              <div class="container">
-                <p>${dash}</p>
-              </div>
-            </a>
-          </mwc-list-item>
-        `
-      )}
-    </mwc-list>
-  </div>
-`;
+interface GridItem {
+  type: 'dashboard-group' | 'dashboard'
+  name: string
+  children: Array<GridItem> | null
+}
 
-/**
- * Class definition for the `testgrid-index` element.
- * Renders the list of dashboards and dashboard groups available.
- */
 @customElement('testgrid-index')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class TestgridIndex extends LitElement {
-  @property({ type: Array })
-  dashboards: Array<string> = [];
+  @property({ type: Object })
+  dashboardGroups: Record<string, Array<string>> = {};
 
   @property({ type: Array })
-  dashboardGroups: Array<string> = [];
-
-  @property({ type: Array })
-  respectiveDashboards: Array<string> = [];
-
-  // toggles between the dashboards of a particular group or a dashboard without a group
-  @property({ type: Boolean })
-  show = true;
+  ungroupedDashboards: Array<string> = [];
 
   @property({ type: String })
   searchTerm = '';
@@ -61,34 +33,7 @@ export class TestgridIndex extends LitElement {
   connectedCallback() {
     // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
-    this.fetchDashboardGroups();
-    this.fetchDashboards();
-  }
-
-  get filteredDashboardGroups() {
-    if (!this.searchTerm) return this.dashboardGroups;
-    return this.dashboardGroups.filter(group =>
-      group.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
-
-  get filteredDashboards() {
-    if (!this.searchTerm) return this.dashboards;
-    return this.dashboards.filter(dashboard =>
-      dashboard.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
-
-  get filteredRespectiveDashboards() {
-    if (!this.searchTerm) return this.respectiveDashboards;
-    return this.respectiveDashboards.filter(dashboard =>
-      dashboard.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
-
-  private handleSearchInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.searchTerm = input.value;
+    this.loadData();
   }
 
   /**
@@ -106,124 +51,89 @@ export class TestgridIndex extends LitElement {
           class="search-input"
         />
       </div>
-      <div class="flex-container">
-        <!-- loading dashboard groups -->
-        <mwc-list style="min-width: 760px">
-          ${map(
-            this.filteredDashboardGroups,
-            (dash: string, index: number) =>
-              html`
-                <mwc-list-item
-                  id=${index}
-                  class="column card dashboard-group"
-                  raised
-                  @click="${() => this.fetchRespectiveDashboards(dash)}"
-                >
-                  <div class="container">
-                    <p>${dash}</p>
-                  </div>
-                </mwc-list-item>
-              `
-          )}
-        </mwc-list>
+      ${this.renderGrid()}
+    `;
+  }
 
-        <!-- loading dashboards -->
-        ${this.show ? dashboardTemplate(this.filteredDashboards) : ''}
+  private handleSearchInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm = input.value;
+  }
 
-        <!-- loading respective dashboards -->
-        ${!this.show ? dashboardTemplate(this.filteredRespectiveDashboards) : ''}
-        ${!this.show
-          ? html`
-              <mwc-button
-                class="column"
-                raised
-                @click="${() => { this.show = !this.show; }}"
-                >X</mwc-button
-              >
-            `
-          : ''}
+  // build a sorted, filtered array of dashboard groups and ungrouped dashboards
+  private renderGrid() {
+    const gridItems: Array<GridItem> = [];
+
+    Object.keys(this.dashboardGroups).forEach(groupName => {
+      const dashboards = this.dashboardGroups[groupName] || [];
+      const children = dashboards.map(dashboardName => ({
+        type: 'dashboard' as const,
+        name: dashboardName,
+        children: null
+      }));
+
+      gridItems.push({
+        type: 'dashboard-group',
+        name: groupName,
+        children
+      });
+    });
+
+    this.ungroupedDashboards.forEach(dashboardName => {
+      gridItems.push({
+        type: 'dashboard',
+        name: dashboardName,
+        children: null
+      });
+    });
+
+    const filteredItems = gridItems.filter(item =>
+      this.searchTerm === '' || item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    ).sort((a, b) => a.name.localeCompare(b.name));
+
+    return html`
+      <div class="grid-container">
+        ${map(filteredItems, (item: GridItem) => TestgridIndex.renderGridItem(item))}
       </div>
     `;
   }
 
-  // fetch the the list of dashboards from the API
-  async fetchDashboards() {
-    try {
-      fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`
-      ).then(async response => {
-        const resp = ListDashboardsResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
-        const dashboards: string[] = [];
-
-        resp.dashboards.forEach(db => {
-          if (db.dashboardGroupName === '') {
-            dashboards.push(db.name);
-          }
-        });
-        this.dashboards = dashboards;
-      });
-    } catch (error) {
-      console.log(`failed to fetch: ${error}`);
-    }
-  }
-
-  // fetch the list of dashboard groups from API
-  async fetchDashboardGroups() {
-    try {
-      fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`
-      ).then(async response => {
-        const resp = ListDashboardGroupsResponse.fromJson(
-          await response.json(), {ignoreUnknownFields: true}
-        );
-        const dashboardGroups: string[] = [];
-
-        resp.dashboardGroups.forEach(db => {
-          dashboardGroups.push(db.name);
-        });
-
-        this.dashboardGroups = dashboardGroups;
-      });
-    } catch (error) {
-      console.log(`failed to fetch: ${error}`);
-    }
-  }
-
-  // fetch the list of respective dashboards for a group from API
-  async fetchRespectiveDashboards(name: string) {
-    this.show = false;
-    try {
-      fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${name}`
-      ).then(async response => {
-        const resp = ListDashboardsResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
-        const respectiveDashboards: string[] = [];
-
-        resp.dashboards.forEach(ts => {
-          respectiveDashboards.push(ts.name);
-        });
-
-        this.respectiveDashboards = respectiveDashboards;
-      });
-    } catch (error) {
-      console.error(`Could not get dashboard summaries: ${error}`);
-    }
+  private static renderGridItem(item: GridItem) {
+    return html`
+      <div
+        class="grid-card ${item.type}"
+        role="button"
+        tabindex="0"
+        @click=${() => navigate(item.name)}
+        @keydown=${(e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navigate(item.name);
+        }
+      }}
+      >
+        <div class="card-content">
+          <p class="card-title">${item.name}</p>
+        </div>
+        ${item.children && item.children.length > 0 ? html`
+          <div class="dashboard-tooltip">
+            <div class="tooltip-content">
+              <mwc-list activatable>
+                ${map(item.children, (child: GridItem, index: number) => html`
+                  <mwc-list-item id=${index} @click=${() => navigate(child.name)}>
+                    <p>${child.name}</p>
+                  </mwc-list-item>
+                `)}
+              </mwc-list>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    `;
   }
 
   static styles = css`
-    :host {
-      overflow: auto;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex;
-      font-size: calc(10px + 2vmin);
-      color: #1a2b42;
-      margin: 0 auto;
-      text-align: center;
-      background-color: var(--example-app-background-color);
-    }
-
+    /* search input */
     .search-container {
       display: flex;
       justify-content: center;
@@ -246,54 +156,172 @@ export class TestgridIndex extends LitElement {
       border-color: #707df1;
     }
 
-    .flex-container {
+    /* responsive grid */
+    .grid-container {
       display: grid;
-      gap: 30px;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .column {
-      display: inline-grid;
-      padding: 10px;
+    .group-item {
+      display: contents;
     }
 
-    .card {
-      /* Add shadows to create the "card" effect */
-      width: 350px;
-      height: 80px;
-      margin-bottom: 10px;
-      box-shadow: 0 30px 30px -25px rgba(#7168c9, 0.25);
+    .dashboard-grid {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 10px 0;
     }
 
-    .dashboard {
-      background-color: #9e60eb;
-      color: #fff;
-      border: 2px solid transparent;
-    }
-
-    .dashboard-group {
-      background-color: #707df1;
-      color: #fff;
-      border: 2px solid transparent;
-    }
-
-    .dashboard-group:focus,
-    .dashboard-group:hover {
-      background-color: #fff;
-      color: #707df1;
+    .grid-card.expanded {
       border-color: #707df1;
+      box-shadow: 0 2px 8px rgba(112, 125, 241, 0.3);
     }
 
-    .dashboard:hover,
-    .dashboard:focus {
-      background-color: #fff;
-      color: #9e60eb;
-      border-color: #9e60eb;
+    .grid-card {
+      background: white;
+      border: 2px solid #e0e0e0;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      position: relative;
     }
 
-    /* Add some padding inside the card container */
-    .container {
-      padding: 2px 16px;
+    .grid-card:hover {
+      border-color: #707df1;
+      box-shadow: 0 2px 8px rgba(112, 125, 241, 0.2);
+    }
+
+    .grid-card:hover .dashboard-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dashboard-tooltip {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 2px solid #707df1;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      z-index: 10;
+      min-width: 200px;
+      max-width: 400px;
+      margin-top: 8px;
+    }
+
+    .tooltip-content mwc-list {
+      margin: 0;
+      padding: 0;
+      --mdc-list-item-height: 32px;
+    }
+
+    .tooltip-content mwc-list-item {
+      font-size: 16px;
+      color: #333;
+      --mdc-list-item-graphic-margin: 0;
+    }
+
+    .grid-card.dashboard-group {
+      background: #707df1;
+      color: white;
+    }
+
+    .grid-card.dashboard {
+      background: #9e60eb;
+      color: white;
+    }
+
+    .card-content {
+      width: 100%;
+    }
+
+    .card-title {
+      text-align: center;
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
     }
   `;
+
+  private async loadData() {
+    try {
+      const result = await TestgridIndex.fetchDashboardGroups();
+      this.dashboardGroups = result.dashboardGroups;
+      this.ungroupedDashboards = result.ungroupedDashboards;
+    } catch (error) {
+      console.error('Failed to load data:', error);
+    }
+  }
+
+  private static async fetchDashboardGroups(): Promise<{
+    dashboardGroups: Record<string, Array<string>>;
+    ungroupedDashboards: Array<string>;
+  }> {
+    const groupsResponse = await fetch(
+      `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`
+    );
+
+    if (!groupsResponse.ok) {
+      throw new Error(`Failed to fetch dashboard groups: ${groupsResponse.statusText}`);
+    }
+
+    const dashboardGroupsResp = ListDashboardGroupsResponse.fromJson(
+      await groupsResponse.json(),
+      { ignoreUnknownFields: true }
+    );
+
+    const dashboardGroups: Record<string, Array<string>> = {};
+    const ungroupedDashboards: Array<string> = [];
+
+    dashboardGroupsResp.dashboardGroups.forEach(group => {
+      dashboardGroups[group.name] = [];
+    });
+
+    const dashboardsResponse = await fetch(
+      `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`
+    );
+
+    if (!dashboardsResponse.ok) {
+      throw new Error(`Failed to fetch dashboards: ${dashboardsResponse.statusText}`);
+    }
+
+    const dashboardsResp = ListDashboardsResponse.fromJson(
+      await dashboardsResponse.json(),
+      { ignoreUnknownFields: true }
+    );
+
+    dashboardsResp.dashboards.forEach(dashboard => {
+      const groupName = dashboard.dashboardGroupName;
+
+      if (groupName && dashboardGroups[groupName]) {
+        dashboardGroups[groupName].push(dashboard.name);
+      } else {
+        // doesn't belong to any group
+        ungroupedDashboards.push(dashboard.name);
+      }
+    });
+
+    return { dashboardGroups, ungroupedDashboards };
+  }
 }
