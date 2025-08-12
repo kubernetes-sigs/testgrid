@@ -28,30 +28,39 @@ export class TestgridRouter extends LitElement {
     {
       path: '/:groupName/:dashboardName/*',
       render: (params: RouteParameter) =>
-        html`<testgrid-data-content
-          .dashboardName=${params.dashboardName}
-          .tabName=${params[0]}
-          showTab
-        ></testgrid-data-content>`,
+        html`
+          <testgrid-data-content
+            .dashboardName=${params.dashboardName}
+            .tabName=${params[0]}
+            showTab
+          ></testgrid-data-content>
+        `
     },
     {
       path: '/:groupName/:dashboardName',
       render: (params: RouteParameter) =>
-        html`<testgrid-data-content
-          .dashboardName=${params.dashboardName}
-        ></testgrid-data-content>`,
+        html`
+          <testgrid-data-content
+            .dashboardName=${params.dashboardName}
+          ></testgrid-data-content>
+        `
     },
     {
       path: '/:groupName',
       render: (params: RouteParameter) =>
-        html`<testgrid-group-summary
-          .groupName=${params.groupName}
-        ></testgrid-group-summary>`,
+        html`
+          <testgrid-group-summary
+            .groupName=${params.groupName}
+          ></testgrid-group-summary>
+        `
     },
     {
       path: '/',
-      render: () => html`<testgrid-index></testgrid-index>`,
-    },
+      render: () =>
+        html`
+          <testgrid-index></testgrid-index>
+        `
+    }
   ]);
 
   private goToCurrentPath = () => this.router.goto(window.location.pathname);
@@ -85,6 +94,8 @@ export class TestgridRouter extends LitElement {
    * Invoked on each update to perform rendering tasks.
    */
   render() {
-    return html`${this.router.outlet()}`;
+    return html`
+      ${this.router.outlet()}
+    `;
   }
 }

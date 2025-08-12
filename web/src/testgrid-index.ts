@@ -3,16 +3,16 @@ import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import {
   ListDashboardsResponse,
-  ListDashboardGroupsResponse,
+  ListDashboardGroupsResponse
 } from './gen/pb/api/v1/data.js';
 import { navigate } from './utils/navigation.js';
 import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item.js';
 
 interface GridItem {
-  type: 'dashboard-group' | 'dashboard'
-  name: string
-  children: Array<GridItem> | null
+  type: 'dashboard-group' | 'dashboard';
+  name: string;
+  children: Array<GridItem> | null;
 }
 
 @customElement('testgrid-index')
@@ -87,13 +87,19 @@ export class TestgridIndex extends LitElement {
       });
     });
 
-    const filteredItems = gridItems.filter(item =>
-      this.searchTerm === '' || item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    ).sort((a, b) => a.name.localeCompare(b.name));
+    const filteredItems = gridItems
+      .filter(
+        item =>
+          this.searchTerm === '' ||
+          item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
 
     return html`
       <div class="grid-container">
-        ${map(filteredItems, (item: GridItem) => TestgridIndex.renderGridItem(item))}
+        ${map(filteredItems, (item: GridItem) =>
+          TestgridIndex.renderGridItem(item)
+        )}
       </div>
     `;
   }
@@ -106,32 +112,39 @@ export class TestgridIndex extends LitElement {
         tabindex="0"
         @click=${() => navigate(item.name)}
         @keydown=${(e: KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          navigate(item.name);
-        }
-      }}
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            navigate(item.name);
+          }
+        }}
       >
         <div class="card-content">
           <p class="card-title">${item.name}</p>
         </div>
-        ${item.children && item.children.length > 0 ? html`
-          <div class="dashboard-tooltip">
-            <div class="tooltip-content">
-              <mwc-list activatable>
-                ${map(item.children, (child: GridItem, index: number) => html`
-                  <mwc-list-item id=${index} @click=${(e: Event) => {
-          e.stopPropagation();
-          navigate(`${item.name}/${child.name}`);
-        }}
-                  >
-                    <p>${child.name}</p>
-                  </mwc-list-item>
-                `)}
-              </mwc-list>
-            </div>
-          </div>
-        ` : ''}
+        ${item.children && item.children.length > 0
+          ? html`
+              <div class="dashboard-tooltip">
+                <div class="tooltip-content">
+                  <mwc-list activatable>
+                    ${map(
+                      item.children,
+                      (child: GridItem, index: number) => html`
+                        <mwc-list-item
+                          id=${index}
+                          @click=${(e: Event) => {
+                            e.stopPropagation();
+                            navigate(`${item.name}/${child.name}`);
+                          }}
+                        >
+                          <p>${child.name}</p>
+                        </mwc-list-item>
+                      `
+                    )}
+                  </mwc-list>
+                </div>
+              </div>
+            `
+          : ''}
       </div>
     `;
   }
@@ -287,7 +300,9 @@ export class TestgridIndex extends LitElement {
     );
 
     if (!groupsResponse.ok) {
-      throw new Error(`Failed to fetch dashboard groups: ${groupsResponse.statusText}`);
+      throw new Error(
+        `Failed to fetch dashboard groups: ${groupsResponse.statusText}`
+      );
     }
 
     const dashboardGroupsResp = ListDashboardGroupsResponse.fromJson(
@@ -307,7 +322,9 @@ export class TestgridIndex extends LitElement {
     );
 
     if (!dashboardsResponse.ok) {
-      throw new Error(`Failed to fetch dashboards: ${dashboardsResponse.statusText}`);
+      throw new Error(
+        `Failed to fetch dashboards: ${dashboardsResponse.statusText}`
+      );
     }
 
     const dashboardsResp = ListDashboardsResponse.fromJson(
