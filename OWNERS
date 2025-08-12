@@ -1,6 +1,12 @@
 # See the OWNERS docs at https://go.k8s.io/owners
 
+reviewers:
+- michelle192837
+- jbpratt
+
 approvers:
 - michelle192837
-- chases2
 - sig-testing-leads
+
+emeritus_approvers:
+- chases2 # Aug-11-2025
