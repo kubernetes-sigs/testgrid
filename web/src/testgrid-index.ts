@@ -120,7 +120,11 @@ export class TestgridIndex extends LitElement {
             <div class="tooltip-content">
               <mwc-list activatable>
                 ${map(item.children, (child: GridItem, index: number) => html`
-                  <mwc-list-item id=${index} @click=${() => navigate(child.name)}>
+                  <mwc-list-item id=${index} @click=${(e: Event) => {
+          e.stopPropagation();
+          navigate(`${item.name}/${child.name}`);
+        }}
+                  >
                     <p>${child.name}</p>
                   </mwc-list-item>
                 `)}

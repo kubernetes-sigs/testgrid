@@ -18,7 +18,7 @@ describe('Testgrid Router navigation', () => {
     // Ensure we start from root
     window.history.replaceState(null, '', '/');
 
-    const tagName = defineCE(class extends TestgridRouter {});
+    const tagName = defineCE(class extends TestgridRouter { });
     const tag = unsafeStatic(tagName);
     element = await fixture(html`<${tag}></${tag}>`);
   });
@@ -31,14 +31,14 @@ describe('Testgrid Router navigation', () => {
     );
     expect(window.location.pathname).to.equal('/');
 
-    navigate('fake-dashboard-1');
+    navigate('fake-dashboard-group-1');
 
     await waitUntil(
-      () => element.shadowRoot!.querySelector('testgrid-data-content'),
-      'Router did not navigate to dashboard route',
+      () => element.shadowRoot!.querySelector('testgrid-group-summary'),
+      'Router did not navigate to group summary route',
       { timeout: 4000 }
     );
-    expect(window.location.pathname).to.equal('/fake-dashboard-1');
+    expect(window.location.pathname).to.equal('/fake-dashboard-group-1');
 
     window.history.back();
     await aTimeout(0);

@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { Router } from '@lit-labs/router';
 import './testgrid-data-content.js';
 import './testgrid-index.js';
+import './testgrid-group-summary.js';
 
 // Defines the type of params used for rendering components under different paths
 interface RouteParameter {
@@ -25,20 +26,27 @@ export class TestgridRouter extends LitElement {
 
   private router = new Router(this, [
     {
-      path: '/:dashboard/*',
+      path: '/:groupName/:dashboardName/*',
       render: (params: RouteParameter) =>
         html`<testgrid-data-content
-          .dashboardName=${params.dashboard}
+          .dashboardName=${params.dashboardName}
           .tabName=${params[0]}
           showTab
         ></testgrid-data-content>`,
     },
     {
-      path: '/:dashboard',
+      path: '/:groupName/:dashboardName',
       render: (params: RouteParameter) =>
         html`<testgrid-data-content
-          .dashboardName=${params.dashboard}
+          .dashboardName=${params.dashboardName}
         ></testgrid-data-content>`,
+    },
+    {
+      path: '/:groupName',
+      render: (params: RouteParameter) =>
+        html`<testgrid-group-summary
+          .groupName=${params.groupName}
+        ></testgrid-group-summary>`,
     },
     {
       path: '/',
