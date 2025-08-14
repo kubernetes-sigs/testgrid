@@ -58,6 +58,7 @@ export class ApiController<T> implements ReactiveController {
     this.host.requestUpdate();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   hostConnected() {}
 
   hostDisconnected() {

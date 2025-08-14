@@ -170,6 +170,7 @@ export class TestgridDashboardSummary extends LitElement {
       });
       this.tabSummariesInfo = tabSummaries;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Could not get dashboard summaries: ${error}`);
     }
   }
