@@ -30,6 +30,15 @@ describe('Testgrid Grid page', () => {
         timeout: 4000,
       }
     );
+
+    await waitUntil(
+      () => element.tabGridHeaders?.headers?.length > 0,
+      'Grid headers did not load',
+      {
+        timeout: 4000,
+      }
+    );
+
     expect(element).to.exist;
     expect(element.shadowRoot?.children.length).to.be.equal(
       3,
