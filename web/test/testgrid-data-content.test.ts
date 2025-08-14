@@ -7,7 +7,7 @@ import {
   waitUntil,
 } from '@open-wc/testing';
 
-import { Tab } from '@material/mwc-tab';
+import { MdPrimaryTab as Tab } from '@material/web/tabs/primary-tab.js';
 import { TestgridDataContent } from '../src/testgrid-data-content.js';
 
 describe('Testgrid Data Content page', () => {
@@ -26,7 +26,7 @@ describe('Testgrid Data Content page', () => {
   // TODO - add tests for tab switching behaviour
   it('fetches the tab names and renders the tab bar', async () => {
     await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-tab-bar'),
+      () => element.shadowRoot!.querySelector('md-tabs'),
       'Data content did not render the tab bar',
       {
         timeout: 4000,
@@ -38,7 +38,7 @@ describe('Testgrid Data Content page', () => {
 
   it('renders the dashboard summary if `showTab` attribute is not passed', async () => {
     await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-tab-bar'),
+      () => element.shadowRoot!.querySelector('md-tabs'),
       'Data content did not render the tab bar',
       {
         timeout: 4000,
@@ -52,7 +52,7 @@ describe('Testgrid Data Content page', () => {
 
   it('renders the grid display if a tab is clicked', async () => {
     await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-tab'),
+      () => element.shadowRoot!.querySelector('md-primary-tab'),
       'Data content did not render the tab bar',
       {
         timeout: 4000,
@@ -60,7 +60,7 @@ describe('Testgrid Data Content page', () => {
     );
 
     const tab: NodeListOf<Tab> | null =
-      element.shadowRoot!.querySelectorAll('mwc-tab');
+      element.shadowRoot!.querySelectorAll('md-primary-tab');
     tab[1]!.click();
 
     await waitUntil(
@@ -78,7 +78,7 @@ describe('Testgrid Data Content page', () => {
 
   it('renders the grid display, then dashboard summary when clicked', async () => {
     await waitUntil(
-      () => element.shadowRoot!.querySelector('mwc-tab-bar'),
+      () => element.shadowRoot!.querySelector('md-tabs'),
       'Data content did not render the tab bar',
       {
         timeout: 4000,
@@ -86,7 +86,7 @@ describe('Testgrid Data Content page', () => {
     );
 
     const tab: NodeListOf<Tab> | null =
-      element.shadowRoot!.querySelectorAll('mwc-tab');
+      element.shadowRoot!.querySelectorAll('md-primary-tab');
     tab[1]!.click();
 
     await waitUntil(
