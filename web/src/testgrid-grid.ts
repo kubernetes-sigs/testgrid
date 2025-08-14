@@ -91,6 +91,7 @@ export class TestgridGrid extends LitElement {
       data.rows.forEach(row => rows.push(row));
       this.tabGridRows = rows;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Could not get grid rows: ${error}`);
     }
   }
@@ -108,6 +109,7 @@ export class TestgridGrid extends LitElement {
       });
       this.tabGridHeaders = data;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Could not get grid headers: ${error}`);
     }
   }

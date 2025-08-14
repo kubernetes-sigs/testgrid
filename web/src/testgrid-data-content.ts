@@ -150,6 +150,7 @@ export class TestgridDataContent extends LitElement {
       this.tabNames = tabNames;
       this.highlightIndex(this.tabName);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Could not get dashboard summaries: ${error}`);
     }
   }

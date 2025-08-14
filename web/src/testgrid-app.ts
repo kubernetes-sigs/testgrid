@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import './testgrid-router.js';
 
 // @ts-ignore: Property 'UrlPattern' does not exist
+// eslint-disable-next-line no-undef
 if (!globalThis.URLPattern) {
   await import("urlpattern-polyfill");
 }

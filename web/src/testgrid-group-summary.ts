@@ -80,6 +80,7 @@ export class TestgridGroupSummary extends LitElement {
       );
       this.dashboardSummaries = summaries;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Could not get grid rows: ${error}`);
     }
   }
