@@ -2,6 +2,11 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import './testgrid-router.js';
 
+// @ts-ignore: Property 'UrlPattern' does not exist
+if (!globalThis.URLPattern) {
+  await import("urlpattern-polyfill");
+}
+
 /**
  * Class definition for the `testgrid-app` element.
  * Application root element.
