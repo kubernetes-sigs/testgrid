@@ -88,8 +88,8 @@ export class TabSummary extends LitElement {
   }
 
   static styles = css`
+     /* title/link in each Summary card */
     .tab-name {
-      // title/link in each Summary card
       cursor: pointer;
       position: relative;
       padding: 4px 8px;
@@ -108,8 +108,8 @@ export class TabSummary extends LitElement {
       align-items: center;
     }
 
+    /* title/link in each Summary card */
     .tab-name {
-      // title/link in each Summary card
       cursor: pointer;
       position: relative;
       padding: 4px 8px;
