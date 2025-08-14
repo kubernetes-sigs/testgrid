@@ -1,11 +1,13 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import {
   ListDashboardsResponse,
   ListDashboardGroupsResponse,
 } from './gen/pb/api/v1/data.js';
+import { apiClient } from './APIClient.js';
 import { navigate } from './utils/navigation.js';
+import { ApiController } from './controllers/api-controller.js';
 import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item.js';
 
@@ -17,14 +19,34 @@ interface GridItem {
 
 @customElement('testgrid-index')
 export class TestgridIndex extends LitElement {
-  @property({ type: Object })
-  dashboardGroups: Record<string, Array<string>> = {};
+  private dashboardGroupsController = new ApiController<ListDashboardGroupsResponse>(this);
 
-  @property({ type: Array })
-  ungroupedDashboards: Array<string> = [];
+  private dashboardsController = new ApiController<ListDashboardsResponse>(this);
+
+  @state()
+  private _dashboardGroups: Record<string, Array<string>> = {};
+
+  @state()
+  private _ungroupedDashboards: Array<string> = [];
 
   @property({ type: String })
   searchTerm = '';
+
+  get dashboardGroups() {
+    return this._dashboardGroups;
+  }
+
+  set dashboardGroups(value: Record<string, Array<string>>) {
+    this._dashboardGroups = value;
+  }
+
+  get ungroupedDashboards() {
+    return this._ungroupedDashboards;
+  }
+
+  set ungroupedDashboards(value: Array<string>) {
+    this._ungroupedDashboards = value;
+  }
 
   /**
    * Lit-element lifecycle method.
@@ -64,8 +86,8 @@ export class TestgridIndex extends LitElement {
   private renderGrid() {
     const gridItems: Array<GridItem> = [];
 
-    Object.keys(this.dashboardGroups).forEach(groupName => {
-      const dashboards = this.dashboardGroups[groupName] || [];
+    Object.keys(this._dashboardGroups).forEach(groupName => {
+      const dashboards = this._dashboardGroups[groupName] || [];
       const children = dashboards.map(dashboardName => ({
         type: 'dashboard' as const,
         name: dashboardName,
@@ -79,7 +101,7 @@ export class TestgridIndex extends LitElement {
       });
     });
 
-    this.ungroupedDashboards.forEach(dashboardName => {
+    this._ungroupedDashboards.forEach(dashboardName => {
       gridItems.push({
         type: 'dashboard',
         name: dashboardName,
@@ -266,62 +288,33 @@ export class TestgridIndex extends LitElement {
 
   private async loadData() {
     try {
-      const result = await TestgridIndex.fetchDashboardGroups();
-      this.dashboardGroups = result.dashboardGroups;
-      this.ungroupedDashboards = result.ungroupedDashboards;
+      const [groupsResponse, dashboardsResponse] = await Promise.all([
+        this.dashboardGroupsController.fetch('dashboard-groups', () => apiClient.getDashboardGroups()),
+        this.dashboardsController.fetch('dashboards', () => apiClient.getDashboards())
+      ]);
+
+      const dashboardGroups: Record<string, Array<string>> = {};
+      const ungroupedDashboards: Array<string> = [];
+
+      groupsResponse.dashboardGroups.forEach(group => {
+        dashboardGroups[group.name] = [];
+      });
+
+      dashboardsResponse.dashboards.forEach(dashboard => {
+        const groupName = dashboard.dashboardGroupName;
+
+        if (groupName && dashboardGroups[groupName]) {
+          dashboardGroups[groupName].push(dashboard.name);
+        } else {
+          ungroupedDashboards.push(dashboard.name);
+        }
+      });
+
+      this._dashboardGroups = dashboardGroups;
+      this._ungroupedDashboards = ungroupedDashboards;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Failed to load data:', error);
     }
-  }
-
-  private static async fetchDashboardGroups(): Promise<{
-    dashboardGroups: Record<string, Array<string>>;
-    ungroupedDashboards: Array<string>;
-  }> {
-    const groupsResponse = await fetch(
-      `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups`
-    );
-
-    if (!groupsResponse.ok) {
-      throw new Error(`Failed to fetch dashboard groups: ${groupsResponse.statusText}`);
-    }
-
-    const dashboardGroupsResp = ListDashboardGroupsResponse.fromJson(
-      await groupsResponse.json(),
-      { ignoreUnknownFields: true }
-    );
-
-    const dashboardGroups: Record<string, Array<string>> = {};
-    const ungroupedDashboards: Array<string> = [];
-
-    dashboardGroupsResp.dashboardGroups.forEach(group => {
-      dashboardGroups[group.name] = [];
-    });
-
-    const dashboardsResponse = await fetch(
-      `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards`
-    );
-
-    if (!dashboardsResponse.ok) {
-      throw new Error(`Failed to fetch dashboards: ${dashboardsResponse.statusText}`);
-    }
-
-    const dashboardsResp = ListDashboardsResponse.fromJson(
-      await dashboardsResponse.json(),
-      { ignoreUnknownFields: true }
-    );
-
-    dashboardsResp.dashboards.forEach(dashboard => {
-      const groupName = dashboard.dashboardGroupName;
-
-      if (groupName && dashboardGroups[groupName]) {
-        dashboardGroups[groupName].push(dashboard.name);
-      } else {
-        // doesn't belong to any group
-        ungroupedDashboards.push(dashboard.name);
-      }
-    });
-
-    return { dashboardGroups, ungroupedDashboards };
   }
 }
