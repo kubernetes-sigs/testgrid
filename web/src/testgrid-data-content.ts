@@ -7,6 +7,8 @@ import { provide } from '@lit/context';
 import { navigateTab } from './utils/navigation.js';
 import { ListDashboardTabsResponse } from './gen/pb/api/v1/data.js';
 import { type TestGridLinkTemplate, linkContext } from './testgrid-context.js';
+import { APIController } from './controllers/api-controller.js';
+import { apiClient } from './APIClient.js';
 import '@material/mwc-tab';
 import '@material/mwc-tab-bar';
 import './testgrid-dashboard-summary.js';
@@ -51,6 +53,8 @@ export class TestgridDataContent extends LitElement {
 
   @provide({ context: linkContext })
   linkTemplate: TestGridLinkTemplate = { url: new URL('https://prow.k8s.io/') };
+
+  private tabsController = new APIController<ListDashboardTabsResponse>(this);
 
   // set the functionality when any tab is clicked on
   private onTabActivated(event: CustomEvent<{ index: number }>) {
@@ -134,15 +138,10 @@ export class TestgridDataContent extends LitElement {
   // fetch the tab names to populate the tab bar
   private async fetchTabNames() {
     try {
-      const response = await fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards/${this.dashboardName}/tabs`
+      const data = await this.tabsController.fetch(
+        `dashboard-tabs-${this.dashboardName}`,
+        () => apiClient.getDashboardTabs(this.dashboardName)
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-      const data = ListDashboardTabsResponse.fromJson(await response.json(), {
-        ignoreUnknownFields: true,
-      });
       const tabNames: string[] = ['Summary'];
       data.dashboardTabs.forEach(tab => {
         tabNames.push(tab.name);
@@ -151,7 +150,7 @@ export class TestgridDataContent extends LitElement {
       this.highlightIndex(this.tabName);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(`Could not get dashboard summaries: ${error}`);
+      console.error(`Could not get dashboard tabs: ${error}`);
     }
   }
 
