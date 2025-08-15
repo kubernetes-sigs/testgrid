@@ -6,7 +6,7 @@ import {
   ListDashboardGroupsResponse,
 } from './gen/pb/api/v1/data.js';
 import { apiClient } from './APIClient.js';
-import { navigate } from './utils/navigation.js';
+import { navigateWithContext } from './utils/navigation.js';
 import { APIController } from './controllers/api-controller.js';
 import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item.js';
@@ -126,11 +126,11 @@ export class TestgridIndex extends LitElement {
         class="grid-card ${item.type}"
         role="button"
         tabindex="0"
-        @click=${() => navigate(item.name)}
+        @click=${() => navigateWithContext(item.name, item.type)}
         @keydown=${(e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          navigate(item.name);
+          navigateWithContext(item.name, item.type);
         }
       }}
       >
@@ -144,7 +144,7 @@ export class TestgridIndex extends LitElement {
                 ${map(item.children, (child: GridItem, index: number) => html`
                   <mwc-list-item id=${index} @click=${(e: Event) => {
                     e.stopPropagation();
-                    navigate(child.name);
+                    navigateWithContext(child.name, child.type);
                   }}>
                     <p>${child.name}</p>
                   </mwc-list-item>

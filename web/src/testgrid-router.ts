@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { Router } from '@lit-labs/router';
 import './testgrid-data-content.js';
 import './testgrid-index.js';
+import './testgrid-summary.js';
 
 // Defines the type of params used for rendering components under different paths
 interface RouteParameter {
@@ -34,11 +35,11 @@ export class TestgridRouter extends LitElement {
         ></testgrid-data-content>`,
     },
     {
-      path: '/:dashboard',
+      path: '/:name',
       render: (params: RouteParameter) =>
-        html`<testgrid-data-content
-          .dashboardName=${params.dashboard}
-        ></testgrid-data-content>`,
+        html`<testgrid-summary
+          .name=${params.name}
+        ></testgrid-summary>`,
     },
     {
       path: '/',
