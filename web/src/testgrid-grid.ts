@@ -7,6 +7,8 @@ import {
   // eslint-disable-next-line camelcase
   ListRowsResponse_Row,
 } from './gen/pb/api/v1/data.js';
+import { APIController } from './controllers/api-controller.js';
+import { apiClient } from './APIClient.js';
 import './testgrid-grid-headers-block.js';
 import './testgrid-grid-row.js';
 
@@ -26,10 +28,10 @@ export class TestgridGrid extends LitElement {
   `;
 
   @property({ type: String, reflect: true })
-  dashboardName: String = '';
+  dashboardName: string = '';
 
   @property({ type: String, reflect: true })
-  tabName: String = '';
+  tabName: string = '';
 
   @state()
   // eslint-disable-next-line camelcase
@@ -37,6 +39,10 @@ export class TestgridGrid extends LitElement {
 
   @state()
   tabGridHeaders: ListHeadersResponse;
+
+  private headersController = new APIController<ListHeadersResponse>(this);
+
+  private rowsController = new APIController<ListRowsResponse>(this);
 
   /**
    * Lit-element lifecycle method.
@@ -77,15 +83,10 @@ export class TestgridGrid extends LitElement {
   private async fetchTabGridRows() {
     this.tabGridRows = [];
     try {
-      const response = await fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards/${this.dashboardName}/tabs/${this.tabName}/rows`
+      const data = await this.rowsController.fetch(
+        `tab-rows-${this.dashboardName}-${this.tabName}`,
+        () => apiClient.getTabRows(this.dashboardName, this.tabName)
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-      const data = ListRowsResponse.fromJson(await response.json(), {
-        ignoreUnknownFields: true,
-      });
       // eslint-disable-next-line camelcase
       const rows: Array<ListRowsResponse_Row> = [];
       data.rows.forEach(row => rows.push(row));
@@ -98,15 +99,10 @@ export class TestgridGrid extends LitElement {
 
   private async fetchTabGridHeaders() {
     try {
-      const response = await fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards/${this.dashboardName}/tabs/${this.tabName}/headers`
+      const data = await this.headersController.fetch(
+        `tab-headers-${this.dashboardName}-${this.tabName}`,
+        () => apiClient.getTabHeaders(this.dashboardName, this.tabName)
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-      const data = ListHeadersResponse.fromJson(await response.json(), {
-        ignoreUnknownFields: true,
-      });
       this.tabGridHeaders = data;
     } catch (error) {
       // eslint-disable-next-line no-console
