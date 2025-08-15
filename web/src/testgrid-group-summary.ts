@@ -5,7 +5,7 @@ import {
   ListDashboardSummariesResponse,
   DashboardSummary,
 } from './gen/pb/api/v1/data.js';
-import { TabStatusIcon } from './testgrid-dashboard-summary.js';
+import { getStatusIcon } from './constants/status-icons.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
 
@@ -119,7 +119,7 @@ export class TestgridGroupSummary extends LitElement {
     const rds: RenderedDashboardSummary = {
       name: summary.name,
       overallStatus: summary.overallStatus,
-      icon: TabStatusIcon.get(summary.overallStatus)!,
+      icon: getStatusIcon(summary.overallStatus),
       tabDescription: prefix,
     };
 

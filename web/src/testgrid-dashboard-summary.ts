@@ -6,6 +6,7 @@ import { Timestamp } from './gen/google/protobuf/timestamp.js';
 import { ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
+import { getStatusIcon } from './constants/status-icons.js';
 import './tab-summary.js';
 
 export interface FailingTestInfo {
@@ -55,21 +56,10 @@ export interface TabSummaryInfo {
   healthinessSummary?: HealthinessSummaryInfo;
 }
 
-// TODO: define in a shared file (dashboard group also uses this)
-export const TabStatusIcon = new Map<string, string>([
-  ['PASSING', 'done'],
-  ['FAILING', 'warning'],
-  ['FLAKY', 'remove_circle_outline'],
-  ['STALE', 'error_outline'],
-  ['BROKEN', 'broken_image'],
-  ['PENDING', 'schedule'],
-  ['ACCEPTABLE', 'add_circle_outline'],
-]);
-
 // TODO: generate the correct time representation
 function convertResponse(ts: TabSummary) {
   const tsi: TabSummaryInfo = {
-    icon: TabStatusIcon.get(ts.overallStatus)!,
+    icon: getStatusIcon(ts.overallStatus),
     name: ts.tabName,
     overallStatus: ts.overallStatus,
     detailedStatusMsg: ts.detailedStatusMessage,
