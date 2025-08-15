@@ -34,7 +34,7 @@ describe('Testgrid Router navigation', () => {
     navigate('fake-dashboard-1');
 
     await waitUntil(
-      () => element.shadowRoot!.querySelector('testgrid-data-content'),
+      () => element.shadowRoot!.querySelector('testgrid-summary'),
       'Router did not navigate to dashboard route',
       { timeout: 4000 }
     );
