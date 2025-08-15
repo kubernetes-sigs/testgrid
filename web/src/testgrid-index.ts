@@ -7,10 +7,9 @@ import {
 } from './gen/pb/api/v1/data.js';
 import { apiClient } from './APIClient.js';
 import { navigate } from './utils/navigation.js';
-import { APIController } from './controllers/api-controller.js';
-import '@material/mwc-list';
-import '@material/mwc-list/mwc-list-item.js';
-
+import '@material/web/list/list.js';
+import '@material/web/list/list-item.js';
+import { APIController } from './controllers/api-controller';
 interface GridItem {
   type: 'dashboard-group' | 'dashboard'
   name: string
@@ -140,16 +139,13 @@ export class TestgridIndex extends LitElement {
         ${item.children && item.children.length > 0 ? html`
           <div class="dashboard-tooltip">
             <div class="tooltip-content">
-              <mwc-list activatable>
+              <md-list activatable>
                 ${map(item.children, (child: GridItem, index: number) => html`
-                  <mwc-list-item id=${index} @click=${(e: Event) => {
-                    e.stopPropagation();
-                    navigate(child.name);
-                  }}>
+                  <md-list-item id=${index} @click=${() => navigate(child.name)}>
                     <p>${child.name}</p>
-                  </mwc-list-item>
+                  </md-list-item>
                 `)}
-              </mwc-list>
+              </md-list>
             </div>
           </div>
         ` : ''}
@@ -248,13 +244,13 @@ export class TestgridIndex extends LitElement {
       margin-top: 8px;
     }
 
-    .tooltip-content mwc-list {
+    .tooltip-content md-list {
       margin: 0;
       padding: 0;
       --mdc-list-item-height: 32px;
     }
 
-    .tooltip-content mwc-list-item {
+    .tooltip-content md-list-item {
       font-size: 16px;
       color: #333;
       --mdc-list-item-graphic-margin: 0;
