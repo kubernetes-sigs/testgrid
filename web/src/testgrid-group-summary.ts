@@ -6,6 +6,8 @@ import {
   DashboardSummary,
 } from './gen/pb/api/v1/data.js';
 import { TabStatusIcon } from './testgrid-dashboard-summary.js';
+import { APIController } from './controllers/api-controller.js';
+import { apiClient } from './APIClient.js';
 
 /**
  * RenderedDashboardSummary defines the dashboard summary representation required for rendering
@@ -24,6 +26,8 @@ export class TestgridGroupSummary extends LitElement {
 
   @state()
   dashboardSummaries: RenderedDashboardSummary[] = [];
+
+  private dashboardSummariesController = new APIController<ListDashboardSummariesResponse>(this);
 
   render() {
     return html`
@@ -65,14 +69,9 @@ export class TestgridGroupSummary extends LitElement {
 
   private async fetchDashboardSummaries() {
     try {
-      const response = await fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboard-groups/${this.groupName}/dashboard-summaries`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-      const data = ListDashboardSummariesResponse.fromJson(
-        await response.json(), {ignoreUnknownFields: true}
+      const data = await this.dashboardSummariesController.fetch(
+        `dashboard-summaries-${this.groupName}`,
+        () => apiClient.getDashboardSummaries(this.groupName)
       );
       const summaries: RenderedDashboardSummary[] = [];
       data.dashboardSummaries.forEach(summary =>
@@ -81,7 +80,7 @@ export class TestgridGroupSummary extends LitElement {
       this.dashboardSummaries = summaries;
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(`Could not get grid rows: ${error}`);
+      console.error(`Could not get dashboard summaries: ${error}`);
     }
   }
 
