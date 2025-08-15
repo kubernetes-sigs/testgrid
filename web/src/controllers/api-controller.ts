@@ -1,15 +1,15 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 
-export interface ApiState<T> {
+export interface APIState<T> {
   data: T | null;
   loading: boolean;
   error: Error | null;
 }
 
-export class ApiController<T> implements ReactiveController {
+export class APIController<T> implements ReactiveController {
   private host: ReactiveControllerHost;
 
-  private _state: ApiState<T> = { data: null, loading: false, error: null };
+  private _state: APIState<T> = { data: null, loading: false, error: null };
 
   private cache = new Map<string, { data: T; timestamp: number }>();
 
@@ -19,7 +19,7 @@ export class ApiController<T> implements ReactiveController {
     (this.host = host).addController(this);
   }
 
-  get state(): ApiState<T> {
+  get state(): APIState<T> {
     return this._state;
   }
 
