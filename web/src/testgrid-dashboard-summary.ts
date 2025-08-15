@@ -4,6 +4,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { Timestamp } from './gen/google/protobuf/timestamp.js';
 import { ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
+import { APIController } from './controllers/api-controller.js';
+import { apiClient } from './APIClient.js';
 import './tab-summary.js';
 
 export interface FailingTestInfo {
@@ -134,6 +136,8 @@ export class TestgridDashboardSummary extends LitElement {
   @state()
   tabSummariesInfo: Array<TabSummaryInfo> = [];
 
+  private tabSummariesController = new APIController<ListTabSummariesResponse>(this);
+
   connectedCallback(){
     // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
@@ -156,13 +160,10 @@ export class TestgridDashboardSummary extends LitElement {
   // fetch the tab summaries and tab names to populate the tab bar
   private async fetchTabSummaries() {
     try {
-      const response = await fetch(
-        `http://${process.env.API_HOST}:${process.env.API_PORT}/api/v1/dashboards/${this.dashboardName}/tab-summaries`
+      const data = await this.tabSummariesController.fetch(
+        `tab-summaries-${this.dashboardName}`,
+        () => apiClient.getTabSummaries(this.dashboardName)
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-      const data = ListTabSummariesResponse.fromJson(await response.json(), {ignoreUnknownFields: true});
       const tabSummaries: Array<TabSummaryInfo> = [];
       data.tabSummaries.forEach(ts => {
         const si = convertResponse(ts);
@@ -171,7 +172,7 @@ export class TestgridDashboardSummary extends LitElement {
       this.tabSummariesInfo = tabSummaries;
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(`Could not get dashboard summaries: ${error}`);
+      console.error(`Could not get tab summaries: ${error}`);
     }
   }
 }
