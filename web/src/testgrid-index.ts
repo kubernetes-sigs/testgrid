@@ -7,7 +7,7 @@ import {
 } from './gen/pb/api/v1/data.js';
 import { apiClient } from './APIClient.js';
 import { navigate } from './utils/navigation.js';
-import { ApiController } from './controllers/api-controller.js';
+import { APIController } from './controllers/api-controller.js';
 import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item.js';
 
@@ -19,9 +19,9 @@ interface GridItem {
 
 @customElement('testgrid-index')
 export class TestgridIndex extends LitElement {
-  private dashboardGroupsController = new ApiController<ListDashboardGroupsResponse>(this);
+  private dashboardGroupsController = new APIController<ListDashboardGroupsResponse>(this);
 
-  private dashboardsController = new ApiController<ListDashboardsResponse>(this);
+  private dashboardsController = new APIController<ListDashboardsResponse>(this);
 
   @state()
   private _dashboardGroups: Record<string, Array<string>> = {};
@@ -142,7 +142,10 @@ export class TestgridIndex extends LitElement {
             <div class="tooltip-content">
               <mwc-list activatable>
                 ${map(item.children, (child: GridItem, index: number) => html`
-                  <mwc-list-item id=${index} @click=${() => navigate(child.name)}>
+                  <mwc-list-item id=${index} @click=${(e: Event) => {
+                    e.stopPropagation();
+                    navigate(child.name);
+                  }}>
                     <p>${child.name}</p>
                   </mwc-list-item>
                 `)}
