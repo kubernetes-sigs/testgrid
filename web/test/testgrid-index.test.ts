@@ -58,7 +58,7 @@ describe('Testgrid Index page', () => {
     const tooltip = groupCard!.querySelector('.dashboard-tooltip');
     expect(tooltip).to.exist;
 
-    const listItems = tooltip!.querySelectorAll('mwc-list-item');
+    const listItems = tooltip!.querySelectorAll('md-list-item');
     expect(listItems).to.have.length(2);
 
     const dashboardTexts = Array.from(listItems).map(item =>

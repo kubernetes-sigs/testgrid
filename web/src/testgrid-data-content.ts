@@ -9,8 +9,8 @@ import { ListDashboardTabsResponse } from './gen/pb/api/v1/data.js';
 import { type TestGridLinkTemplate, linkContext } from './testgrid-context.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
-import '@material/mwc-tab';
-import '@material/mwc-tab-bar';
+import '@material/web/tabs/tabs.js';
+import '@material/web/tabs/primary-tab.js';
 import './testgrid-dashboard-summary.js';
 import './testgrid-grid.js';
 
@@ -29,10 +29,10 @@ export class TestgridDataContent extends LitElement {
       height: 100%;
     }
 
-    mwc-tab {
-      --mdc-typography-button-letter-spacing: 0;
-      --mdc-tab-horizontal-padding: 12px;
-      --mdc-typography-button-font-size: 0.8rem;
+    md-primary-tab {
+      --md-sys-typescale-label-large-size: 0.8rem;
+      --md-sys-typescale-label-large-tracking: 0;
+      padding-inline: 12px;
     }
   `;
 
@@ -58,7 +58,7 @@ export class TestgridDataContent extends LitElement {
 
   // set the functionality when any tab is clicked on
   private onTabActivated(event: CustomEvent<{ index: number }>) {
-    const tabIndex = event.detail.index;
+    const tabIndex = (event.target as any).activeTabIndex ?? (event as any).detail?.index;
 
     if (tabIndex === this.activeIndex) {
       return;
@@ -110,16 +110,16 @@ export class TestgridDataContent extends LitElement {
       // make sure we only render the tabs when there are tabs
       when(
         this.tabNames.length > 0,
-        () => html` <mwc-tab-bar
+        () => html` <md-tabs
           style="width: 100vw"
           .activeIndex=${this.activeIndex}
-          @MDCTabBar:activated="${this.onTabActivated}"
+          @change="${this.onTabActivated}"
         >
           ${map(
             this.tabNames,
-            (name: string) => html`<mwc-tab label=${name}></mwc-tab>`
+            (name: string) => html`<md-primary-tab>${name}</md-primary-tab>`
           )}
-        </mwc-tab-bar>`
+        </md-tabs>`
       )
     }`;
     return html`
