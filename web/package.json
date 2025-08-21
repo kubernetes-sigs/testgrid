@@ -16,6 +16,7 @@
     "analyze": "cem analyze --litelement",
     "start:local": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"json-server src/fake-api/data.json --routes src/fake-api/routes.json\" \"wds --config web-dev-server-local.config.mjs\"",
     "start:k8s": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --config web-dev-server-k8s.config.mjs\"",
+    "local-server":"json-server src/fake-api/data.json --routes src/fake-api/routes.json",
     "reinstall": "npm ci",
     "preinstall": "npx only-allow pnpm"
   },
@@ -73,9 +74,7 @@
     ],
     "rules": {
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error"
-      ],
+      "@typescript-eslint/no-unused-vars": "error",
       "import/no-unresolved": "off",
       "import/extensions": [
         "error",
