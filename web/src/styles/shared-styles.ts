@@ -15,6 +15,7 @@ export const sharedStyles = css`
     --tg-secondary: #9e60eb;
     --tg-border: #e0e0e0;
     --tg-border-light: #ddd;
+    --tg-border-lighter: #cbcbcb;
     --tg-surface: #fff;
     --tg-text: #333;
 
@@ -25,5 +26,7 @@ export const sharedStyles = css`
     --tg-status-flaky: #63a;
     --tg-status-unknown: #ccd;
     --tg-status-stale: #ccc;
+    --tg-status-pending: #cc8200;
+    --tg-status-acceptable: #39a2ae;
   }
 `;

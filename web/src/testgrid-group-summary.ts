@@ -8,6 +8,7 @@ import {
 import { getStatusIcon } from './constants/status-icons.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
+import { sharedStyles } from './styles/shared-styles.js';
 
 /**
  * RenderedDashboardSummary defines the dashboard summary representation required for rendering
@@ -126,7 +127,7 @@ export class TestgridGroupSummary extends LitElement {
     return rds;
   }
 
-  static styles = css`
+  static styles = [sharedStyles, css`
     body {
       font-size: var(--font-size-xs);
     }
@@ -141,41 +142,41 @@ export class TestgridGroupSummary extends LitElement {
     }
 
     thead {
-      background-color: #e0e0e0;
+      background-color: var(--tg-border);
     }
 
     table {
       border-radius: 6px;
-      border: 1px solid #cbcbcb;
+      border: 1px solid var(--tg-border-lighter);
       border-spacing: 0;
     }
 
     .PENDING {
-      color: #cc8200;
+      color: var(--tg-status-pending);
     }
 
     .PASSING {
-      color: #0c3;
+      color: var(--tg-status-pass);
     }
 
     .FAILING {
-      color: #a00;
+      color: var(--tg-status-fail);
     }
 
     .FLAKY {
-      color: #609;
+      color: var(--tg-status-flaky);
     }
 
     .ACCEPTABLE {
-      color: #39a2ae;
+      color: var(--tg-status-acceptable);
     }
 
     .STALE {
-      color: #808b96;
+      color: var(--tg-status-stale);
     }
 
     .BROKEN {
-      color: #000;
+      color: var(--tg-status-broken);
     }
-  `;
+  `];
 }
