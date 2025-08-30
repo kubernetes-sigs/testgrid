@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
+import { keyed } from 'lit/directives/keyed.js';
 import {
   ListDashboardsResponse,
   ListDashboardGroupsResponse,
@@ -115,7 +116,9 @@ export class TestgridIndex extends LitElement {
 
     return html`
       <div class="grid-container">
-        ${map(filteredItems, (item: GridItem) => TestgridIndex.renderGridItem(item))}
+        ${map(filteredItems, (item: GridItem) =>
+          keyed(item.name, TestgridIndex.renderGridItem(item))
+        )}
       </div>
     `;
   }
