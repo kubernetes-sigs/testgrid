@@ -10,6 +10,7 @@ import { navigateWithContext } from './utils/navigation.js';
 import { APIController } from './controllers/api-controller.js';
 import '@material/web/list/list.js';
 import '@material/web/list/list-item.js';
+
 interface GridItem {
   type: 'dashboard-group' | 'dashboard'
   name: string
@@ -168,7 +169,7 @@ export class TestgridIndex extends LitElement {
       width: 400px;
       max-width: 90%;
       padding: 12px 16px;
-      font-size: 16px;
+      font-size: var(--font-size-md);
       border: 2px solid #ddd;
       border-radius: 8px;
       outline: none;
@@ -256,7 +257,7 @@ export class TestgridIndex extends LitElement {
     }
 
     .tooltip-content md-list-item {
-      font-size: 16px;
+      font-size: var(--font-size-md);
       color: var(--md-sys-color-on-surface);
       --md-list-item-leading-space: 0;
     }
@@ -278,7 +279,7 @@ export class TestgridIndex extends LitElement {
     .card-title {
       text-align: center;
       margin: 0 0 8px 0;
-      font-size: 16px;
+      font-size: var(--font-size-md);
       font-weight: 600;
     }
 

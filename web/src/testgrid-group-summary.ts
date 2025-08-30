@@ -128,11 +128,11 @@ export class TestgridGroupSummary extends LitElement {
 
   static styles = css`
     body {
-      font-size: 12px;
+      font-size: var(--font-size-xs);
     }
 
     .material-icons {
-      font-size: 2em;
+      font-size: var(--font-size-icon);
     }
 
     th,

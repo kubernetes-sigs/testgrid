@@ -23,7 +23,7 @@ export class TestgridGridCell extends LitElement {
       align-content: center;
       flex-direction: column;
       box-sizing: border-box;
-      font-size: 12px;
+      font-size: var(--font-size-xs);
     }
 
     :host([status='NO_RESULT']) {
