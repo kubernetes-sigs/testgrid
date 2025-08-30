@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { map } from 'lit/directives/map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { customElement, property } from 'lit/decorators.js';
+import { sharedStyles } from './styles/shared-styles.js';
 import './testgrid-grid-row-name.js';
 import './testgrid-grid-column-header.js';
 
@@ -14,17 +15,17 @@ export interface CombinedHeader {
 
 @customElement('testgrid-grid-header-row')
 export class TestgridGridHeaderRow extends LitElement {
-  static styles = css`
+  static styles = [sharedStyles, css`
     :host {
       text-align: center;
-      font-family: Roboto, Verdana, sans-serif;
+      font-family: var(--font-family);
       display: flex;
       flex-flow: row nowrap;
       gap: 0px 2px;
       margin: 2px;
       width: fit-content;
     }
-  `;
+  `];
 
   @property() name: string;
 

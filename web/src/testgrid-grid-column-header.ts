@@ -1,12 +1,13 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { sharedStyles } from './styles/shared-styles.js';
 
 @customElement('testgrid-grid-column-header')
 export class TestgridGridColumnHeader extends LitElement {
-  static styles = css`
+  static styles = [sharedStyles, css`
     :host {
       text-align: center;
-      font-family: Roboto, Verdana, sans-serif;
+      font-family: var(--font-family);
       display: inline-block;
       background-color: #ccd;
       color: #224;
@@ -25,7 +26,7 @@ export class TestgridGridColumnHeader extends LitElement {
       width: fit-content;
       margin: auto;
     }
-  `;
+  `];
 
   @property() value: string;
 
