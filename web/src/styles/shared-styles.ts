@@ -9,5 +9,21 @@ export const sharedStyles = css`
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
     --font-size-icon: 2em;
+
+    /* Colors */
+    --tg-primary: #707df1;
+    --tg-secondary: #9e60eb;
+    --tg-border: #e0e0e0;
+    --tg-border-light: #ddd;
+    --tg-surface: #fff;
+    --tg-text: #333;
+
+    /* Test status colors */
+    --tg-status-pass: #4d7;
+    --tg-status-fail: #a24;
+    --tg-status-broken: #111;
+    --tg-status-flaky: #63a;
+    --tg-status-unknown: #ccd;
+    --tg-status-stale: #ccc;
   }
 `;
