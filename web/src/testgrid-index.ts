@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
+import { keyed } from 'lit/directives/keyed.js';
 import {
   ListDashboardsResponse,
   ListDashboardGroupsResponse,
@@ -8,8 +9,10 @@ import {
 import { apiClient } from './APIClient.js';
 import { navigateWithContext } from './utils/navigation.js';
 import { APIController } from './controllers/api-controller.js';
+import { sharedStyles } from './styles/shared-styles.js';
 import '@material/web/list/list.js';
 import '@material/web/list/list-item.js';
+
 interface GridItem {
   type: 'dashboard-group' | 'dashboard'
   name: string
@@ -114,7 +117,9 @@ export class TestgridIndex extends LitElement {
 
     return html`
       <div class="grid-container">
-        ${map(filteredItems, (item: GridItem) => TestgridIndex.renderGridItem(item))}
+        ${map(filteredItems, (item: GridItem) =>
+          keyed(item.name, TestgridIndex.renderGridItem(item))
+        )}
       </div>
     `;
   }
@@ -156,7 +161,7 @@ export class TestgridIndex extends LitElement {
     `;
   }
 
-  static styles = css`
+  static styles = [sharedStyles, css`
     /* search input */
     .search-container {
       display: flex;
@@ -168,8 +173,8 @@ export class TestgridIndex extends LitElement {
       width: 400px;
       max-width: 90%;
       padding: 12px 16px;
-      font-size: 16px;
-      border: 2px solid #ddd;
+      font-size: var(--font-size-md);
+      border: 2px solid var(--tg-border-light);
       border-radius: 8px;
       outline: none;
       transition: border-color 0.2s;
@@ -177,7 +182,7 @@ export class TestgridIndex extends LitElement {
     }
 
     .search-input:focus {
-      border-color: #707df1;
+      border-color: var(--tg-primary);
     }
 
     /* responsive grid */
@@ -203,13 +208,13 @@ export class TestgridIndex extends LitElement {
     }
 
     .grid-card.expanded {
-      border-color: #707df1;
+      border-color: var(--tg-primary);
       box-shadow: 0 2px 8px rgba(112, 125, 241, 0.3);
     }
 
     .grid-card {
       background: white;
-      border: 2px solid #e0e0e0;
+      border: 2px solid var(--tg-border);
       padding: 16px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -220,7 +225,7 @@ export class TestgridIndex extends LitElement {
     }
 
     .grid-card:hover {
-      border-color: #707df1;
+      border-color: var(--tg-primary);
       box-shadow: 0 2px 8px rgba(112, 125, 241, 0.2);
     }
 
@@ -251,23 +256,23 @@ export class TestgridIndex extends LitElement {
       margin: 0;
       padding: 0;
       --md-list-item-container-height: 32px;
-      --md-sys-color-surface: #fff; 
-      --md-sys-color-on-surface: #333;
+      --md-sys-color-surface: var(--tg-surface);
+      --md-sys-color-on-surface: var(--tg-text);
     }
 
     .tooltip-content md-list-item {
-      font-size: 16px;
+      font-size: var(--font-size-md);
       color: var(--md-sys-color-on-surface);
       --md-list-item-leading-space: 0;
     }
 
     .grid-card.dashboard-group {
-      background: #707df1;
+      background: var(--tg-primary);
       color: white;
     }
 
     .grid-card.dashboard {
-      background: #9e60eb;
+      background: var(--tg-secondary);
       color: white;
     }
 
@@ -278,7 +283,7 @@ export class TestgridIndex extends LitElement {
     .card-title {
       text-align: center;
       margin: 0 0 8px 0;
-      font-size: 16px;
+      font-size: var(--font-size-md);
       font-weight: 600;
     }
 
@@ -288,7 +293,7 @@ export class TestgridIndex extends LitElement {
         padding: 16px;
       }
     }
-  `;
+  `];
 
   private async loadData() {
     try {

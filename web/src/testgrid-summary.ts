@@ -8,6 +8,7 @@ import { apiClient } from './APIClient.js';
 import { APIController } from './controllers/api-controller.js';
 import './testgrid-group-summary.js';
 import './testgrid-data-content.js';
+import { sharedStyles } from './styles/shared-styles.js';
 
 @customElement('testgrid-summary')
 export class TestgridSummary extends LitElement {
@@ -24,7 +25,7 @@ export class TestgridSummary extends LitElement {
   @state()
   isLoading = true;
 
-  static styles = css`
+  static styles = [sharedStyles, css`
     :host {
       display: block;
       width: 100%;
@@ -36,7 +37,7 @@ export class TestgridSummary extends LitElement {
       justify-content: center;
       align-items: center;
       height: 200px;
-      font-size: 16px;
+      font-size: var(--font-size-md);
       color: #666;
     }
 
@@ -46,16 +47,16 @@ export class TestgridSummary extends LitElement {
       justify-content: center;
       align-items: center;
       height: 200px;
-      font-size: 18px;
+      font-size: var(--font-size-lg);
       color: #d32f2f;
     }
 
     .not-found-subtitle {
-      font-size: 14px;
+      font-size: var(--font-size-sm);
       color: #666;
       margin-top: 8px;
     }
-  `;
+  `];
 
   connectedCallback() {
     // eslint-disable-next-line wc/guard-super-call

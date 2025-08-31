@@ -8,6 +8,8 @@ import {
 import { getStatusIcon } from './constants/status-icons.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
+import { sharedStyles } from './styles/shared-styles.js';
+import { navigate } from './utils/navigation.js';
 
 /**
  * RenderedDashboardSummary defines the dashboard summary representation required for rendering
@@ -27,6 +29,9 @@ export class TestgridGroupSummary extends LitElement {
   @state()
   dashboardSummaries: RenderedDashboardSummary[] = [];
 
+  @state()
+  overallSummary: { totalPassing: number; totalTabs: number } = { totalPassing: 0, totalTabs: 0 };
+
   private dashboardSummariesController = new APIController<ListDashboardSummariesResponse>(this);
 
   render() {
@@ -35,29 +40,42 @@ export class TestgridGroupSummary extends LitElement {
         rel="stylesheet"
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
-      <table>
-        <thead>
-          <tr>
-            <th>Status</th>
-            <th>Dashboard</th>
-            <th>Health</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${map(
-            this.dashboardSummaries,
-            (ds: RenderedDashboardSummary) => html`
-              <tr>
-                <td>
-                  <i class="material-icons ${ds.overallStatus}">${ds.icon}</i>
-                </td>
-                <td>${ds.name}</td>
-                <td>${ds.tabDescription}</td>
-              </tr>
-            `
-          )}
-        </tbody>
-      </table>
+      <div class="container">
+        <h1>Dashboard Group ${this.groupName} :: Overview</h1>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Dashboard</th>
+              <th>Health</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td><i>OVERALL</i></td>
+              <td>${this.overallSummary.totalPassing} / ${this.overallSummary.totalTabs} Tabs Passing</td>
+            </tr>
+            ${map(
+      this.dashboardSummaries,
+      (ds: RenderedDashboardSummary) => html`
+                <tr>
+                  <td>
+                    <i class="material-icons ${ds.overallStatus}">${ds.icon}</i>
+                  </td>
+                  <td>
+                    <a href="#" @click=${(e: Event) => TestgridGroupSummary.handleDashboardClick(e, ds.name)} class="dashboard-link">
+                      ${ds.name}
+                    </a>
+                  </td>
+                  <td>${ds.tabDescription}</td>
+                </tr>
+              `
+    )}
+          </tbody>
+        </table>
+      </div>
     `;
   }
 
@@ -78,10 +96,32 @@ export class TestgridGroupSummary extends LitElement {
         summaries.push(TestgridGroupSummary.convertResponse(summary))
       );
       this.dashboardSummaries = summaries;
+      this.calculateOverallSummary(data.dashboardSummaries);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(`Could not get dashboard summaries: ${error}`);
     }
+  }
+
+  private calculateOverallSummary(summaries: DashboardSummary[]) {
+    let totalPassing = 0;
+    let totalTabs = 0;
+
+    summaries.forEach(summary => {
+      for (const [status, count] of Object.entries(summary.tabStatusCount)) {
+        if (status === 'PASSING') {
+          totalPassing += count;
+        }
+        totalTabs += count;
+      }
+    });
+
+    this.overallSummary = { totalPassing, totalTabs };
+  }
+
+  private static handleDashboardClick(event: Event, dashboardName: string) {
+    event.preventDefault();
+    navigate(dashboardName);
   }
 
   private static convertResponse(summary: DashboardSummary) {
@@ -126,13 +166,22 @@ export class TestgridGroupSummary extends LitElement {
     return rds;
   }
 
-  static styles = css`
+  static styles = [sharedStyles, css`
+    :host {
+      display: flex;
+      padding: 2rem;
+    }
+
+    .container {
+      width: 100%;
+    }
+
     body {
-      font-size: 12px;
+      font-size: var(--font-size-xs);
     }
 
     .material-icons {
-      font-size: 2em;
+      font-size: var(--font-size-icon);
     }
 
     th,
@@ -141,41 +190,50 @@ export class TestgridGroupSummary extends LitElement {
     }
 
     thead {
-      background-color: #e0e0e0;
+      background-color: var(--tg-border);
     }
 
     table {
       border-radius: 6px;
-      border: 1px solid #cbcbcb;
+      border: 1px solid var(--tg-border-lighter);
       border-spacing: 0;
+      width: 100%;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: var(--tg-surface);
+    }
+
+    .dashboard-link:hover {
+      color: var(--tg-link-hover-color);
     }
 
     .PENDING {
-      color: #cc8200;
+      color: var(--tg-status-pending);
     }
 
     .PASSING {
-      color: #0c3;
+      color: var(--tg-status-pass);
     }
 
     .FAILING {
-      color: #a00;
+      color: var(--tg-status-fail);
     }
 
     .FLAKY {
-      color: #609;
+      color: var(--tg-status-flaky);
     }
 
     .ACCEPTABLE {
-      color: #39a2ae;
+      color: var(--tg-status-acceptable);
     }
 
     .STALE {
-      color: #808b96;
+      color: var(--tg-status-stale);
     }
 
     .BROKEN {
-      color: #000;
+      color: var(--tg-status-broken);
     }
-  `;
+  `];
 }

@@ -2,11 +2,12 @@ import { LitElement, html, css } from 'lit';
 import {consume} from '@lit/context';
 import { customElement, property } from 'lit/decorators.js';
 import { linkContext, TestGridLinkTemplate } from './testgrid-context.js';
+import { sharedStyles } from './styles/shared-styles.js';
 
 @customElement('testgrid-grid-cell')
 export class TestgridGridCell extends LitElement {
   // Styling for status attribute corresponds to test_status.proto enum.
-  static styles = css`
+  static styles = [sharedStyles, css`
     :host {
       min-width: 80px;
       width: 80px;
@@ -15,14 +16,14 @@ export class TestgridGridCell extends LitElement {
       color: #000;
       background-color: #ccc;
       text-align: center;
-      font-family: Roboto, Verdana, sans-serif;
+      font-family: var(--font-family);
       font-weight: bold;
       display: flex;
       justify-content: center;
       align-content: center;
       flex-direction: column;
       box-sizing: border-box;
-      font-size: 12px;
+      font-size: var(--font-size-xs);
     }
 
     :host([status='NO_RESULT']) {
@@ -74,7 +75,7 @@ export class TestgridGridCell extends LitElement {
       width: 100%;
       height: 100%;
     }
-  `;
+  `];
 
   @property({ reflect: true, attribute: 'status' }) status: string;
 

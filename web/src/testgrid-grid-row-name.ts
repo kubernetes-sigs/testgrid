@@ -1,12 +1,13 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { sharedStyles } from './styles/shared-styles.js';
 
 @customElement('testgrid-grid-row-name')
 export class TestgridGridRowName extends LitElement{
-    static styles = css`
+    static styles = [sharedStyles, css`
     :host {
       text-align: left;
-      font-family: Roboto, Verdana, sans-serif;
+      font-family: var(--font-family);
       display: inline-block;
       background-color: #ccd;
       color: #224;
@@ -24,7 +25,7 @@ export class TestgridGridRowName extends LitElement{
       position: sticky;
       left: 0;
     }
-  `;
+  `];
 
     @property() name: String;
 
