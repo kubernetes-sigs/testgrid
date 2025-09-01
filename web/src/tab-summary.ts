@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { TabSummaryInfo } from './testgrid-dashboard-summary.js';
 import './testgrid-failures-summary.js';
 import './testgrid-healthiness-summary.js';
+import './testgrid-status-indicator.js';
 
 @customElement('tab-summary')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,17 +14,9 @@ export class TabSummary extends LitElement {
 
   render() {
     return html`
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      />
       <div class="tab">
         <div class="left">
-          <div class="icon-wrapper">
-            <i class="material-icons ${this.info?.overallStatus}"
-              >${this.info?.icon}</i
-            >
-          </div>
+          <testgrid-status-indicator status="${this.info?.overallStatus}"></testgrid-status-indicator>
         </div>
         <div class="mid">
           <div
@@ -124,39 +117,6 @@ export class TabSummary extends LitElement {
     .left {
       justify-content: center;
       text-align: center;
-    }
-
-    .material-icons {
-      font-size: 2em;
-      color: #fff;
-    }
-
-    .PENDING {
-      background-color: #cc8200;
-    }
-
-    .PASSING {
-      background-color: #0c3;
-    }
-
-    .FAILING {
-      background-color: #a00;
-    }
-
-    .FLAKY {
-      background-color: #609;
-    }
-
-    .ACCEPTABLE {
-      background-color: #39a2ae;
-    }
-
-    .STALE {
-      background-color: #808b96;
-    }
-
-    .BROKEN {
-      background-color: #000;
     }
   `;
 }

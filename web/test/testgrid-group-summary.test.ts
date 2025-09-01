@@ -24,7 +24,7 @@ describe('Testgrid Group Summary page', () => {
 
     // waiting dashboard summary entries are fully rendered
     await waitUntil(
-      () => element.shadowRoot!.querySelector('i.material-icons'),
+      () => element.shadowRoot!.querySelector('testgrid-status-indicator'),
       'Group summary did not render dashboard summaries',
       {
         timeout: 4000,

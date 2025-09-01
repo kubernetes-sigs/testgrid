@@ -6,7 +6,6 @@ import { Timestamp } from './gen/google/protobuf/timestamp.js';
 import { ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
-import { getStatusIcon } from './constants/status-icons.js';
 import './tab-summary.js';
 
 export interface FailingTestInfo {
@@ -44,7 +43,6 @@ export interface HealthinessSummaryInfo {
 }
 
 export interface TabSummaryInfo {
-  icon: string;
   name: string;
   overallStatus: string;
   detailedStatusMsg: string;
@@ -59,7 +57,6 @@ export interface TabSummaryInfo {
 // TODO: generate the correct time representation
 function convertResponse(ts: TabSummary) {
   const tsi: TabSummaryInfo = {
-    icon: getStatusIcon(ts.overallStatus),
     name: ts.tabName,
     overallStatus: ts.overallStatus,
     detailedStatusMsg: ts.detailedStatusMessage,

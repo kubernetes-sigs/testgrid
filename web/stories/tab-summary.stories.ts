@@ -60,7 +60,6 @@ const Template: Story<Args> = ({
   healthinessSummary.topFlakyTests = [FlakyTest];
 
   const tsi: TabSummaryInfo = {
-    icon,
     name: 'TEST',
     overallStatus,
     detailedStatusMsg: 'Very detailed message',

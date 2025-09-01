@@ -20,13 +20,13 @@ export const sharedStyles = css`
     --tg-text: #333;
 
     /* Test status colors */
-    --tg-status-pass: #4d7;
-    --tg-status-fail: #a24;
-    --tg-status-broken: #111;
-    --tg-status-flaky: #63a;
-    --tg-status-unknown: #ccd;
-    --tg-status-stale: #ccc;
-    --tg-status-pending: #cc8200;
-    --tg-status-acceptable: #39a2ae;
+    --tg-status-pass: #4caf50;
+    --tg-status-fail: #f44336;
+    --tg-status-broken: #e91e63;
+    --tg-status-flaky: #ff9800;
+    --tg-status-unknown: #9e9e9e;
+    --tg-status-stale: #9e9e9e;
+    --tg-status-pending: #2196f3;
+    --tg-status-acceptable: #8bc34a;
   }
 `;

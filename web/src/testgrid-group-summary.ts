@@ -5,11 +5,11 @@ import {
   ListDashboardSummariesResponse,
   DashboardSummary,
 } from './gen/pb/api/v1/data.js';
-import { getStatusIcon } from './constants/status-icons.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
 import { sharedStyles } from './styles/shared-styles.js';
 import { navigate } from './utils/navigation.js';
+import './testgrid-status-indicator.js';
 
 /**
  * RenderedDashboardSummary defines the dashboard summary representation required for rendering
@@ -17,7 +17,6 @@ import { navigate } from './utils/navigation.js';
 interface RenderedDashboardSummary {
   name: string;
   overallStatus: string;
-  icon: string;
   tabDescription: string;
 }
 
@@ -36,10 +35,6 @@ export class TestgridGroupSummary extends LitElement {
 
   render() {
     return html`
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      />
       <div class="container">
         <h1>Dashboard Group ${this.groupName} :: Overview</h1>
 
@@ -62,7 +57,7 @@ export class TestgridGroupSummary extends LitElement {
       (ds: RenderedDashboardSummary) => html`
                 <tr>
                   <td>
-                    <i class="material-icons ${ds.overallStatus}">${ds.icon}</i>
+                    <testgrid-status-indicator status="${ds.overallStatus}"></testgrid-status-indicator>
                   </td>
                   <td>
                     <a href="#" @click=${(e: Event) => TestgridGroupSummary.handleDashboardClick(e, ds.name)} class="dashboard-link">
@@ -159,7 +154,6 @@ export class TestgridGroupSummary extends LitElement {
     const rds: RenderedDashboardSummary = {
       name: summary.name,
       overallStatus: summary.overallStatus,
-      icon: getStatusIcon(summary.overallStatus),
       tabDescription: prefix,
     };
 
@@ -206,34 +200,6 @@ export class TestgridGroupSummary extends LitElement {
 
     .dashboard-link:hover {
       color: var(--tg-link-hover-color);
-    }
-
-    .PENDING {
-      color: var(--tg-status-pending);
-    }
-
-    .PASSING {
-      color: var(--tg-status-pass);
-    }
-
-    .FAILING {
-      color: var(--tg-status-fail);
-    }
-
-    .FLAKY {
-      color: var(--tg-status-flaky);
-    }
-
-    .ACCEPTABLE {
-      color: var(--tg-status-acceptable);
-    }
-
-    .STALE {
-      color: var(--tg-status-stale);
-    }
-
-    .BROKEN {
-      color: var(--tg-status-broken);
     }
   `];
 }
