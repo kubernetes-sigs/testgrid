@@ -42,7 +42,7 @@ export class TestgridGridHeaderRow extends LitElement {
           const width = `${ (header.count - 1) * (80 + 2) + 80 }px`
           const styles = {width, minWidth: width, maxWidth: width};
           return html`
-            <testgrid-grid-column-header 
+            <testgrid-grid-column-header
               style=${styleMap(styles)}
               .value="${header.value}"
             ></testgrid-grid-column-header>

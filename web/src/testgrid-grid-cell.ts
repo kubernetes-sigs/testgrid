@@ -1,5 +1,6 @@
+// testgrid-grid-cell.ts
 import { LitElement, html, css } from 'lit';
-import {consume} from '@lit/context';
+import { consume } from '@lit/context';
 import { customElement, property } from 'lit/decorators.js';
 import { linkContext, TestGridLinkTemplate } from './testgrid-context.js';
 import { sharedStyles } from './styles/shared-styles.js';
@@ -78,16 +79,91 @@ export class TestgridGridCell extends LitElement {
   `];
 
   @property({ reflect: true, attribute: 'status' }) status: string;
-
   @property() icon: string;
+  @property() rowName: string = '';
+  @property() buildId: string = '';
+  @property() dashboardName: string = '';
+  @property() tabName: string = '';
 
-  @consume({context: linkContext})
-  @property({attribute: false})
+  // store all pre-generated URLs
+  @property({ attribute: false }) openTestUrl: string = '';
+  @property({ attribute: false }) diffToolUrl: string = '';
+  @property({ attribute: false }) fileBugUrl: string = '';
+  @property({ attribute: false }) attachBugUrl: string = '';
+
+  @consume({ context: linkContext })
+  @property({ attribute: false })
   public linkTemplate?: TestGridLinkTemplate;
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Generate URLs once when the cell is created
+    this.prepareUrls();
+
+    this.addEventListener('contextmenu', this.handleRightClick);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('contextmenu', this.handleRightClick);
+  }
+
+  private prepareUrls() {
+    this.openTestUrl = this.generateTestUrl();
+    this.diffToolUrl = this.generateDiffToolUrl();
+    this.fileBugUrl = this.generateFileBugUrl();
+    this.attachBugUrl = this.generateAttachToBugUrl();
+  }
+
+  private handleRightClick = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const menuX = e.clientX;
+    const menuY = e.clientY;
+
+    const menuItems = [
+      { label: 'Open Test', url: this.openTestUrl },
+      { label: 'Open Diff Tool', url: this.diffToolUrl },
+      { label: 'File a Bug', url: this.fileBugUrl },
+      { label: 'Attach to Bug', url: this.attachBugUrl }
+    ];
+
+    this.dispatchEvent(new CustomEvent('show-context-menu', {
+      bubbles: true,
+      composed: true,
+      detail: { x: menuX, y: menuY, menuItems }
+    }));
+  };
+
+  private generateTestUrl(): string {
+
+    return `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;
+  }
+
+  private generateDiffToolUrl(): string {
+    return `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId} `;
+  }
+
+  private generateFileBugUrl(): string {
+    const linkUrl = `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;
+
+    const title = encodeURIComponent(`E2E: ${this.rowName}`);
+    const body = encodeURIComponent(`${linkUrl}
+`);
+
+    return `https://github.com/kubernetes/kubernetes/issues/new?title=${title}&body=${body}`;
+  }
+
+  private generateAttachToBugUrl(): string {
+    const searchQuery = encodeURIComponent(`is:issue is:open ${this.rowName}`);
+    return `https://github.com/kubernetes/kubernetes/issues?q=${searchQuery}`;
+  }
 
   render() {
     if (this.linkTemplate === undefined) {
-        return html `<span>${this.icon}</span>`
+      return html`<span>${this.icon}</span>`;
     }
     return html`<a href="${this.linkTemplate.url.toString()}"><span>${this.icon}</span></a>`;
   }
