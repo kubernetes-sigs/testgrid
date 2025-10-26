@@ -24,6 +24,11 @@ export class TestgridGridRow extends LitElement {
 
   // eslint-disable-next-line camelcase
   @property() rowData: ListRowsResponse_Row;
+// TODO(Mostafahassen1): Replace direct property passing with a Lit context structure.
+  @property() buildIds: string[] = [];
+  @property() dashboardName: String = '';
+
+  @property() tabName: String = '';
 
   render() {
     return html`
@@ -31,13 +36,21 @@ export class TestgridGridRow extends LitElement {
         .name="${this.rowData?.name}"
       ></testgrid-grid-row-name>
       ${map(
-        this.rowData?.cells,
-        cell =>
-          html`<testgrid-grid-cell
-            .icon="${cell.icon}"
-            .status="${TestStatus[cell.result]}"
-          ></testgrid-grid-cell>`
-      )}
+      this.rowData?.cells,
+      (cell, index) => {
+        // Use cell index to get corresponding build ID from column data
+        const buildId = this.buildIds[index+1] || '';
+
+        return html`<testgrid-grid-cell
+          .icon="${cell.icon}"
+          .status="${TestStatus[cell.result]}"
+          .rowName="${this.rowData.name}"
+          .buildId="${buildId}"
+          .dashboardName="${this.dashboardName}"
+          .tabName="${this.tabName}"
+        ></testgrid-grid-cell>`;
+      }
+    )}
     `;
   }
 }

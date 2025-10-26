@@ -34,7 +34,7 @@ export class TestgridGrid extends LitElement {
   tabName: string = '';
 
   @state()
-  // eslint-disable-next-line camelcase
+    // eslint-disable-next-line camelcase
   tabGridRows: Array<ListRowsResponse_Row> = [];
 
   @state()
@@ -59,19 +59,23 @@ export class TestgridGrid extends LitElement {
    * Invoked on each update to perform rendering tasks.
    */
   render() {
+    const buildIds = this.tabGridHeaders?.headers?.map(h => h.build) || [];
+
     return html`
       <testgrid-grid-headers-block
         .headers="${this.tabGridHeaders}"
       ></testgrid-grid-headers-block>
       ${map(
-        this.tabGridRows,
-        // eslint-disable-next-line camelcase
-        (row: ListRowsResponse_Row) =>
-          html`<testgrid-grid-row
+      this.tabGridRows,
+      (row: ListRowsResponse_Row) =>
+        html`<testgrid-grid-row
             .name="${row.name}"
             .rowData="${row}"
+            .buildIds="${buildIds}"
+            .dashboardName="${this.dashboardName}"
+            .tabName="${this.tabName}"
           ></testgrid-grid-row>`
-      )}
+    )}
     `;
   }
 
