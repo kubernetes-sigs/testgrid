@@ -166,6 +166,113 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/testgrid-context-menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TestgridContextMenu",
+          "members": [
+            {
+              "kind": "field",
+              "name": "menuItems",
+              "type": {
+                "text": "MenuItemData[]"
+              },
+              "default": "[]",
+              "attribute": "menuItems"
+            },
+            {
+              "kind": "field",
+              "name": "x",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "x"
+            },
+            {
+              "kind": "field",
+              "name": "y",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "y"
+            },
+            {
+              "kind": "method",
+              "name": "adjustPosition",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleClick"
+            }
+          ],
+          "events": [
+            {
+              "name": "menu-close",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "menuItems",
+              "type": {
+                "text": "MenuItemData[]"
+              },
+              "default": "[]",
+              "fieldName": "menuItems"
+            },
+            {
+              "name": "x",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "x"
+            },
+            {
+              "name": "y",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "y"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "testgrid-context-menu",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridContextMenu",
+          "declaration": {
+            "name": "TestgridContextMenu",
+            "module": "src/testgrid-context-menu.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "testgrid-context-menu",
+          "declaration": {
+            "name": "TestgridContextMenu",
+            "module": "src/testgrid-context-menu.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/testgrid-context.ts",
       "declarations": [
         {
@@ -516,11 +623,124 @@
             },
             {
               "kind": "field",
+              "name": "rowName",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "rowName"
+            },
+            {
+              "kind": "field",
+              "name": "buildId",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "buildId"
+            },
+            {
+              "kind": "field",
+              "name": "dashboardName",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "dashboardName"
+            },
+            {
+              "kind": "field",
+              "name": "tabName",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "tabName"
+            },
+            {
+              "kind": "field",
+              "name": "openTestUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "fileBugUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "attachBugUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
               "name": "linkTemplate",
               "type": {
                 "text": "TestGridLinkTemplate | undefined"
               },
               "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "prepareUrls",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleMenuItemClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "CustomEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "generateTestUrl",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "generateFileBugUrl",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "generateAttachToBugUrl",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getContextMenuItems",
+              "privacy": "private"
             }
           ],
           "attributes": [
@@ -537,6 +757,38 @@
                 "text": "string"
               },
               "fieldName": "icon"
+            },
+            {
+              "name": "rowName",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "rowName"
+            },
+            {
+              "name": "buildId",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "buildId"
+            },
+            {
+              "name": "dashboardName",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "dashboardName"
+            },
+            {
+              "name": "tabName",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "tabName"
             }
           ],
           "superclass": {
@@ -813,6 +1065,33 @@
                 "text": "ListRowsResponse_Row"
               },
               "attribute": "rowData"
+            },
+            {
+              "kind": "field",
+              "name": "buildIds",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "attribute": "buildIds"
+            },
+            {
+              "kind": "field",
+              "name": "dashboardName",
+              "type": {
+                "text": "String"
+              },
+              "default": "''",
+              "attribute": "dashboardName"
+            },
+            {
+              "kind": "field",
+              "name": "tabName",
+              "type": {
+                "text": "String"
+              },
+              "default": "''",
+              "attribute": "tabName"
             }
           ],
           "attributes": [
@@ -822,6 +1101,30 @@
                 "text": "ListRowsResponse_Row"
               },
               "fieldName": "rowData"
+            },
+            {
+              "name": "buildIds",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "fieldName": "buildIds"
+            },
+            {
+              "name": "dashboardName",
+              "type": {
+                "text": "String"
+              },
+              "default": "''",
+              "fieldName": "dashboardName"
+            },
+            {
+              "name": "tabName",
+              "type": {
+                "text": "String"
+              },
+              "default": "''",
+              "fieldName": "tabName"
             }
           ],
           "superclass": {
@@ -996,6 +1299,14 @@
             },
             {
               "kind": "field",
+              "name": "overallSummary",
+              "type": {
+                "text": "{ totalPassing: number; totalTabs: number }"
+              },
+              "default": "{ totalPassing: 0, totalTabs: 0 }"
+            },
+            {
+              "kind": "field",
               "name": "dashboardSummariesController",
               "privacy": "private",
               "default": "new APIController<ListDashboardSummariesResponse>(this)"
@@ -1004,6 +1315,39 @@
               "kind": "method",
               "name": "fetchDashboardSummaries",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "calculateOverallSummary",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "summaries",
+                  "type": {
+                    "text": "DashboardSummary[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleDashboardClick",
+              "privacy": "private",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                },
+                {
+                  "name": "dashboardName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -1299,6 +1643,72 @@
           "declaration": {
             "name": "TestgridRouter",
             "module": "src/testgrid-router.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/testgrid-status-indicator.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TestgridStatusIndicator",
+          "members": [
+            {
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconName",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "status",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "status"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "testgrid-status-indicator",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridStatusIndicator",
+          "declaration": {
+            "name": "TestgridStatusIndicator",
+            "module": "src/testgrid-status-indicator.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "testgrid-status-indicator",
+          "declaration": {
+            "name": "TestgridStatusIndicator",
+            "module": "src/testgrid-status-indicator.ts"
           }
         }
       ]
@@ -1943,21 +2353,42 @@
     },
     {
       "kind": "javascript-module",
-      "path": "coverage/lcov-report/block-navigation.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "coverage/lcov-report/prettify.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "coverage/lcov-report/sorter.js",
-      "declarations": [],
-      "exports": []
+      "path": "stories/testgrid-status-indicator.stories.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "AllStatuses"
+        },
+        {
+          "kind": "function",
+          "name": "InlineUsage"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-status-indicator.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AllStatuses",
+          "declaration": {
+            "name": "AllStatuses",
+            "module": "stories/testgrid-status-indicator.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InlineUsage",
+          "declaration": {
+            "name": "InlineUsage",
+            "module": "stories/testgrid-status-indicator.stories.ts"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
@@ -2501,6 +2932,45 @@
     },
     {
       "kind": "javascript-module",
+      "path": "out-tsc/stories/testgrid-status-indicator.stories.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "AllStatuses"
+        },
+        {
+          "kind": "function",
+          "name": "InlineUsage"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "out-tsc/stories/testgrid-status-indicator.stories.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AllStatuses",
+          "declaration": {
+            "name": "AllStatuses",
+            "module": "out-tsc/stories/testgrid-status-indicator.stories.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InlineUsage",
+          "declaration": {
+            "name": "InlineUsage",
+            "module": "out-tsc/stories/testgrid-status-indicator.stories.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "out-tsc/src/APIClient.js",
       "declarations": [
         {
@@ -2544,7 +3014,7 @@
         {
           "kind": "variable",
           "name": "TabSummary",
-          "default": "class TabSummary extends LitElement {\n    render() {\n        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;\n        return html `\n      <link\n        rel=\"stylesheet\"\n        href=\"https://fonts.googleapis.com/icon?family=Material+Icons\"\n      />\n      <div class=\"tab\">\n        <div class=\"left\">\n          <div class=\"icon-wrapper\">\n            <i class=\"material-icons ${(_a = this.info) === null || _a === void 0 ? void 0 : _a.overallStatus}\"\n              >${(_b = this.info) === null || _b === void 0 ? void 0 : _b.icon}</i\n            >\n          </div>\n        </div>\n        <div class=\"mid\">\n          <div\n            @click=${() => this.changeTab()}\n            @keydown=${this.handleKeyDown}\n            class=\"tab-name\"\n            tabindex=\"0\"\n            role=\"button\"\n            aria-label=\"Select tab ${(_c = this.info) === null || _c === void 0 ? void 0 : _c.name}\"\n          >\n            ${(_d = this.info) === null || _d === void 0 ? void 0 : _d.name}: ${(_e = this.info) === null || _e === void 0 ? void 0 : _e.overallStatus}\n          </div>\n          <div class=\"detailed-status\">${(_f = this.info) === null || _f === void 0 ? void 0 : _f.detailedStatusMsg}</div>\n        </div>\n        <div class=\"right\">\n          <div class=\"stats\">\n            Last update: ${(_g = this.info) === null || _g === void 0 ? void 0 : _g.lastUpdateTimestamp}\n          </div>\n          <div class=\"stats\">\n            Tests last ran: ${(_h = this.info) === null || _h === void 0 ? void 0 : _h.lastRunTimestamp}\n          </div>\n          <div class=\"stats\">\n            Last green run: ${(_j = this.info) === null || _j === void 0 ? void 0 : _j.latestGreenBuild}\n          </div>\n        </div>\n      </div>\n      ${((_k = this.info) === null || _k === void 0 ? void 0 : _k.failuresSummary) !== undefined\n            ? html `<testgrid-failures-summary .info=${this.info}>\n          </testgrid-failures-summary>`\n            : ''}\n      ${((_l = this.info) === null || _l === void 0 ? void 0 : _l.healthinessSummary) !== undefined\n            ? html `<testgrid-healthiness-summary .info=${this.info}>\n          </testgrid-healthiness-summary>`\n            : ''}\n    `;\n    }\n    /**\n     * Handles keyboard events for accessibility\n     */\n    handleKeyDown(event) {\n        if (event.key === 'Enter' || event.key === ' ') {\n            event.preventDefault();\n            this.changeTab();\n        }\n    }\n    /**\n     * Lets the data content element know that the tab changed\n     *\n     * @fires tab-changed\n     * @param tabName string\n     */\n    changeTab() {\n        var _a;\n        window.dispatchEvent(new CustomEvent('tab-changed', {\n            detail: {\n                tabName: (_a = this.info) === null || _a === void 0 ? void 0 : _a.name,\n            },\n        }));\n    }\n}"
+          "default": "class TabSummary extends LitElement {\n    render() {\n        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;\n        return html `\n      <div class=\"tab\">\n        <div class=\"left\">\n          <testgrid-status-indicator status=\"${(_a = this.info) === null || _a === void 0 ? void 0 : _a.overallStatus}\"></testgrid-status-indicator>\n        </div>\n        <div class=\"mid\">\n          <div\n            @click=${() => this.changeTab()}\n            @keydown=${this.handleKeyDown}\n            class=\"tab-name\"\n            tabindex=\"0\"\n            role=\"button\"\n            aria-label=\"Select tab ${(_b = this.info) === null || _b === void 0 ? void 0 : _b.name}\"\n          >\n            ${(_c = this.info) === null || _c === void 0 ? void 0 : _c.name}: ${(_d = this.info) === null || _d === void 0 ? void 0 : _d.overallStatus}\n          </div>\n          <div class=\"detailed-status\">${(_e = this.info) === null || _e === void 0 ? void 0 : _e.detailedStatusMsg}</div>\n        </div>\n        <div class=\"right\">\n          <div class=\"stats\">\n            Last update: ${(_f = this.info) === null || _f === void 0 ? void 0 : _f.lastUpdateTimestamp}\n          </div>\n          <div class=\"stats\">\n            Tests last ran: ${(_g = this.info) === null || _g === void 0 ? void 0 : _g.lastRunTimestamp}\n          </div>\n          <div class=\"stats\">\n            Last green run: ${(_h = this.info) === null || _h === void 0 ? void 0 : _h.latestGreenBuild}\n          </div>\n        </div>\n      </div>\n      ${((_j = this.info) === null || _j === void 0 ? void 0 : _j.failuresSummary) !== undefined\n            ? html `<testgrid-failures-summary .info=${this.info}>\n          </testgrid-failures-summary>`\n            : ''}\n      ${((_k = this.info) === null || _k === void 0 ? void 0 : _k.healthinessSummary) !== undefined\n            ? html `<testgrid-healthiness-summary .info=${this.info}>\n          </testgrid-healthiness-summary>`\n            : ''}\n    `;\n    }\n    /**\n     * Handles keyboard events for accessibility\n     */\n    handleKeyDown(event) {\n        if (event.key === 'Enter' || event.key === ' ') {\n            event.preventDefault();\n            this.changeTab();\n        }\n    }\n    /**\n     * Lets the data content element know that the tab changed\n     *\n     * @fires tab-changed\n     * @param tabName string\n     */\n    changeTab() {\n        var _a;\n        window.dispatchEvent(new CustomEvent('tab-changed', {\n            detail: {\n                tabName: (_a = this.info) === null || _a === void 0 ? void 0 : _a.name,\n            },\n        }));\n    }\n}"
         }
       ],
       "exports": [
@@ -2576,6 +3046,27 @@
           "declaration": {
             "name": "TestgridApp",
             "module": "out-tsc/src/testgrid-app.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-context-menu.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridContextMenu",
+          "default": "class TestgridContextMenu extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.menuItems = [];\n        this.x = 0;\n        this.y = 0;\n    }\n    firstUpdated() {\n        this.adjustPosition();\n    }\n    updated() {\n        this.adjustPosition();\n    }\n    adjustPosition() {\n        const rect = this.getBoundingClientRect();\n        const viewportWidth = window.innerWidth;\n        const viewportHeight = window.innerHeight;\n        let adjustedX = this.x;\n        let adjustedY = this.y;\n        if (this.x + rect.width > viewportWidth) {\n            adjustedX = viewportWidth - rect.width - 10;\n        }\n        if (this.y + rect.height > viewportHeight) {\n            adjustedY = viewportHeight - rect.height - 10;\n        }\n        this.style.left = `${adjustedX}px`;\n        this.style.top = `${adjustedY}px`;\n    }\n    render() {\n        if (!this.menuItems || this.menuItems.length === 0)\n            return html ``;\n        return html `\n      ${this.menuItems.map(item => html `\n        <a\n          class=\"menu-item\"\n          href=\"${item.url}\"\n          target=\"_blank\"\n          @click=\"${this.handleClick}\"\n        >\n          ${item.label}\n        </a>\n      `)}\n    `;\n    }\n    handleClick() {\n        this.dispatchEvent(new CustomEvent('menu-close'));\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridContextMenu",
+          "declaration": {
+            "name": "TestgridContextMenu",
+            "module": "out-tsc/src/testgrid-context-menu.js"
           }
         }
       ]
@@ -2672,7 +3163,7 @@
         {
           "kind": "variable",
           "name": "TestgridGridCell",
-          "default": "class TestgridGridCell extends LitElement {\n    render() {\n        if (this.linkTemplate === undefined) {\n            return html `<span>${this.icon}</span>`;\n        }\n        return html `<a href=\"${this.linkTemplate.url.toString()}\"><span>${this.icon}</span></a>`;\n    }\n}"
+          "default": "class TestgridGridCell extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.rowName = '';\n        this.buildId = '';\n        this.dashboardName = '';\n        this.tabName = '';\n        // store all pre-generated URLs\n        this.openTestUrl = '';\n        this.fileBugUrl = '';\n        this.attachBugUrl = '';\n    }\n    connectedCallback() {\n        super.connectedCallback();\n        // Generate URLs once when the cell is created\n        this.prepareUrls();\n    }\n    prepareUrls() {\n        this.openTestUrl = this.generateTestUrl();\n        this.fileBugUrl = this.generateFileBugUrl();\n        this.attachBugUrl = this.generateAttachToBugUrl();\n    }\n    handleMenuItemClick(e) {\n        const item = e.detail.value;\n        if (item.url) {\n            window.open(item.url, '_blank');\n        }\n    }\n    generateTestUrl() {\n        return `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;\n    }\n    generateFileBugUrl() {\n        const linkUrl = `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;\n        const title = encodeURIComponent(`E2E: ${this.rowName}`);\n        const body = encodeURIComponent(`${linkUrl}\\n`);\n        return `https://github.com/kubernetes/kubernetes/issues/new?title=${title}&body=${body}`;\n    }\n    generateAttachToBugUrl() {\n        const searchQuery = encodeURIComponent(`is:issue is:open ${this.rowName}`);\n        return `https://github.com/kubernetes/kubernetes/issues?q=${searchQuery}`;\n    }\n    getContextMenuItems() {\n        return [\n            {\n                text: 'Open Test',\n                url: this.openTestUrl\n            },\n            {\n                text: 'File a Bug',\n                url: this.fileBugUrl\n            },\n            {\n                text: 'Attach to Bug',\n                url: this.attachBugUrl\n            }\n        ];\n    }\n    render() {\n        const content = this.linkTemplate === undefined\n            ? html `<span>${this.icon}</span>`\n            : html `<a href=\"${this.linkTemplate.url.toString()}\"><span>${this.icon}</span></a>`;\n        return html `\n      <vaadin-context-menu\n        .items=\"${this.getContextMenuItems()}\"\n        @item-selected=\"${this.handleMenuItemClick}\">\n        ${content}\n      </vaadin-context-menu>\n    `;\n    }\n}"
         }
       ],
       "exports": [
@@ -2714,7 +3205,7 @@
         {
           "kind": "variable",
           "name": "TestgridGridHeaderRow",
-          "default": "class TestgridGridHeaderRow extends LitElement {\n    render() {\n        const nameStyles = { background: '#ededed', zIndex: '20' };\n        return html `\n      <testgrid-grid-row-name .name=\"${this.name}\" style=${styleMap(nameStyles)}></testgrid-grid-row-name>\n      ${map(this.combinedHeaders, header => {\n            // TODO(michelle192837): Stop hardcoding header width.\n            const width = `${(header.count - 1) * (80 + 2) + 80}px`;\n            const styles = { width, minWidth: width, maxWidth: width };\n            return html `\n            <testgrid-grid-column-header \n              style=${styleMap(styles)}\n              .value=\"${header.value}\"\n            ></testgrid-grid-column-header>\n          `;\n        })}\n    `;\n    }\n}"
+          "default": "class TestgridGridHeaderRow extends LitElement {\n    render() {\n        const nameStyles = { background: '#ededed', zIndex: '20' };\n        return html `\n      <testgrid-grid-row-name .name=\"${this.name}\" style=${styleMap(nameStyles)}></testgrid-grid-row-name>\n      ${map(this.combinedHeaders, header => {\n            // TODO(michelle192837): Stop hardcoding header width.\n            const width = `${(header.count - 1) * (80 + 2) + 80}px`;\n            const styles = { width, minWidth: width, maxWidth: width };\n            return html `\n            <testgrid-grid-column-header\n              style=${styleMap(styles)}\n              .value=\"${header.value}\"\n            ></testgrid-grid-column-header>\n          `;\n        })}\n    `;\n    }\n}"
         }
       ],
       "exports": [
@@ -2777,7 +3268,7 @@
         {
           "kind": "variable",
           "name": "TestgridGridRow",
-          "default": "class TestgridGridRow extends LitElement {\n    render() {\n        var _a, _b;\n        return html `\n      <testgrid-grid-row-name\n        .name=\"${(_a = this.rowData) === null || _a === void 0 ? void 0 : _a.name}\"\n      ></testgrid-grid-row-name>\n      ${map((_b = this.rowData) === null || _b === void 0 ? void 0 : _b.cells, cell => html `<testgrid-grid-cell\n            .icon=\"${cell.icon}\"\n            .status=\"${TestStatus[cell.result]}\"\n          ></testgrid-grid-cell>`)}\n    `;\n    }\n}"
+          "default": "class TestgridGridRow extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.buildIds = [];\n        this.dashboardName = '';\n        this.tabName = '';\n    }\n    render() {\n        var _a, _b;\n        return html `\n      <testgrid-grid-row-name\n        .name=\"${(_a = this.rowData) === null || _a === void 0 ? void 0 : _a.name}\"\n      ></testgrid-grid-row-name>\n      ${map((_b = this.rowData) === null || _b === void 0 ? void 0 : _b.cells, (cell, index) => {\n            // Use cell index to get corresponding build ID from column data\n            const buildId = this.buildIds[index + 1] || '';\n            return html `<testgrid-grid-cell\n          .icon=\"${cell.icon}\"\n          .status=\"${TestStatus[cell.result]}\"\n          .rowName=\"${this.rowData.name}\"\n          .buildId=\"${buildId}\"\n          .dashboardName=\"${this.dashboardName}\"\n          .tabName=\"${this.tabName}\"\n        ></testgrid-grid-cell>`;\n        })}\n    `;\n    }\n}"
         }
       ],
       "exports": [
@@ -2798,7 +3289,7 @@
         {
           "kind": "variable",
           "name": "TestgridGrid",
-          "default": "class TestgridGrid extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardName = '';\n        this.tabName = '';\n        this.tabGridRows = [];\n        this.headersController = new APIController(this);\n        this.rowsController = new APIController(this);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when element properties are changed.\n     */\n    willUpdate(changedProperties) {\n        if (changedProperties.has('tabName')) {\n            this.fetchTabGrid();\n        }\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `\n      <testgrid-grid-headers-block\n        .headers=\"${this.tabGridHeaders}\"\n      ></testgrid-grid-headers-block>\n      ${map(this.tabGridRows, \n        // eslint-disable-next-line camelcase\n        (row) => html `<testgrid-grid-row\n            .name=\"${row.name}\"\n            .rowData=\"${row}\"\n          ></testgrid-grid-row>`)}\n    `;\n    }\n    async fetchTabGrid() {\n        this.fetchTabGridRows();\n        this.fetchTabGridHeaders();\n    }\n    async fetchTabGridRows() {\n        this.tabGridRows = [];\n        try {\n            const data = await this.rowsController.fetch(`tab-rows-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabRows(this.dashboardName, this.tabName));\n            // eslint-disable-next-line camelcase\n            const rows = [];\n            data.rows.forEach(row => rows.push(row));\n            this.tabGridRows = rows;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid rows: ${error}`);\n        }\n    }\n    async fetchTabGridHeaders() {\n        try {\n            const data = await this.headersController.fetch(`tab-headers-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabHeaders(this.dashboardName, this.tabName));\n            this.tabGridHeaders = data;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid headers: ${error}`);\n        }\n    }\n}",
+          "default": "class TestgridGrid extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardName = '';\n        this.tabName = '';\n        this.tabGridRows = [];\n        this.headersController = new APIController(this);\n        this.rowsController = new APIController(this);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when element properties are changed.\n     */\n    willUpdate(changedProperties) {\n        if (changedProperties.has('tabName')) {\n            this.fetchTabGrid();\n        }\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        var _a, _b;\n        const buildIds = ((_b = (_a = this.tabGridHeaders) === null || _a === void 0 ? void 0 : _a.headers) === null || _b === void 0 ? void 0 : _b.map(h => h.build)) || [];\n        return html `\n      <testgrid-grid-headers-block\n        .headers=\"${this.tabGridHeaders}\"\n      ></testgrid-grid-headers-block>\n      ${map(this.tabGridRows, (row) => html `<testgrid-grid-row\n            .name=\"${row.name}\"\n            .rowData=\"${row}\"\n            .buildIds=\"${buildIds}\"\n            .dashboardName=\"${this.dashboardName}\"\n            .tabName=\"${this.tabName}\"\n          ></testgrid-grid-row>`)}\n    `;\n    }\n    async fetchTabGrid() {\n        this.fetchTabGridRows();\n        this.fetchTabGridHeaders();\n    }\n    async fetchTabGridRows() {\n        this.tabGridRows = [];\n        try {\n            const data = await this.rowsController.fetch(`tab-rows-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabRows(this.dashboardName, this.tabName));\n            // eslint-disable-next-line camelcase\n            const rows = [];\n            data.rows.forEach(row => rows.push(row));\n            this.tabGridRows = rows;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid rows: ${error}`);\n        }\n    }\n    async fetchTabGridHeaders() {\n        try {\n            const data = await this.headersController.fetch(`tab-headers-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabHeaders(this.dashboardName, this.tabName));\n            this.tabGridHeaders = data;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid headers: ${error}`);\n        }\n    }\n}",
           "description": "Class definition for `testgrid-grid` component.\nRenders the test results grid."
         }
       ],
@@ -2898,6 +3389,27 @@
     },
     {
       "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-status-indicator.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridStatusIndicator",
+          "default": "class TestgridStatusIndicator extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.status = '';\n    }\n    get iconName() {\n        return STATUS_ICONS.get(this.status) || 'help_outline';\n    }\n    render() {\n        return html `\n      <i class=\"material-icons\" aria-label=\"Status: ${this.status}\">${this.iconName}</i>\n    `;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridStatusIndicator",
+          "declaration": {
+            "name": "TestgridStatusIndicator",
+            "module": "out-tsc/src/testgrid-status-indicator.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "out-tsc/src/testgrid-summary.js",
       "declarations": [
         {
@@ -2913,93 +3425,6 @@
           "declaration": {
             "name": "TestgridSummary",
             "module": "out-tsc/src/testgrid-summary.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/constants/status-icons.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TAB_STATUS_ICONS",
-          "default": "new Map<string, string>([\n  ['PASSING', 'done'],\n  ['FAILING', 'warning'],\n  ['FLAKY', 'remove_circle_outline'],\n  ['STALE', 'error_outline'],\n  ['BROKEN', 'broken_image'],\n  ['PENDING', 'schedule'],\n  ['ACCEPTABLE', 'add_circle_outline'],\n])",
-          "description": "Shared constants for TestGrid status icons and colors"
-        },
-        {
-          "kind": "variable",
-          "name": "TAB_STATUS_COLORS",
-          "default": "new Map<string, string>([\n  ['PASSING', '#4caf50'],\n  ['FAILING', '#f44336'],\n  ['FLAKY', '#ff9800'],\n  ['STALE', '#9e9e9e'],\n  ['BROKEN', '#e91e63'],\n  ['PENDING', '#2196f3'],\n  ['ACCEPTABLE', '#8bc34a'],\n])"
-        },
-        {
-          "kind": "function",
-          "name": "getStatusIcon",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "status",
-              "type": {
-                "text": "string"
-              }
-            }
-          ],
-          "description": "Get the Material Design icon name for a given test status"
-        },
-        {
-          "kind": "function",
-          "name": "getStatusColor",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "status",
-              "type": {
-                "text": "string"
-              }
-            }
-          ],
-          "description": "Get the color for a given test status"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TAB_STATUS_ICONS",
-          "declaration": {
-            "name": "TAB_STATUS_ICONS",
-            "module": "src/constants/status-icons.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TAB_STATUS_COLORS",
-          "declaration": {
-            "name": "TAB_STATUS_COLORS",
-            "module": "src/constants/status-icons.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStatusIcon",
-          "declaration": {
-            "name": "getStatusIcon",
-            "module": "src/constants/status-icons.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStatusColor",
-          "declaration": {
-            "name": "getStatusColor",
-            "module": "src/constants/status-icons.ts"
           }
         }
       ]
@@ -3095,6 +3520,27 @@
           "declaration": {
             "name": "APIController",
             "module": "src/controllers/api-controller.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles/shared-styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "sharedStyles",
+          "default": "css`\n  :host {\n    --font-family: Roboto, Verdana, sans-serif;\n\n    --font-size-xs: 0.75rem;\n    --font-size-sm: 0.875rem;\n    --font-size-md: 1rem;\n    --font-size-lg: 1.125rem;\n    --font-size-icon: 2em;\n\n    /* Colors */\n    --tg-primary: #707df1;\n    --tg-secondary: #9e60eb;\n    --tg-border: #e0e0e0;\n    --tg-border-light: #ddd;\n    --tg-border-lighter: #cbcbcb;\n    --tg-surface: #fff;\n    --tg-text: #333;\n\n    /* Test status colors */\n    --tg-status-pass: #4caf50;\n    --tg-status-fail: #f44336;\n    --tg-status-broken: #e91e63;\n    --tg-status-flaky: #ff9800;\n    --tg-status-unknown: #9e9e9e;\n    --tg-status-stale: #9e9e9e;\n    --tg-status-pending: #2196f3;\n    --tg-status-acceptable: #8bc34a;\n  }\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "sharedStyles",
+          "declaration": {
+            "name": "sharedStyles",
+            "module": "src/styles/shared-styles.ts"
           }
         }
       ]
@@ -3226,77 +3672,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "out-tsc/src/constants/status-icons.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TAB_STATUS_ICONS",
-          "default": "new Map([\n    ['PASSING', 'done'],\n    ['FAILING', 'warning'],\n    ['FLAKY', 'remove_circle_outline'],\n    ['STALE', 'error_outline'],\n    ['BROKEN', 'broken_image'],\n    ['PENDING', 'schedule'],\n    ['ACCEPTABLE', 'add_circle_outline'],\n])",
-          "description": "Shared constants for TestGrid status icons and colors"
-        },
-        {
-          "kind": "variable",
-          "name": "TAB_STATUS_COLORS",
-          "default": "new Map([\n    ['PASSING', '#4caf50'],\n    ['FAILING', '#f44336'],\n    ['FLAKY', '#ff9800'],\n    ['STALE', '#9e9e9e'],\n    ['BROKEN', '#e91e63'],\n    ['PENDING', '#2196f3'],\n    ['ACCEPTABLE', '#8bc34a'],\n])"
-        },
-        {
-          "kind": "function",
-          "name": "getStatusIcon",
-          "parameters": [
-            {
-              "name": "status"
-            }
-          ],
-          "description": "Get the Material Design icon name for a given test status"
-        },
-        {
-          "kind": "function",
-          "name": "getStatusColor",
-          "parameters": [
-            {
-              "name": "status"
-            }
-          ],
-          "description": "Get the color for a given test status"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TAB_STATUS_ICONS",
-          "declaration": {
-            "name": "TAB_STATUS_ICONS",
-            "module": "out-tsc/src/constants/status-icons.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TAB_STATUS_COLORS",
-          "declaration": {
-            "name": "TAB_STATUS_COLORS",
-            "module": "out-tsc/src/constants/status-icons.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStatusIcon",
-          "declaration": {
-            "name": "getStatusIcon",
-            "module": "out-tsc/src/constants/status-icons.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStatusColor",
-          "declaration": {
-            "name": "getStatusColor",
-            "module": "out-tsc/src/constants/status-icons.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "out-tsc/src/controllers/api-controller.js",
       "declarations": [
         {
@@ -3360,6 +3735,27 @@
           "declaration": {
             "name": "APIController",
             "module": "out-tsc/src/controllers/api-controller.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/styles/shared-styles.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "sharedStyles",
+          "default": "css `\n  :host {\n    --font-family: Roboto, Verdana, sans-serif;\n\n    --font-size-xs: 0.75rem;\n    --font-size-sm: 0.875rem;\n    --font-size-md: 1rem;\n    --font-size-lg: 1.125rem;\n    --font-size-icon: 2em;\n\n    /* Colors */\n    --tg-primary: #707df1;\n    --tg-secondary: #9e60eb;\n    --tg-border: #e0e0e0;\n    --tg-border-light: #ddd;\n    --tg-border-lighter: #cbcbcb;\n    --tg-surface: #fff;\n    --tg-text: #333;\n\n    /* Test status colors */\n    --tg-status-pass: #4caf50;\n    --tg-status-fail: #f44336;\n    --tg-status-broken: #e91e63;\n    --tg-status-flaky: #ff9800;\n    --tg-status-unknown: #9e9e9e;\n    --tg-status-stale: #9e9e9e;\n    --tg-status-pending: #2196f3;\n    --tg-status-acceptable: #8bc34a;\n  }\n`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "sharedStyles",
+          "declaration": {
+            "name": "sharedStyles",
+            "module": "out-tsc/src/styles/shared-styles.js"
           }
         }
       ]
