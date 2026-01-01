@@ -39,8 +39,7 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
 
   plugins: [
     replace({
-      'process.env.API_HOST': '"localhost"',
-      'process.env.API_PORT': '3000',
+      'process.env.API_URL': '"http://localhost:3000"',
     }),
   ],
 

@@ -28,8 +28,7 @@ export default {
     /** Replace process.env.* with actual values */
     replace({
       preventAssignment: true,
-      'process.env.API_HOST': JSON.stringify(process.env.API_HOST || 'localhost'),
-      'process.env.API_PORT': JSON.stringify(process.env.API_PORT || '3000'),
+      'process.env.API_URL': JSON.stringify(process.env.API_URL || 'http://localhost:3000'),
     }),
     /** Resolve bare module imports */
     nodeResolve(),

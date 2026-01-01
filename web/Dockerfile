@@ -16,10 +16,8 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 # Copy source code
 COPY . .
 
-ARG API_HOST
-ARG API_PORT
-ENV API_HOST=$API_HOST
-ENV API_PORT=$API_PORT
+ARG API_URL
+ENV API_URL=$API_URL
 
 # Build the application
 RUN pnpm run build
