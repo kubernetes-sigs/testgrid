@@ -17,16 +17,16 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-WORKDIR="${HOME}/github/testgrid" # The root directory of your repository
-PROTO_DEST="${WORKDIR}/web/src/gen"
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+PROTO_DEST="${REPO_ROOT}/web/src/gen"
 
-cd "${WORKDIR}/web"
+cd "${REPO_ROOT}/web"
 
 # See https://github.com/timostamm/protobuf-ts/blob/master/MANUAL.md
-npx protoc --ts_out ${PROTO_DEST} --proto_path ${WORKDIR} --ts_opt long_type_string \
-  ${WORKDIR}/pb/custom_evaluator/custom_evaluator.proto \
-  ${WORKDIR}/pb/state/state.proto \
-  ${WORKDIR}/pb/summary/summary.proto \
-  ${WORKDIR}/pb/config/config.proto \
-  ${WORKDIR}/pb/test_status/test_status.proto \
-  ${WORKDIR}/pb/api/v1/data.proto
+npx protoc --ts_out ${PROTO_DEST} --proto_path ${REPO_ROOT}/testgrid --ts_opt long_type_string \
+  ${REPO_ROOT}/testgrid/pb/custom_evaluator/custom_evaluator.proto \
+  ${REPO_ROOT}/testgrid/pb/state/state.proto \
+  ${REPO_ROOT}/testgrid/pb/summary/summary.proto \
+  ${REPO_ROOT}/testgrid/pb/config/config.proto \
+  ${REPO_ROOT}/testgrid/pb/test_status/test_status.proto \
+  ${REPO_ROOT}/testgrid/pb/api/v1/data.proto
