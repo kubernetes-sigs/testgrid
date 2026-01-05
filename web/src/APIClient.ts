@@ -26,9 +26,8 @@ interface IAPIClient {
 class APIClient implements IAPIClient {
   private baseUrl: string;
 
-  // TODO(jbpratt): https
   constructor(
-    baseUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}`
+    baseUrl = `${process.env.API_URL}`
   ) {
     this.baseUrl = baseUrl;
   }

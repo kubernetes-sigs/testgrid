@@ -24,8 +24,7 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
 
   plugins: [
     replace({
-      'process.env.API_HOST': '"testgrid-data.k8s.io"',
-      'process.env.API_PORT': '80',
+      'process.env.API_URL': '"https://testgrid-api.prow.k8s.io"',
     }),
   ],
 
