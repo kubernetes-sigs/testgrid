@@ -16,7 +16,7 @@ describe('Testgrid Index page', () => {
     element = await fixture(html`<${tag}></${tag}>`);
   });
 
-  it('renders data and handles search', async () => {
+  it('renders dashboard groups and standalone dashboards', async () => {
     element.dashboardGroups = {
       'group-alpha': ['dashboard-1', 'dashboard-2'],
       'group-beta': ['dashboard-3']
@@ -24,25 +24,8 @@ describe('Testgrid Index page', () => {
     element.ungroupedDashboards = ['standalone-dashboard'];
     await element.updateComplete;
 
-    let cards = element.shadowRoot!.querySelectorAll('.grid-card');
+    const cards = element.shadowRoot!.querySelectorAll('.grid-card');
     expect(cards).to.have.length(3); // 2 groups + 1 standalone
-
-    const searchInput = element.shadowRoot!.querySelector('.search-input') as HTMLInputElement;
-    searchInput.value = 'alpha';
-    searchInput.dispatchEvent(new Event('input'));
-    await element.updateComplete;
-
-    cards = element.shadowRoot!.querySelectorAll('.grid-card');
-    expect(cards).to.have.length(1);
-    expect(cards[0].querySelector('.card-title')?.textContent).to.equal('group-alpha');
-
-    searchInput.value = 'STANDALONE';
-    searchInput.dispatchEvent(new Event('input'));
-    await element.updateComplete;
-
-    cards = element.shadowRoot!.querySelectorAll('.grid-card');
-    expect(cards).to.have.length(1);
-    expect(cards[0].querySelector('.card-title')?.textContent).to.equal('standalone-dashboard');
   });
 
   it('shows dashboard tooltips for groups', async () => {

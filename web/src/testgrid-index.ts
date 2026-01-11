@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { keyed } from 'lit/directives/keyed.js';
 import {
@@ -17,6 +17,7 @@ interface GridItem {
   type: 'dashboard-group' | 'dashboard'
   name: string
   children: Array<GridItem> | null
+  dashboardGroupName?: string  // Parent group name for dashboards
 }
 
 @customElement('testgrid-index')
@@ -30,9 +31,6 @@ export class TestgridIndex extends LitElement {
 
   @state()
   private _ungroupedDashboards: Array<string> = [];
-
-  @property({ type: String })
-  searchTerm = '';
 
   get dashboardGroups() {
     return this._dashboardGroups;
@@ -50,10 +48,6 @@ export class TestgridIndex extends LitElement {
     this._ungroupedDashboards = value;
   }
 
-  /**
-   * Lit-element lifecycle method.
-   * Invoked when a component is added to the document's DOM.
-   */
   connectedCallback() {
     // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
@@ -65,23 +59,7 @@ export class TestgridIndex extends LitElement {
    * Invoked on each update to perform rendering tasks.
    */
   render() {
-    return html`
-      <div class="search-container">
-        <input
-          type="text"
-          placeholder="Search dashboards and groups..."
-          .value=${this.searchTerm}
-          @input=${this.handleSearchInput}
-          class="search-input"
-        />
-      </div>
-      ${this.renderGrid()}
-    `;
-  }
-
-  private handleSearchInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.searchTerm = input.value;
+    return html`${this.renderGrid()}`;
   }
 
   // build a sorted, filtered array of dashboard groups and ungrouped dashboards
@@ -93,7 +71,8 @@ export class TestgridIndex extends LitElement {
       const children = dashboards.map(dashboardName => ({
         type: 'dashboard' as const,
         name: dashboardName,
-        children: null
+        children: null,
+        dashboardGroupName: groupName
       }));
 
       gridItems.push({
@@ -111,13 +90,11 @@ export class TestgridIndex extends LitElement {
       });
     });
 
-    const filteredItems = gridItems.filter(item =>
-      this.searchTerm === '' || item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    ).sort((a, b) => a.name.localeCompare(b.name));
+    const sortedItems = gridItems.sort((a, b) => a.name.localeCompare(b.name));
 
     return html`
       <div class="grid-container">
-        ${map(filteredItems, (item: GridItem) =>
+        ${map(sortedItems, (item: GridItem) =>
           keyed(item.name, TestgridIndex.renderGridItem(item))
         )}
       </div>
@@ -130,11 +107,11 @@ export class TestgridIndex extends LitElement {
         class="grid-card ${item.type}"
         role="button"
         tabindex="0"
-        @click=${() => navigateWithContext(item.name, item.type)}
+        @click=${() => navigateWithContext(item.name, item.type, item.dashboardGroupName)}
         @keydown=${(e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          navigateWithContext(item.name, item.type);
+          navigateWithContext(item.name, item.type, item.dashboardGroupName);
         }
       }}
       >
@@ -148,7 +125,7 @@ export class TestgridIndex extends LitElement {
                 ${map(item.children, (child: GridItem, index: number) => html`
                   <md-list-item id=${index} @click=${(e: Event) => {
                     e.stopPropagation();
-                    navigateWithContext(child.name, child.type);
+                    navigateWithContext(child.name, child.type, child.dashboardGroupName);
                   }}>
                     <p>${child.name}</p>
                   </md-list-item>
@@ -162,29 +139,6 @@ export class TestgridIndex extends LitElement {
   }
 
   static styles = [sharedStyles, css`
-    /* search input */
-    .search-container {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
-
-    .search-input {
-      width: 400px;
-      max-width: 90%;
-      padding: 12px 16px;
-      font-size: var(--font-size-md);
-      border: 2px solid var(--tg-border-light);
-      border-radius: 8px;
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-
-    .search-input:focus {
-      border-color: var(--tg-primary);
-    }
-
     /* responsive grid */
     .grid-container {
       display: grid;

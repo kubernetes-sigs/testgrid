@@ -8,7 +8,7 @@ import {
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
 import { sharedStyles } from './styles/shared-styles.js';
-import { navigate } from './utils/navigation.js';
+import { navigateWithContext } from './utils/navigation.js';
 import './testgrid-status-indicator.js';
 
 /**
@@ -60,7 +60,7 @@ export class TestgridGroupSummary extends LitElement {
                     <testgrid-status-indicator status="${ds.overallStatus}"></testgrid-status-indicator>
                   </td>
                   <td>
-                    <a href="#" @click=${(e: Event) => TestgridGroupSummary.handleDashboardClick(e, ds.name)} class="dashboard-link">
+                    <a href="#" @click=${(e: Event) => this.handleDashboardClick(e, ds.name)} class="dashboard-link">
                       ${ds.name}
                     </a>
                   </td>
@@ -114,9 +114,9 @@ export class TestgridGroupSummary extends LitElement {
     this.overallSummary = { totalPassing, totalTabs };
   }
 
-  private static handleDashboardClick(event: Event, dashboardName: string) {
+  private handleDashboardClick(event: Event, dashboardName: string) {
     event.preventDefault();
-    navigate(dashboardName);
+    navigateWithContext(dashboardName, 'dashboard', this.groupName);
   }
 
   private static convertResponse(summary: DashboardSummary) {

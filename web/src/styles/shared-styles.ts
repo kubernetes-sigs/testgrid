@@ -19,6 +19,14 @@ export const sharedStyles = css`
     --tg-surface: #fff;
     --tg-text: #333;
 
+    /* Header colors */
+    --tg-header-bg: #1a1a2e;
+    --tg-header-text: #fff;
+    --tg-header-height: 56px;
+    --tg-breadcrumb-separator: #888;
+    --tg-link-color: #707df1;
+    --tg-link-hover-color: #5a67d8;
+
     /* Test status colors */
     --tg-status-pass: #4caf50;
     --tg-status-fail: #f44336;

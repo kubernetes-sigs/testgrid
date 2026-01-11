@@ -1,16 +1,11 @@
 import { LitElement, html, css } from 'lit';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { customElement, property, state } from 'lit/decorators.js';
-import { map } from 'lit/directives/map.js';
-import { when } from 'lit/directives/when.js';
 import { provide } from '@lit/context';
 import { navigateTab } from './utils/navigation.js';
 import { ListDashboardTabsResponse } from './gen/pb/api/v1/data.js';
 import { type TestGridLinkTemplate, linkContext } from './testgrid-context.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
-import '@material/web/tabs/tabs.js';
-import '@material/web/tabs/primary-tab.js';
 import './testgrid-dashboard-summary.js';
 import './testgrid-grid.js';
 
@@ -23,16 +18,9 @@ import './testgrid-grid.js';
 export class TestgridDataContent extends LitElement {
   static styles = css`
     :host {
-      display: grid;
-      grid-template-rows: minmax(1em, auto) minmax(0, 100%);
+      display: block;
       width: 100%;
       height: 100%;
-    }
-
-    md-primary-tab {
-      --md-sys-typescale-label-large-size: 0.8rem;
-      --md-sys-typescale-label-large-tracking: 0;
-      padding-inline: 12px;
     }
   `;
 
@@ -55,23 +43,6 @@ export class TestgridDataContent extends LitElement {
   linkTemplate: TestGridLinkTemplate = { url: new URL('https://prow.k8s.io/') };
 
   private tabsController = new APIController<ListDashboardTabsResponse>(this);
-
-  // set the functionality when any tab is clicked on
-  private onTabActivated(event: CustomEvent<{ index: number }>) {
-    const tabIndex = (event.target as any).activeTabIndex ?? (event as any).detail?.index;
-
-    if (tabIndex === this.activeIndex) {
-      return;
-    }
-
-    this.tabName = this.tabNames[tabIndex];
-
-    if (this.activeIndex === 0 || tabIndex === 0) {
-      this.showTab = !this.showTab;
-    }
-    this.activeIndex = tabIndex;
-    navigateTab(this.dashboardName, this.tabName);
-  }
 
   private handleTabChanged = (evt: Event) => {
     this.tabName = (<CustomEvent>evt).detail.tabName;
@@ -106,24 +77,7 @@ export class TestgridDataContent extends LitElement {
    * Invoked on each update to perform rendering tasks.
    */
   render() {
-    const tabBar = html`${
-      // make sure we only render the tabs when there are tabs
-      when(
-        this.tabNames.length > 0,
-        () => html` <md-tabs
-          style="width: 100vw"
-          .activeIndex=${this.activeIndex}
-          @change="${this.onTabActivated}"
-        >
-          ${map(
-            this.tabNames,
-            (name: string) => html`<md-primary-tab>${name}</md-primary-tab>`
-          )}
-        </md-tabs>`
-      )
-    }`;
     return html`
-      ${tabBar}
       ${!this.showTab
         ? html`<testgrid-dashboard-summary
             .dashboardName=${this.dashboardName}
