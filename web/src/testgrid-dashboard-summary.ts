@@ -6,6 +6,7 @@ import { Timestamp } from './gen/google/protobuf/timestamp.js';
 import { ListTabSummariesResponse, TabSummary } from './gen/pb/api/v1/data.js';
 import { APIController } from './controllers/api-controller.js';
 import { apiClient } from './APIClient.js';
+import { formatDate } from './utils/date-format.js';
 import './tab-summary.js';
 
 export interface FailingTestInfo {
@@ -54,16 +55,13 @@ export interface TabSummaryInfo {
   healthinessSummary?: HealthinessSummaryInfo;
 }
 
-// TODO: generate the correct time representation
 function convertResponse(ts: TabSummary) {
   const tsi: TabSummaryInfo = {
     name: ts.tabName,
     overallStatus: ts.overallStatus,
     detailedStatusMsg: ts.detailedStatusMessage,
-    lastUpdateTimestamp: Timestamp.toDate(
-      ts.lastUpdateTimestamp!
-    ).toISOString(),
-    lastRunTimestamp: Timestamp.toDate(ts.lastRunTimestamp!).toISOString(),
+    lastUpdateTimestamp: formatDate(Timestamp.toDate(ts.lastUpdateTimestamp!)),
+    lastRunTimestamp: formatDate(Timestamp.toDate(ts.lastRunTimestamp!)),
     latestGreenBuild: ts.latestPassingBuild,
     dashboardName: ts.dashboardName,
   };
@@ -75,36 +73,36 @@ function convertResponse(ts: TabSummary) {
     tsi.failuresSummary!.failureStats = failureStats
 
     tsi.failuresSummary!.topFailingTests = [];
-    ts.failuresSummary?.topFailingTests.forEach( (test) => {
-    const failingTest: FailingTestInfo = {
-      displayName: test.displayName,
-      failCount: test.failCount,
-      passTimestamp: Timestamp.toDate(test.passTimestamp!).toISOString(),
-      failTimestamp: Timestamp.toDate(test.failTimestamp!).toISOString(),
-    }
-    tsi.failuresSummary!.topFailingTests.push(failingTest)
+    ts.failuresSummary?.topFailingTests.forEach((test) => {
+      const failingTest: FailingTestInfo = {
+        displayName: test.displayName,
+        failCount: test.failCount,
+        passTimestamp: formatDate(Timestamp.toDate(test.passTimestamp!)),
+        failTimestamp: formatDate(Timestamp.toDate(test.failTimestamp!)),
+      };
+      tsi.failuresSummary!.topFailingTests.push(failingTest);
     });
   }
 
   if (ts.healthinessSummary !== undefined) {
-    tsi.healthinessSummary = {} as HealthinessSummaryInfo
+    tsi.healthinessSummary = {} as HealthinessSummaryInfo;
     const healthinessStats: HealthinessStats = {
-      startTimestamp: Timestamp.toDate(ts.healthinessSummary!.healthinessStats!.start!).toISOString(),
-      endTimestamp: Timestamp.toDate(ts.healthinessSummary!.healthinessStats!.end!).toISOString(),
+      startTimestamp: formatDate(Timestamp.toDate(ts.healthinessSummary!.healthinessStats!.start!)),
+      endTimestamp: formatDate(Timestamp.toDate(ts.healthinessSummary!.healthinessStats!.end!)),
       numFlakyTests: ts.healthinessSummary!.healthinessStats!.numFlakyTests,
       averageFlakiness: ts.healthinessSummary!.healthinessStats!.averageFlakiness,
       previousFlakiness: ts.healthinessSummary!.healthinessStats!.previousFlakiness,
-    }
-    tsi.healthinessSummary!.healthinessStats = healthinessStats
+    };
+    tsi.healthinessSummary!.healthinessStats = healthinessStats;
 
     tsi.healthinessSummary!.topFlakyTests = [];
-    ts.healthinessSummary?.topFlakyTests.forEach( test => {
+    ts.healthinessSummary?.topFlakyTests.forEach((test) => {
       const flakyTest: FlakyTestInfo = {
         displayName: test.displayName,
         flakiness: test.flakiness,
-      }
-      tsi.healthinessSummary!.topFlakyTests.push(flakyTest)
-    })
+      };
+      tsi.healthinessSummary!.topFlakyTests.push(flakyTest);
+    });
   }
   return tsi;
 }
