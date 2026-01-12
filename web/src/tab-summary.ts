@@ -33,13 +33,16 @@ export class TabSummary extends LitElement {
         </div>
         <div class="right">
           <div class="stats">
-            Last update: ${this.info?.lastUpdateTimestamp}
+            <span class="stats-label">Updated:</span>
+            <span class="stats-value">${this.info?.lastUpdateTimestamp}</span>
           </div>
           <div class="stats">
-            Tests last ran: ${this.info?.lastRunTimestamp}
+            <span class="stats-label">Tests last ran:</span>
+            <span class="stats-value">${this.info?.lastRunTimestamp}</span>
           </div>
           <div class="stats">
-            Last green run: ${this.info?.latestGreenBuild}
+            <span class="stats-label">Last green run:</span>
+            <span class="stats-value">${this.info?.latestGreenBuild}</span>
           </div>
         </div>
       </div>
@@ -81,42 +84,78 @@ export class TabSummary extends LitElement {
   }
 
   static styles = css`
-     /* title/link in each Summary card */
-    .tab-name {
-      cursor: pointer;
-      position: relative;
-      padding: 4px 8px;
-      color: #00c;
-      text-decoration: underline;
-    }
-
     .tab {
       border: 1px solid #6b90da;
-      border-radius: 6px 6px 0 0;
+      border-radius: 6px;
       color: #000;
       display: grid;
-      grid-template-columns: 1fr 17fr 6fr;
-      margin-top: 5px;
-      overflow: hidden;
+      grid-template-columns: 40px 1fr auto;
+      gap: 8px;
+      margin: 5px;
+      padding: 8px 12px;
       align-items: center;
     }
 
-    /* title/link in each Summary card */
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mid {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
     .tab-name {
       cursor: pointer;
-      position: relative;
-      padding: 4px 8px;
-      color: #00c;
+      color: #1a0dab;
       text-decoration: underline;
+      font-weight: 500;
+      padding: 2px 0;
+    }
+
+    .tab-name:hover {
+      color: #551a8b;
+    }
+
+    .tab-name:focus {
+      outline: 2px solid #4285f4;
+      outline-offset: 2px;
+    }
+
+    .detailed-status {
+      font-size: 0.875em;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: right;
+      white-space: nowrap;
+      font-size: 0.875em;
+      color: #666;
+      padding-left: 16px;
     }
 
     .stats {
-      text-align: right;
+      display: flex;
+      justify-content: flex-end;
+      gap: 4px;
     }
 
-    .left {
-      justify-content: center;
-      text-align: center;
+    .stats-label {
+      color: #888;
+    }
+
+    .stats-value {
+      color: #333;
+      font-weight: 500;
     }
   `;
 }
