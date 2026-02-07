@@ -18,6 +18,7 @@ export const sharedStyles = css`
     --tg-border-lighter: #cbcbcb;
     --tg-surface: #fff;
     --tg-text: #333;
+    --tg-text-secondary: #666;
 
     /* Header colors */
     --tg-header-bg: #1a1a2e;
