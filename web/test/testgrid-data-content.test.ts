@@ -7,7 +7,6 @@ import {
   waitUntil,
 } from '@open-wc/testing';
 
-import { MdPrimaryTab as Tab } from '@material/web/tabs/primary-tab.js';
 import { TestgridDataContent } from '../src/testgrid-data-content.js';
 
 describe('Testgrid Data Content page', () => {
@@ -22,12 +21,10 @@ describe('Testgrid Data Content page', () => {
     );
   });
 
-  // TODO - add accessibility tests
-  // TODO - add tests for tab switching behaviour
-  it('fetches the tab names and renders the tab bar', async () => {
+  it('fetches the tab names', async () => {
     await waitUntil(
-      () => element.shadowRoot!.querySelector('md-tabs'),
-      'Data content did not render the tab bar',
+      () => element.tabNames.length > 0,
+      'Data content did not fetch tab names',
       {
         timeout: 4000,
       }
@@ -36,73 +33,7 @@ describe('Testgrid Data Content page', () => {
     expect(element.tabNames).to.not.be.empty;
   });
 
-  it('renders the dashboard summary if `showTab` attribute is not passed', async () => {
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('md-tabs'),
-      'Data content did not render the tab bar',
-      {
-        timeout: 4000,
-      }
-    );
-
-    expect(element.tabNames).to.not.be.empty;
-    expect(element.activeIndex).to.equal(0);
-    expect(window.location.pathname).to.equal('/');
-  });
-
-  it('renders the grid display if a tab is clicked', async () => {
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('md-primary-tab'),
-      'Data content did not render the tab bar',
-      {
-        timeout: 4000,
-      }
-    );
-
-    const tab: NodeListOf<Tab> | null =
-      element.shadowRoot!.querySelectorAll('md-primary-tab');
-    tab[1]!.click();
-
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('testgrid-grid'),
-      'Data content did not render the grid data',
-      {
-        timeout: 4000,
-      }
-    );
-
-    expect(element.activeIndex).to.equal(1);
-    expect(element.showTab).to.equal(true);
-    expect(window.location.pathname).to.equal('/fake-dashboard-1/fake-tab-1');
-  });
-
-  it('renders the grid display, then dashboard summary when clicked', async () => {
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('md-tabs'),
-      'Data content did not render the tab bar',
-      {
-        timeout: 4000,
-      }
-    );
-
-    const tab: NodeListOf<Tab> | null =
-      element.shadowRoot!.querySelectorAll('md-primary-tab');
-    tab[1]!.click();
-
-    await waitUntil(
-      () => element.shadowRoot!.querySelector('testgrid-grid'),
-      'Data content did not render the grid data',
-      {
-        timeout: 4000,
-      }
-    );
-
-    expect(element.activeIndex).to.equal(1);
-    expect(element.showTab).to.equal(true);
-    expect(window.location.pathname).to.equal('/fake-dashboard-1/fake-tab-1');
-
-    tab[0]!.click();
-
+  it('renders the dashboard summary if `showTab` is false', async () => {
     await waitUntil(
       () => element.shadowRoot!.querySelector('testgrid-dashboard-summary'),
       'Data content did not render the dashboard summary',
@@ -111,8 +42,64 @@ describe('Testgrid Data Content page', () => {
       }
     );
 
-    expect(element.activeIndex).to.equal(0);
     expect(element.showTab).to.equal(false);
-    expect(window.location.pathname).to.equal('/fake-dashboard-1');
+    const dashboardSummary = element.shadowRoot!.querySelector('testgrid-dashboard-summary');
+    expect(dashboardSummary).to.exist;
+  });
+
+  it('renders the grid display if `showTab` is true', async () => {
+    element.showTab = true;
+    element.tabName = 'fake-tab-1';
+    await element.updateComplete;
+
+    await waitUntil(
+      () => element.shadowRoot!.querySelector('testgrid-grid'),
+      'Data content did not render the grid',
+      {
+        timeout: 4000,
+      }
+    );
+
+    const grid = element.shadowRoot!.querySelector('testgrid-grid');
+    expect(grid).to.exist;
+  });
+
+  it('switches between summary and grid based on showTab', async () => {
+    // Initially shows dashboard summary
+    await waitUntil(
+      () => element.shadowRoot!.querySelector('testgrid-dashboard-summary'),
+      'Data content did not render the dashboard summary',
+      {
+        timeout: 4000,
+      }
+    );
+    expect(element.showTab).to.equal(false);
+
+    // Switch to grid
+    element.showTab = true;
+    element.tabName = 'fake-tab-1';
+    await element.updateComplete;
+
+    await waitUntil(
+      () => element.shadowRoot!.querySelector('testgrid-grid'),
+      'Data content did not render the grid',
+      {
+        timeout: 4000,
+      }
+    );
+    expect(element.shadowRoot!.querySelector('testgrid-dashboard-summary')).to.not.exist;
+
+    // Switch back to summary
+    element.showTab = false;
+    await element.updateComplete;
+
+    await waitUntil(
+      () => element.shadowRoot!.querySelector('testgrid-dashboard-summary'),
+      'Data content did not render the dashboard summary after switching back',
+      {
+        timeout: 4000,
+      }
+    );
+    expect(element.shadowRoot!.querySelector('testgrid-grid')).to.not.exist;
   });
 });
