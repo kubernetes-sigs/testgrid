@@ -6,6 +6,7 @@ import terser from '@rollup/plugin-terser';
 import { generateSW } from 'rollup-plugin-workbox';
 import path from 'path';
 import replace from '@rollup/plugin-replace';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: 'index.html',
@@ -32,6 +33,15 @@ export default {
     }),
     /** Resolve bare module imports */
     nodeResolve(),
+    /** Process CSS with PostCSS (Tailwind, postcss-lit) */
+    postcss({
+      config: {
+        path: './postcss.config.cjs'
+      },
+      extract: false,      // Don't extract to separate file
+      inject: false,       // Don't inject into head
+      minimize: true,      // Minify in production
+    }),
     /** Minify JS */
     terser(),
     /** Bundle assets references via import.meta.url */
