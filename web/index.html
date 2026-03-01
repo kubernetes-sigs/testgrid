@@ -4,7 +4,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Put your description here.">
+  <meta name="Description" content="TestGrid - Kubernetes Test Results Dashboard">
+
+  <!-- Theme initialization - must be blocking to prevent FOUC -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var isDark = stored === 'dark' || (!stored && prefersDark);
+      if (stored !== 'light') {
+        // Only add dark class if dark mode should be active
+        // This check handles: stored='dark', or stored=null/system with prefersDark
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <base href="/">
 
