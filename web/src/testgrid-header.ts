@@ -70,6 +70,7 @@ export class TestgridHeader extends LitElement {
         <div class="header-content">
           <div class="header-left">
             <a href="/" class="logo" @click=${this.handleLogoClick}>
+              <img src="/public/kubernetes-logo.svg" alt="Kubernetes" class="logo-icon" />
               <span class="logo-text">TestGrid</span>
             </a>
             <nav class="breadcrumbs" aria-label="Breadcrumb">
@@ -270,6 +271,11 @@ export class TestgridHeader extends LitElement {
 
     .logo:hover {
       opacity: 0.9;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
     }
 
     .search-icon {
