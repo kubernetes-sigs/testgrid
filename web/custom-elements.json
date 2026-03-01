@@ -4,6 +4,594 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "stories/tab-summary.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Passing"
+        },
+        {
+          "kind": "variable",
+          "name": "Flaky"
+        },
+        {
+          "kind": "variable",
+          "name": "Failing"
+        },
+        {
+          "kind": "variable",
+          "name": "Stale"
+        },
+        {
+          "kind": "variable",
+          "name": "Broken"
+        },
+        {
+          "kind": "variable",
+          "name": "Pending"
+        },
+        {
+          "kind": "variable",
+          "name": "Acceptable"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Passing",
+          "declaration": {
+            "name": "Passing",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Flaky",
+          "declaration": {
+            "name": "Flaky",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Failing",
+          "declaration": {
+            "name": "Failing",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Stale",
+          "declaration": {
+            "name": "Stale",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Broken",
+          "declaration": {
+            "name": "Broken",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Pending",
+          "declaration": {
+            "name": "Pending",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Acceptable",
+          "declaration": {
+            "name": "Acceptable",
+            "module": "stories/tab-summary.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-grid-cell.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "NoResult"
+        },
+        {
+          "kind": "variable",
+          "name": "Pass"
+        },
+        {
+          "kind": "variable",
+          "name": "PassWithErrors"
+        },
+        {
+          "kind": "variable",
+          "name": "PassWithSkips"
+        },
+        {
+          "kind": "variable",
+          "name": "Running"
+        },
+        {
+          "kind": "variable",
+          "name": "CategorizedAbort"
+        },
+        {
+          "kind": "variable",
+          "name": "Unknown"
+        },
+        {
+          "kind": "variable",
+          "name": "Cancel"
+        },
+        {
+          "kind": "variable",
+          "name": "Blocked"
+        },
+        {
+          "kind": "variable",
+          "name": "TimedOut"
+        },
+        {
+          "kind": "variable",
+          "name": "CategorizedFail"
+        },
+        {
+          "kind": "variable",
+          "name": "BuildFail"
+        },
+        {
+          "kind": "variable",
+          "name": "Fail"
+        },
+        {
+          "kind": "variable",
+          "name": "Flaky"
+        },
+        {
+          "kind": "variable",
+          "name": "ToolFail"
+        },
+        {
+          "kind": "variable",
+          "name": "BuildPassed"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "NoResult",
+          "declaration": {
+            "name": "NoResult",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Pass",
+          "declaration": {
+            "name": "Pass",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PassWithErrors",
+          "declaration": {
+            "name": "PassWithErrors",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PassWithSkips",
+          "declaration": {
+            "name": "PassWithSkips",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Running",
+          "declaration": {
+            "name": "Running",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CategorizedAbort",
+          "declaration": {
+            "name": "CategorizedAbort",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Unknown",
+          "declaration": {
+            "name": "Unknown",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Cancel",
+          "declaration": {
+            "name": "Cancel",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Blocked",
+          "declaration": {
+            "name": "Blocked",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TimedOut",
+          "declaration": {
+            "name": "TimedOut",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CategorizedFail",
+          "declaration": {
+            "name": "CategorizedFail",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BuildFail",
+          "declaration": {
+            "name": "BuildFail",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Fail",
+          "declaration": {
+            "name": "Fail",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Flaky",
+          "declaration": {
+            "name": "Flaky",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ToolFail",
+          "declaration": {
+            "name": "ToolFail",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BuildPassed",
+          "declaration": {
+            "name": "BuildPassed",
+            "module": "stories/testgrid-grid-cell.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-grid-column-header.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Empty"
+        },
+        {
+          "kind": "variable",
+          "name": "Short"
+        },
+        {
+          "kind": "variable",
+          "name": "Long"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-grid-column-header.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Empty",
+          "declaration": {
+            "name": "Empty",
+            "module": "stories/testgrid-grid-column-header.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Short",
+          "declaration": {
+            "name": "Short",
+            "module": "stories/testgrid-grid-column-header.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Long",
+          "declaration": {
+            "name": "Long",
+            "module": "stories/testgrid-grid-column-header.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-grid-row-name.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Empty"
+        },
+        {
+          "kind": "variable",
+          "name": "Short"
+        },
+        {
+          "kind": "variable",
+          "name": "Long"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-grid-row-name.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Empty",
+          "declaration": {
+            "name": "Empty",
+            "module": "stories/testgrid-grid-row-name.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Short",
+          "declaration": {
+            "name": "Short",
+            "module": "stories/testgrid-grid-row-name.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Long",
+          "declaration": {
+            "name": "Long",
+            "module": "stories/testgrid-grid-row-name.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-grid.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Grid"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-grid.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Grid",
+          "declaration": {
+            "name": "Grid",
+            "module": "stories/testgrid-grid.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-group-summary.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "DashboardGroup"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-group-summary.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DashboardGroup",
+          "declaration": {
+            "name": "DashboardGroup",
+            "module": "stories/testgrid-group-summary.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "App"
+        },
+        {
+          "kind": "function",
+          "name": "Dashboards",
+          "parameters": [
+            {
+              "name": "{\n  backgroundColor = 'white',\n}",
+              "type": {
+                "text": "ArgTypes"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "DashboardGroups",
+          "parameters": [
+            {
+              "name": "{\n  backgroundColor = 'white',\n}",
+              "type": {
+                "text": "ArgTypes"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "RespectiveDashboards",
+          "parameters": [
+            {
+              "name": "{\n  backgroundColor = 'white',\n}",
+              "type": {
+                "text": "ArgTypes"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "App",
+          "declaration": {
+            "name": "App",
+            "module": "stories/testgrid-index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Dashboards",
+          "declaration": {
+            "name": "Dashboards",
+            "module": "stories/testgrid-index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DashboardGroups",
+          "declaration": {
+            "name": "DashboardGroups",
+            "module": "stories/testgrid-index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RespectiveDashboards",
+          "declaration": {
+            "name": "RespectiveDashboards",
+            "module": "stories/testgrid-index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "stories/testgrid-status-indicator.stories.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "AllStatuses"
+        },
+        {
+          "kind": "function",
+          "name": "InlineUsage"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "stories/testgrid-status-indicator.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AllStatuses",
+          "declaration": {
+            "name": "AllStatuses",
+            "module": "stories/testgrid-status-indicator.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InlineUsage",
+          "declaration": {
+            "name": "InlineUsage",
+            "module": "stories/testgrid-status-indicator.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/APIClient.ts",
       "declarations": [
         {
@@ -1889,594 +2477,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "stories/tab-summary.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Passing"
-        },
-        {
-          "kind": "variable",
-          "name": "Flaky"
-        },
-        {
-          "kind": "variable",
-          "name": "Failing"
-        },
-        {
-          "kind": "variable",
-          "name": "Stale"
-        },
-        {
-          "kind": "variable",
-          "name": "Broken"
-        },
-        {
-          "kind": "variable",
-          "name": "Pending"
-        },
-        {
-          "kind": "variable",
-          "name": "Acceptable"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Passing",
-          "declaration": {
-            "name": "Passing",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Flaky",
-          "declaration": {
-            "name": "Flaky",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Failing",
-          "declaration": {
-            "name": "Failing",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Stale",
-          "declaration": {
-            "name": "Stale",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Broken",
-          "declaration": {
-            "name": "Broken",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Pending",
-          "declaration": {
-            "name": "Pending",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Acceptable",
-          "declaration": {
-            "name": "Acceptable",
-            "module": "stories/tab-summary.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-grid-cell.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "NoResult"
-        },
-        {
-          "kind": "variable",
-          "name": "Pass"
-        },
-        {
-          "kind": "variable",
-          "name": "PassWithErrors"
-        },
-        {
-          "kind": "variable",
-          "name": "PassWithSkips"
-        },
-        {
-          "kind": "variable",
-          "name": "Running"
-        },
-        {
-          "kind": "variable",
-          "name": "CategorizedAbort"
-        },
-        {
-          "kind": "variable",
-          "name": "Unknown"
-        },
-        {
-          "kind": "variable",
-          "name": "Cancel"
-        },
-        {
-          "kind": "variable",
-          "name": "Blocked"
-        },
-        {
-          "kind": "variable",
-          "name": "TimedOut"
-        },
-        {
-          "kind": "variable",
-          "name": "CategorizedFail"
-        },
-        {
-          "kind": "variable",
-          "name": "BuildFail"
-        },
-        {
-          "kind": "variable",
-          "name": "Fail"
-        },
-        {
-          "kind": "variable",
-          "name": "Flaky"
-        },
-        {
-          "kind": "variable",
-          "name": "ToolFail"
-        },
-        {
-          "kind": "variable",
-          "name": "BuildPassed"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "NoResult",
-          "declaration": {
-            "name": "NoResult",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Pass",
-          "declaration": {
-            "name": "Pass",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "PassWithErrors",
-          "declaration": {
-            "name": "PassWithErrors",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "PassWithSkips",
-          "declaration": {
-            "name": "PassWithSkips",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Running",
-          "declaration": {
-            "name": "Running",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CategorizedAbort",
-          "declaration": {
-            "name": "CategorizedAbort",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Unknown",
-          "declaration": {
-            "name": "Unknown",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Cancel",
-          "declaration": {
-            "name": "Cancel",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Blocked",
-          "declaration": {
-            "name": "Blocked",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TimedOut",
-          "declaration": {
-            "name": "TimedOut",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CategorizedFail",
-          "declaration": {
-            "name": "CategorizedFail",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BuildFail",
-          "declaration": {
-            "name": "BuildFail",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Fail",
-          "declaration": {
-            "name": "Fail",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Flaky",
-          "declaration": {
-            "name": "Flaky",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ToolFail",
-          "declaration": {
-            "name": "ToolFail",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BuildPassed",
-          "declaration": {
-            "name": "BuildPassed",
-            "module": "stories/testgrid-grid-cell.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-grid-column-header.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Empty"
-        },
-        {
-          "kind": "variable",
-          "name": "Short"
-        },
-        {
-          "kind": "variable",
-          "name": "Long"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-grid-column-header.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Empty",
-          "declaration": {
-            "name": "Empty",
-            "module": "stories/testgrid-grid-column-header.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Short",
-          "declaration": {
-            "name": "Short",
-            "module": "stories/testgrid-grid-column-header.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Long",
-          "declaration": {
-            "name": "Long",
-            "module": "stories/testgrid-grid-column-header.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-grid-row-name.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Empty"
-        },
-        {
-          "kind": "variable",
-          "name": "Short"
-        },
-        {
-          "kind": "variable",
-          "name": "Long"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-grid-row-name.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Empty",
-          "declaration": {
-            "name": "Empty",
-            "module": "stories/testgrid-grid-row-name.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Short",
-          "declaration": {
-            "name": "Short",
-            "module": "stories/testgrid-grid-row-name.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Long",
-          "declaration": {
-            "name": "Long",
-            "module": "stories/testgrid-grid-row-name.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-grid.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Grid"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-grid.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Grid",
-          "declaration": {
-            "name": "Grid",
-            "module": "stories/testgrid-grid.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-group-summary.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "DashboardGroup"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-group-summary.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DashboardGroup",
-          "declaration": {
-            "name": "DashboardGroup",
-            "module": "stories/testgrid-group-summary.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "App"
-        },
-        {
-          "kind": "function",
-          "name": "Dashboards",
-          "parameters": [
-            {
-              "name": "{\n  backgroundColor = 'white',\n}",
-              "type": {
-                "text": "ArgTypes"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "DashboardGroups",
-          "parameters": [
-            {
-              "name": "{\n  backgroundColor = 'white',\n}",
-              "type": {
-                "text": "ArgTypes"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "RespectiveDashboards",
-          "parameters": [
-            {
-              "name": "{\n  backgroundColor = 'white',\n}",
-              "type": {
-                "text": "ArgTypes"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "App",
-          "declaration": {
-            "name": "App",
-            "module": "stories/testgrid-index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Dashboards",
-          "declaration": {
-            "name": "Dashboards",
-            "module": "stories/testgrid-index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DashboardGroups",
-          "declaration": {
-            "name": "DashboardGroups",
-            "module": "stories/testgrid-index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RespectiveDashboards",
-          "declaration": {
-            "name": "RespectiveDashboards",
-            "module": "stories/testgrid-index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "stories/testgrid-status-indicator.stories.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "AllStatuses"
-        },
-        {
-          "kind": "function",
-          "name": "InlineUsage"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "stories/testgrid-status-indicator.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "AllStatuses",
-          "declaration": {
-            "name": "AllStatuses",
-            "module": "stories/testgrid-status-indicator.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "InlineUsage",
-          "declaration": {
-            "name": "InlineUsage",
-            "module": "stories/testgrid-status-indicator.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "out-tsc/src/APIClient.js",
       "declarations": [
         {
@@ -2816,7 +2816,7 @@
         {
           "kind": "variable",
           "name": "TestgridHeader",
-          "default": "class TestgridHeader extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.navigationState = defaultNavigationState;\n        this.searchValue = '';\n        this.searchResults = [];\n        this.showResults = false;\n        this.dashboards = null;\n        this.handleOutsideClick = (e) => {\n            const target = e.target;\n            if (target && !this.contains(target)) {\n                this.showResults = false;\n            }\n        };\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.loadDashboards();\n        document.addEventListener('click', this.handleOutsideClick);\n    }\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        document.removeEventListener('click', this.handleOutsideClick);\n    }\n    async loadDashboards() {\n        try {\n            this.dashboards = await apiClient.getDashboards();\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error('Failed to load dashboards for search:', error);\n        }\n    }\n    render() {\n        return html `\n      <header class=\"header\">\n        <div class=\"header-content\">\n          <div class=\"header-left\">\n            <a href=\"/\" class=\"logo\" @click=${this.handleLogoClick}>\n              <span class=\"logo-text\">TestGrid</span>\n            </a>\n            <nav class=\"breadcrumbs\" aria-label=\"Breadcrumb\">\n              ${map(this.navigationState.breadcrumbs, (item, index) => this.renderBreadcrumb(item, index, this.navigationState.breadcrumbs.length))}\n            </nav>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <div class=\"search-wrapper\">\n                <span class=\"search-icon\">search</span>\n                <input\n                  type=\"text\"\n                  class=\"search-input\"\n                  placeholder=\"Search dashboards and tabs...\"\n                  .value=${this.searchValue}\n                  @input=${this.handleSearchInput}\n                  @focus=${this.handleSearchFocus}\n                  @keydown=${this.handleSearchKeydown}\n                />\n              </div>\n              ${this.showResults && this.searchValue.length > 0 ? this.renderSearchResults() : nothing}\n            </div>\n            <theme-toggle></theme-toggle>\n          </div>\n        </div>\n      </header>\n    `;\n    }\n    renderSearchResults() {\n        if (this.searchResults.length === 0) {\n            return html `\n        <div class=\"search-results\">\n          <div class=\"search-result-empty\">No results found</div>\n        </div>\n      `;\n        }\n        return html `\n      <div class=\"search-results\">\n        ${map(this.searchResults, (result) => html `\n          <button\n            class=\"search-result-item\"\n            @click=${() => this.handleResultClick(result)}\n          >\n            <span class=\"result-name\">${result.name}</span>\n            ${result.dashboardGroupName ? html `<span class=\"result-parent\">in ${result.dashboardGroupName}</span>` : nothing}\n          </button>\n        `)}\n      </div>\n    `;\n    }\n    renderBreadcrumb(item, index, total) {\n        // Skip \"index\" type - TestGrid logo serves as home link\n        if (item.type === 'index') {\n            return '';\n        }\n        const isLast = index === total - 1;\n        const isFirst = index === 1; // First after home\n        return html `\n      ${!isFirst ? html `<span class=\"separator\">/</span>` : ''}\n      ${isLast\n            ? html `<span class=\"breadcrumb-current\">${item.label}</span>`\n            : html `<a\n            href=\"${item.path}\"\n            class=\"breadcrumb-link\"\n            @click=${(e) => this.handleBreadcrumbClick(e, item)}\n          >${item.label}</a>`}\n    `;\n    }\n    // eslint-disable-next-line class-methods-use-this\n    handleLogoClick(e) {\n        e.preventDefault();\n        window.history.pushState(null, '', '/');\n        window.dispatchEvent(new CustomEvent('location-changed'));\n    }\n    // eslint-disable-next-line class-methods-use-this\n    handleBreadcrumbClick(e, item) {\n        e.preventDefault();\n        const historyState = {\n            type: item.type === 'group' ? 'dashboard-group' : 'dashboard',\n            dashboardGroupName: item.dashboardGroupName\n        };\n        window.history.pushState(historyState, '', item.path);\n        window.dispatchEvent(new CustomEvent('location-changed'));\n    }\n    handleSearchInput(e) {\n        const input = e.target;\n        this.searchValue = input.value;\n        this.performSearch(this.searchValue);\n    }\n    handleSearchFocus() {\n        if (this.searchValue.length > 0) {\n            this.showResults = true;\n        }\n    }\n    handleSearchKeydown(e) {\n        if (e.key === 'Escape') {\n            this.showResults = false;\n        }\n        else if (e.key === 'Enter' && this.searchResults.length > 0) {\n            this.handleResultClick(this.searchResults[0]);\n        }\n    }\n    performSearch(query) {\n        if (!this.dashboards || query.length === 0) {\n            this.searchResults = [];\n            this.showResults = false;\n            return;\n        }\n        const lowerQuery = query.toLowerCase();\n        const results = [];\n        // Search dashboards\n        for (const dashboard of this.dashboards.dashboards) {\n            if (dashboard.name.toLowerCase().includes(lowerQuery)) {\n                results.push({\n                    name: dashboard.name,\n                    type: 'dashboard',\n                    dashboardGroupName: dashboard.dashboardGroupName || undefined\n                });\n            }\n        }\n        // Sort by name\n        results.sort((a, b) => a.name.localeCompare(b.name));\n        this.searchResults = results;\n        this.showResults = true;\n    }\n    handleResultClick(result) {\n        this.showResults = false;\n        this.searchValue = '';\n        navigateWithContext(result.name, 'dashboard', result.dashboardGroupName);\n    }\n}",
+          "default": "class TestgridHeader extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.navigationState = defaultNavigationState;\n        this.searchValue = '';\n        this.searchResults = [];\n        this.showResults = false;\n        this.dashboards = null;\n        this.handleOutsideClick = (e) => {\n            const target = e.target;\n            if (target && !this.contains(target)) {\n                this.showResults = false;\n            }\n        };\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.loadDashboards();\n        document.addEventListener('click', this.handleOutsideClick);\n    }\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        document.removeEventListener('click', this.handleOutsideClick);\n    }\n    async loadDashboards() {\n        try {\n            this.dashboards = await apiClient.getDashboards();\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error('Failed to load dashboards for search:', error);\n        }\n    }\n    render() {\n        return html `\n      <header class=\"header\">\n        <div class=\"header-content\">\n          <div class=\"header-left\">\n            <a href=\"/\" class=\"logo\" @click=${this.handleLogoClick}>\n              <img src=\"/public/kubernetes-logo.svg\" alt=\"Kubernetes\" class=\"logo-icon\" />\n              <span class=\"logo-text\">TestGrid</span>\n            </a>\n            <nav class=\"breadcrumbs\" aria-label=\"Breadcrumb\">\n              ${map(this.navigationState.breadcrumbs, (item, index) => this.renderBreadcrumb(item, index, this.navigationState.breadcrumbs.length))}\n            </nav>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <div class=\"search-wrapper\">\n                <span class=\"search-icon\">search</span>\n                <input\n                  type=\"text\"\n                  class=\"search-input\"\n                  placeholder=\"Search dashboards and tabs...\"\n                  .value=${this.searchValue}\n                  @input=${this.handleSearchInput}\n                  @focus=${this.handleSearchFocus}\n                  @keydown=${this.handleSearchKeydown}\n                />\n              </div>\n              ${this.showResults && this.searchValue.length > 0 ? this.renderSearchResults() : nothing}\n            </div>\n          </div>\n        </div>\n      </header>\n    `;\n    }\n    renderSearchResults() {\n        if (this.searchResults.length === 0) {\n            return html `\n        <div class=\"search-results\">\n          <div class=\"search-result-empty\">No results found</div>\n        </div>\n      `;\n        }\n        return html `\n      <div class=\"search-results\">\n        ${map(this.searchResults, (result) => html `\n          <button\n            class=\"search-result-item\"\n            @click=${() => this.handleResultClick(result)}\n          >\n            <span class=\"result-name\">${result.name}</span>\n            ${result.dashboardGroupName ? html `<span class=\"result-parent\">in ${result.dashboardGroupName}</span>` : nothing}\n          </button>\n        `)}\n      </div>\n    `;\n    }\n    renderBreadcrumb(item, index, total) {\n        // Skip \"index\" type - TestGrid logo serves as home link\n        if (item.type === 'index') {\n            return '';\n        }\n        const isLast = index === total - 1;\n        const isFirst = index === 1; // First after home\n        return html `\n      ${!isFirst ? html `<span class=\"separator\">/</span>` : ''}\n      ${isLast\n            ? html `<span class=\"breadcrumb-current\">${item.label}</span>`\n            : html `<a\n            href=\"${item.path}\"\n            class=\"breadcrumb-link\"\n            @click=${(e) => this.handleBreadcrumbClick(e, item)}\n          >${item.label}</a>`}\n    `;\n    }\n    // eslint-disable-next-line class-methods-use-this\n    handleLogoClick(e) {\n        e.preventDefault();\n        window.history.pushState(null, '', '/');\n        window.dispatchEvent(new CustomEvent('location-changed'));\n    }\n    // eslint-disable-next-line class-methods-use-this\n    handleBreadcrumbClick(e, item) {\n        e.preventDefault();\n        const historyState = {\n            type: item.type === 'group' ? 'dashboard-group' : 'dashboard',\n            dashboardGroupName: item.dashboardGroupName\n        };\n        window.history.pushState(historyState, '', item.path);\n        window.dispatchEvent(new CustomEvent('location-changed'));\n    }\n    handleSearchInput(e) {\n        const input = e.target;\n        this.searchValue = input.value;\n        this.performSearch(this.searchValue);\n    }\n    handleSearchFocus() {\n        if (this.searchValue.length > 0) {\n            this.showResults = true;\n        }\n    }\n    handleSearchKeydown(e) {\n        if (e.key === 'Escape') {\n            this.showResults = false;\n        }\n        else if (e.key === 'Enter' && this.searchResults.length > 0) {\n            this.handleResultClick(this.searchResults[0]);\n        }\n    }\n    performSearch(query) {\n        if (!this.dashboards || query.length === 0) {\n            this.searchResults = [];\n            this.showResults = false;\n            return;\n        }\n        const lowerQuery = query.toLowerCase();\n        const results = [];\n        // Search dashboards\n        for (const dashboard of this.dashboards.dashboards) {\n            if (dashboard.name.toLowerCase().includes(lowerQuery)) {\n                results.push({\n                    name: dashboard.name,\n                    type: 'dashboard',\n                    dashboardGroupName: dashboard.dashboardGroupName || undefined\n                });\n            }\n        }\n        // Sort by name\n        results.sort((a, b) => a.name.localeCompare(b.name));\n        this.searchResults = results;\n        this.showResults = true;\n    }\n    handleResultClick(result) {\n        this.showResults = false;\n        this.searchValue = '';\n        navigateWithContext(result.name, 'dashboard', result.dashboardGroupName);\n    }\n}",
           "description": "Global header component with logo, breadcrumbs, and search."
         }
       ],
@@ -3518,108 +3518,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/theme-toggle.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Theme toggle button with sun/moon icon.\nCycles through: system -> light -> dark -> system",
-          "name": "ThemeToggle",
-          "members": [
-            {
-              "kind": "field",
-              "name": "theme",
-              "type": {
-                "text": "Theme"
-              },
-              "privacy": "private",
-              "default": "'system'"
-            },
-            {
-              "kind": "field",
-              "name": "resolvedTheme",
-              "type": {
-                "text": "'light' | 'dark'"
-              },
-              "privacy": "private",
-              "default": "'light'"
-            },
-            {
-              "kind": "field",
-              "name": "mediaQuery",
-              "type": {
-                "text": "MediaQueryList | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "handleSystemChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "resolveTheme",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "'light' | 'dark'"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "toggle",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "theme-toggle",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ThemeToggle",
-          "declaration": {
-            "name": "ThemeToggle",
-            "module": "src/components/theme-toggle.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "theme-toggle",
-          "declaration": {
-            "name": "ThemeToggle",
-            "module": "src/components/theme-toggle.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/contexts/navigation-context.ts",
       "declarations": [
         {
@@ -3652,104 +3550,6 @@
           "declaration": {
             "name": "navigationContext",
             "module": "src/contexts/navigation-context.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/contexts/theme-context.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "themeContext"
-        },
-        {
-          "kind": "variable",
-          "name": "defaultThemeState",
-          "type": {
-            "text": "ThemeState"
-          },
-          "default": "{\n  theme: 'system',\n  resolvedTheme: 'light'\n}"
-        },
-        {
-          "kind": "function",
-          "name": "initializeTheme",
-          "return": {
-            "type": {
-              "text": "'light' | 'dark'"
-            }
-          },
-          "description": "Initialize theme on page load. Call inline in <head> to prevent FOUC.\nReturns the resolved theme for initial state."
-        },
-        {
-          "kind": "function",
-          "name": "setTheme",
-          "return": {
-            "type": {
-              "text": "'light' | 'dark'"
-            }
-          },
-          "parameters": [
-            {
-              "name": "theme",
-              "type": {
-                "text": "Theme"
-              }
-            }
-          ],
-          "description": "Set theme and update DOM. Returns the new resolved theme."
-        },
-        {
-          "kind": "function",
-          "name": "getStoredTheme",
-          "return": {
-            "type": {
-              "text": "Theme"
-            }
-          },
-          "description": "Get current theme from localStorage or default to 'system'."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "themeContext",
-          "declaration": {
-            "name": "themeContext",
-            "module": "src/contexts/theme-context.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "defaultThemeState",
-          "declaration": {
-            "name": "defaultThemeState",
-            "module": "src/contexts/theme-context.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "initializeTheme",
-          "declaration": {
-            "name": "initializeTheme",
-            "module": "src/contexts/theme-context.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "setTheme",
-          "declaration": {
-            "name": "setTheme",
-            "module": "src/contexts/theme-context.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStoredTheme",
-          "declaration": {
-            "name": "getStoredTheme",
-            "module": "src/contexts/theme-context.ts"
           }
         }
       ]
@@ -4113,6 +3913,124 @@
     },
     {
       "kind": "javascript-module",
+      "path": "out-tsc/src/contexts/navigation-context.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "defaultNavigationState",
+          "type": {
+            "text": "object"
+          },
+          "default": "{\n    breadcrumbs: [{ label: 'Index', path: '/', type: 'index' }],\n    searchQuery: '',\n}",
+          "description": "Default navigation state"
+        },
+        {
+          "kind": "variable",
+          "name": "navigationContext",
+          "description": "Context for sharing navigation state across the app"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "defaultNavigationState",
+          "declaration": {
+            "name": "defaultNavigationState",
+            "module": "out-tsc/src/contexts/navigation-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "navigationContext",
+          "declaration": {
+            "name": "navigationContext",
+            "module": "out-tsc/src/contexts/navigation-context.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/contexts/theme-context.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "themeContext"
+        },
+        {
+          "kind": "variable",
+          "name": "defaultThemeState",
+          "type": {
+            "text": "object"
+          },
+          "default": "{\n    theme: 'system',\n    resolvedTheme: 'light'\n}"
+        },
+        {
+          "kind": "function",
+          "name": "initializeTheme",
+          "description": "Initialize theme on page load. Call inline in <head> to prevent FOUC.\nReturns the resolved theme for initial state."
+        },
+        {
+          "kind": "function",
+          "name": "setTheme",
+          "parameters": [
+            {
+              "name": "theme"
+            }
+          ],
+          "description": "Set theme and update DOM. Returns the new resolved theme."
+        },
+        {
+          "kind": "function",
+          "name": "getStoredTheme",
+          "description": "Get current theme from localStorage or default to 'system'."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "themeContext",
+          "declaration": {
+            "name": "themeContext",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "defaultThemeState",
+          "declaration": {
+            "name": "defaultThemeState",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "initializeTheme",
+          "declaration": {
+            "name": "initializeTheme",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setTheme",
+          "declaration": {
+            "name": "setTheme",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getStoredTheme",
+          "declaration": {
+            "name": "getStoredTheme",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "out-tsc/src/components/theme-toggle.js",
       "declarations": [
         {
@@ -4265,124 +4183,6 @@
           "declaration": {
             "name": "sharedStyles",
             "module": "out-tsc/src/styles/shared-styles.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/contexts/navigation-context.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "defaultNavigationState",
-          "type": {
-            "text": "object"
-          },
-          "default": "{\n    breadcrumbs: [{ label: 'Index', path: '/', type: 'index' }],\n    searchQuery: '',\n}",
-          "description": "Default navigation state"
-        },
-        {
-          "kind": "variable",
-          "name": "navigationContext",
-          "description": "Context for sharing navigation state across the app"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "defaultNavigationState",
-          "declaration": {
-            "name": "defaultNavigationState",
-            "module": "out-tsc/src/contexts/navigation-context.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "navigationContext",
-          "declaration": {
-            "name": "navigationContext",
-            "module": "out-tsc/src/contexts/navigation-context.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/contexts/theme-context.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "themeContext"
-        },
-        {
-          "kind": "variable",
-          "name": "defaultThemeState",
-          "type": {
-            "text": "object"
-          },
-          "default": "{\n    theme: 'system',\n    resolvedTheme: 'light'\n}"
-        },
-        {
-          "kind": "function",
-          "name": "initializeTheme",
-          "description": "Initialize theme on page load. Call inline in <head> to prevent FOUC.\nReturns the resolved theme for initial state."
-        },
-        {
-          "kind": "function",
-          "name": "setTheme",
-          "parameters": [
-            {
-              "name": "theme"
-            }
-          ],
-          "description": "Set theme and update DOM. Returns the new resolved theme."
-        },
-        {
-          "kind": "function",
-          "name": "getStoredTheme",
-          "description": "Get current theme from localStorage or default to 'system'."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "themeContext",
-          "declaration": {
-            "name": "themeContext",
-            "module": "out-tsc/src/contexts/theme-context.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "defaultThemeState",
-          "declaration": {
-            "name": "defaultThemeState",
-            "module": "out-tsc/src/contexts/theme-context.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "initializeTheme",
-          "declaration": {
-            "name": "initializeTheme",
-            "module": "out-tsc/src/contexts/theme-context.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "setTheme",
-          "declaration": {
-            "name": "setTheme",
-            "module": "out-tsc/src/contexts/theme-context.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStoredTheme",
-          "declaration": {
-            "name": "getStoredTheme",
-            "module": "out-tsc/src/contexts/theme-context.js"
           }
         }
       ]
@@ -4559,6 +4359,87 @@
           "declaration": {
             "name": "navigateTab",
             "module": "out-tsc/src/utils/navigation.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/gen/pb/custom_evaluator/custom_evaluator.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "RuleSet",
+          "default": "new RuleSet$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "Rule",
+          "default": "new Rule$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "TestResultComparison",
+          "default": "new TestResultComparison$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "Comparison",
+          "default": "new Comparison$Type()"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RuleSet",
+          "declaration": {
+            "name": "RuleSet",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Rule",
+          "declaration": {
+            "name": "Rule",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TestResultComparison",
+          "declaration": {
+            "name": "TestResultComparison",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Comparison",
+          "declaration": {
+            "name": "Comparison",
+            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/gen/google/protobuf/timestamp.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Timestamp",
+          "default": "new Timestamp$Type()"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Timestamp",
+          "declaration": {
+            "name": "Timestamp",
+            "module": "src/gen/google/protobuf/timestamp.ts"
           }
         }
       ]
@@ -4911,66 +4792,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/gen/pb/custom_evaluator/custom_evaluator.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "RuleSet",
-          "default": "new RuleSet$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "Rule",
-          "default": "new Rule$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "TestResultComparison",
-          "default": "new TestResultComparison$Type()"
-        },
-        {
-          "kind": "variable",
-          "name": "Comparison",
-          "default": "new Comparison$Type()"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RuleSet",
-          "declaration": {
-            "name": "RuleSet",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Rule",
-          "declaration": {
-            "name": "Rule",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TestResultComparison",
-          "declaration": {
-            "name": "TestResultComparison",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Comparison",
-          "declaration": {
-            "name": "Comparison",
-            "module": "src/gen/pb/custom_evaluator/custom_evaluator.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/gen/pb/state/state.ts",
       "declarations": [
         {
@@ -5234,33 +5055,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/gen/pb/test_status/test_status.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/gen/google/protobuf/timestamp.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Timestamp",
-          "default": "new Timestamp$Type()"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Timestamp",
-          "declaration": {
-            "name": "Timestamp",
-            "module": "src/gen/google/protobuf/timestamp.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "out-tsc/src/gen/google/protobuf/timestamp.js",
       "declarations": [
         {
@@ -5279,6 +5073,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/gen/pb/test_status/test_status.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
