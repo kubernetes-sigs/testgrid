@@ -1,0 +1,8 @@
+/* app.css - Main CSS entry point */
+@import "tailwindcss";
+
+/* Enable class-based dark mode toggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Import semantic tokens */
+@import "./src/styles/tokens.css";
