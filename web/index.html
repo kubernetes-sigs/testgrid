@@ -25,13 +25,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <base href="/">
 
+  <link rel="stylesheet" href="./app.css">
   <style>
     html,
     body {
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-color: #ededed;
+      background-color: var(--background, #ededed);
+      color: var(--foreground, #1a1a1a);
+      transition: background-color 0.2s, color 0.2s;
     }
   </style>
   <title>TestGrid</title>
