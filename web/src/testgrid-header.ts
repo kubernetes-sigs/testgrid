@@ -7,7 +7,6 @@ import { navigationContext, NavigationState, BreadcrumbItem, defaultNavigationSt
 import { apiClient } from './APIClient.js';
 import { navigateWithContext } from './utils/navigation.js';
 import { ListDashboardsResponse } from './gen/pb/api/v1/data.js';
-import './components/theme-toggle.js';
 
 interface SearchResult {
   name: string;
@@ -95,7 +94,6 @@ export class TestgridHeader extends LitElement {
               </div>
               ${this.showResults && this.searchValue.length > 0 ? this.renderSearchResults() : nothing}
             </div>
-            <theme-toggle></theme-toggle>
           </div>
         </div>
       </header>

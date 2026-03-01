@@ -136,7 +136,26 @@
           "kind": "class",
           "description": "Class definition for the `testgrid-app` element.\nApplication root element.",
           "name": "TestgridApp",
-          "members": [],
+          "members": [
+            {
+              "kind": "field",
+              "name": "navigationState",
+              "type": {
+                "text": "NavigationState"
+              },
+              "default": "defaultNavigationState"
+            },
+            {
+              "kind": "field",
+              "name": "handleLocationChanged",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "updateBreadcrumbs",
+              "privacy": "private"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -160,113 +179,6 @@
           "declaration": {
             "name": "TestgridApp",
             "module": "src/testgrid-app.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/testgrid-context-menu.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TestgridContextMenu",
-          "members": [
-            {
-              "kind": "field",
-              "name": "menuItems",
-              "type": {
-                "text": "MenuItemData[]"
-              },
-              "default": "[]",
-              "attribute": "menuItems"
-            },
-            {
-              "kind": "field",
-              "name": "x",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "x"
-            },
-            {
-              "kind": "field",
-              "name": "y",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "y"
-            },
-            {
-              "kind": "method",
-              "name": "adjustPosition",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleClick"
-            }
-          ],
-          "events": [
-            {
-              "name": "menu-close",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "menuItems",
-              "type": {
-                "text": "MenuItemData[]"
-              },
-              "default": "[]",
-              "fieldName": "menuItems"
-            },
-            {
-              "name": "x",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "x"
-            },
-            {
-              "name": "y",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "y"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "testgrid-context-menu",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridContextMenu",
-          "declaration": {
-            "name": "TestgridContextMenu",
-            "module": "src/testgrid-context-menu.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "testgrid-context-menu",
-          "declaration": {
-            "name": "TestgridContextMenu",
-            "module": "src/testgrid-context-menu.ts"
           }
         }
       ]
@@ -438,19 +350,6 @@
               "name": "tabsController",
               "privacy": "private",
               "default": "new APIController<ListDashboardTabsResponse>(this)"
-            },
-            {
-              "kind": "method",
-              "name": "onTabActivated",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "CustomEvent<{ index: number }>"
-                  }
-                }
-              ]
             },
             {
               "kind": "field",
@@ -1333,7 +1232,6 @@
               "kind": "method",
               "name": "handleDashboardClick",
               "privacy": "private",
-              "static": true,
               "parameters": [
                 {
                   "name": "event",
@@ -1397,6 +1295,216 @@
           "declaration": {
             "name": "TestgridGroupSummary",
             "module": "src/testgrid-group-summary.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/testgrid-header.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Global header component with logo, breadcrumbs, and search.",
+          "name": "TestgridHeader",
+          "members": [
+            {
+              "kind": "field",
+              "name": "navigationState",
+              "type": {
+                "text": "NavigationState"
+              },
+              "default": "defaultNavigationState"
+            },
+            {
+              "kind": "field",
+              "name": "searchValue",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "searchResults",
+              "type": {
+                "text": "SearchResult[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "showResults",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "dashboards",
+              "type": {
+                "text": "ListDashboardsResponse | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "handleOutsideClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadDashboards",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "renderSearchResults",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "renderBreadcrumb",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "BreadcrumbItem"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "total",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleLogoClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleBreadcrumbClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "BreadcrumbItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleSearchInput",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleSearchFocus",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleSearchKeydown",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "performSearch",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "query",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleResultClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "result",
+                  "type": {
+                    "text": "SearchResult"
+                  }
+                }
+              ]
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "testgrid-header",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridHeader",
+          "declaration": {
+            "name": "TestgridHeader",
+            "module": "src/testgrid-header.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "testgrid-header",
+          "declaration": {
+            "name": "TestgridHeader",
+            "module": "src/testgrid-header.ts"
           }
         }
       ]
@@ -1509,33 +1617,11 @@
             },
             {
               "kind": "field",
-              "name": "searchTerm",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "searchTerm"
-            },
-            {
-              "kind": "field",
               "name": "dashboardGroups"
             },
             {
               "kind": "field",
               "name": "ungroupedDashboards"
-            },
-            {
-              "kind": "method",
-              "name": "handleSearchInput",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
             },
             {
               "kind": "method",
@@ -1560,16 +1646,6 @@
               "kind": "method",
               "name": "loadData",
               "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "searchTerm",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "searchTerm"
             }
           ],
           "superclass": {
@@ -1653,7 +1729,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Status indicator with distinct icon shapes and colors.\nIcons are the primary differentiator (accessible to color-blind users).\nColors provide secondary reinforcement.\n\nHover/focus shows tooltip with status description.",
           "name": "TestgridStatusIndicator",
           "members": [
             {
@@ -1669,6 +1745,15 @@
             {
               "kind": "field",
               "name": "iconName",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "statusLabel",
               "type": {
                 "text": "string"
               },
@@ -2392,6 +2477,468 @@
     },
     {
       "kind": "javascript-module",
+      "path": "out-tsc/src/APIClient.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "apiClient",
+          "default": "new APIClient()"
+        },
+        {
+          "kind": "function",
+          "name": "createApiClient",
+          "parameters": [
+            {
+              "name": "baseUrl"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "apiClient",
+          "declaration": {
+            "name": "apiClient",
+            "module": "out-tsc/src/APIClient.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "createApiClient",
+          "declaration": {
+            "name": "createApiClient",
+            "module": "out-tsc/src/APIClient.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/tab-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TabSummary",
+          "default": "class TabSummary extends LitElement {\n    render() {\n        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;\n        return html `\n      <div class=\"tab\">\n        <div class=\"left\">\n          <testgrid-status-indicator status=\"${(_a = this.info) === null || _a === void 0 ? void 0 : _a.overallStatus}\"></testgrid-status-indicator>\n        </div>\n        <div class=\"mid\">\n          <div\n            @click=${() => this.changeTab()}\n            @keydown=${this.handleKeyDown}\n            class=\"tab-name\"\n            tabindex=\"0\"\n            role=\"button\"\n            aria-label=\"Select tab ${(_b = this.info) === null || _b === void 0 ? void 0 : _b.name}\"\n          >\n            ${(_c = this.info) === null || _c === void 0 ? void 0 : _c.name}: ${(_d = this.info) === null || _d === void 0 ? void 0 : _d.overallStatus}\n          </div>\n          <div class=\"detailed-status\">${(_e = this.info) === null || _e === void 0 ? void 0 : _e.detailedStatusMsg}</div>\n        </div>\n        <div class=\"right\">\n          <div class=\"stats\">\n            <span class=\"stats-label\">Updated:</span>\n            <span class=\"stats-value\">${(_f = this.info) === null || _f === void 0 ? void 0 : _f.lastUpdateTimestamp}</span>\n          </div>\n          <div class=\"stats\">\n            <span class=\"stats-label\">Tests last ran:</span>\n            <span class=\"stats-value\">${(_g = this.info) === null || _g === void 0 ? void 0 : _g.lastRunTimestamp}</span>\n          </div>\n          <div class=\"stats\">\n            <span class=\"stats-label\">Last green run:</span>\n            <span class=\"stats-value\">${(_h = this.info) === null || _h === void 0 ? void 0 : _h.latestGreenBuild}</span>\n          </div>\n        </div>\n      </div>\n      ${((_j = this.info) === null || _j === void 0 ? void 0 : _j.failuresSummary) !== undefined\n            ? html `<testgrid-failures-summary .info=${this.info}>\n          </testgrid-failures-summary>`\n            : ''}\n      ${((_k = this.info) === null || _k === void 0 ? void 0 : _k.healthinessSummary) !== undefined\n            ? html `<testgrid-healthiness-summary .info=${this.info}>\n          </testgrid-healthiness-summary>`\n            : ''}\n    `;\n    }\n    /**\n     * Handles keyboard events for accessibility\n     */\n    handleKeyDown(event) {\n        if (event.key === 'Enter' || event.key === ' ') {\n            event.preventDefault();\n            this.changeTab();\n        }\n    }\n    /**\n     * Lets the data content element know that the tab changed\n     *\n     * @fires tab-changed\n     * @param tabName string\n     */\n    changeTab() {\n        var _a;\n        window.dispatchEvent(new CustomEvent('tab-changed', {\n            detail: {\n                tabName: (_a = this.info) === null || _a === void 0 ? void 0 : _a.name,\n            },\n        }));\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabSummary",
+          "declaration": {
+            "name": "TabSummary",
+            "module": "out-tsc/src/tab-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-app.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridApp",
+          "default": "class TestgridApp extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.navigationState = defaultNavigationState;\n        this.handleLocationChanged = () => {\n            this.updateBreadcrumbs();\n        };\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        window.addEventListener('location-changed', this.handleLocationChanged);\n        window.addEventListener('popstate', this.handleLocationChanged);\n        this.updateBreadcrumbs();\n    }\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        window.removeEventListener('location-changed', this.handleLocationChanged);\n        window.removeEventListener('popstate', this.handleLocationChanged);\n    }\n    updateBreadcrumbs() {\n        const { pathname } = window.location;\n        const segments = pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));\n        const historyState = window.history.state;\n        const breadcrumbs = [\n            { label: 'Index', path: '/', type: 'index' }\n        ];\n        if (segments.length > 0) {\n            const firstName = segments[0];\n            const isGroup = (historyState === null || historyState === void 0 ? void 0 : historyState.type) === 'dashboard-group';\n            const dashboardGroupName = historyState === null || historyState === void 0 ? void 0 : historyState.dashboardGroupName;\n            // If this dashboard belongs to a group, show group first\n            if (dashboardGroupName && !isGroup) {\n                breadcrumbs.push({\n                    label: dashboardGroupName,\n                    path: `/${encodeURIComponent(dashboardGroupName)}`,\n                    type: 'group'\n                });\n            }\n            // Add the current page (group or dashboard)\n            breadcrumbs.push({\n                label: firstName,\n                path: `/${encodeURIComponent(firstName)}`,\n                type: isGroup ? 'group' : 'dashboard',\n                dashboardGroupName\n            });\n            // Tab name if present\n            if (segments.length > 1) {\n                const tabName = segments.slice(1).join('/');\n                breadcrumbs.push({\n                    label: tabName,\n                    path: `/${encodeURIComponent(firstName)}/${encodeURIComponent(tabName)}`,\n                    type: 'tab',\n                    dashboardGroupName\n                });\n            }\n        }\n        this.navigationState = {\n            ...this.navigationState,\n            breadcrumbs\n        };\n    }\n    render() {\n        return html `\n      <testgrid-header></testgrid-header>\n      <main class=\"main-content\">\n        <testgrid-router></testgrid-router>\n      </main>\n    `;\n    }\n}",
+          "description": "Class definition for the `testgrid-app` element.\nApplication root element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridApp",
+          "declaration": {
+            "name": "TestgridApp",
+            "module": "out-tsc/src/testgrid-app.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-context.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "linkContext"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "linkContext",
+          "declaration": {
+            "name": "linkContext",
+            "module": "out-tsc/src/testgrid-context.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-dashboard-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridDashboardSummary",
+          "default": "class TestgridDashboardSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardName = '';\n        this.tabSummariesInfo = [];\n        this.tabSummariesController = new APIController(this);\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.fetchTabSummaries();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `\n      ${map(this.tabSummariesInfo, (ts) => html `<tab-summary .info=${ts}></tab-summary>`)}\n  `;\n    }\n    // fetch the tab summaries and tab names to populate the tab bar\n    async fetchTabSummaries() {\n        try {\n            const data = await this.tabSummariesController.fetch(`tab-summaries-${this.dashboardName}`, () => apiClient.getTabSummaries(this.dashboardName));\n            const tabSummaries = [];\n            data.tabSummaries.forEach(ts => {\n                const si = convertResponse(ts);\n                tabSummaries.push(si);\n            });\n            this.tabSummariesInfo = tabSummaries;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get tab summaries: ${error}`);\n        }\n    }\n}",
+          "description": "Class definition for the `testgrid-dashboard-summary` element.\nRenders the dashboard summary (summary of dashboard tabs)."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridDashboardSummary",
+          "declaration": {
+            "name": "TestgridDashboardSummary",
+            "module": "out-tsc/src/testgrid-dashboard-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-data-content.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridDataContent",
+          "default": "class TestgridDataContent extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.tabNames = [];\n        this.activeIndex = 0;\n        this.showTab = false;\n        this.dashboardName = '';\n        this.linkTemplate = { url: new URL('https://prow.k8s.io/') };\n        this.tabsController = new APIController(this);\n        this.handleTabChanged = (evt) => {\n            this.tabName = evt.detail.tabName;\n            this.showTab = !this.showTab;\n            this.highlightIndex(this.tabName);\n            navigateTab(this.dashboardName, this.tabName);\n        };\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.fetchTabNames();\n        window.addEventListener('tab-changed', this.handleTabChanged);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is removed from the document's DOM.\n     */\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        window.removeEventListener('tab-changed', this.handleTabChanged);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `\n      ${!this.showTab\n            ? html `<testgrid-dashboard-summary\n            .dashboardName=${this.dashboardName}\n          ></testgrid-dashboard-summary>`\n            : html `<testgrid-grid\n            .dashboardName=${this.dashboardName}\n            .tabName=${this.tabName}\n          ></testgrid-grid>`}\n    `;\n    }\n    // fetch the tab names to populate the tab bar\n    async fetchTabNames() {\n        try {\n            const data = await this.tabsController.fetch(`dashboard-tabs-${this.dashboardName}`, () => apiClient.getDashboardTabs(this.dashboardName));\n            const tabNames = ['Summary'];\n            data.dashboardTabs.forEach(tab => {\n                tabNames.push(tab.name);\n            });\n            this.tabNames = tabNames;\n            this.highlightIndex(this.tabName);\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get dashboard tabs: ${error}`);\n        }\n    }\n    // identify which tab to highlight on the tab bar\n    highlightIndex(tabName) {\n        if (tabName === undefined) {\n            this.activeIndex = 0;\n            return;\n        }\n        const index = this.tabNames.indexOf(tabName);\n        if (index > -1) {\n            this.activeIndex = index;\n        }\n    }\n}",
+          "description": "Class definition for the `testgrid-data-content` element.\nActs as a container for dashboard summary or grid data."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridDataContent",
+          "declaration": {
+            "name": "TestgridDataContent",
+            "module": "out-tsc/src/testgrid-data-content.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-failures-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridFailuresSummary",
+          "default": "class TestgridFailuresSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.showFailureSummary = false;\n    }\n    render() {\n        var _a;\n        return html `\n    <div class=\"dropdown-container\">\n        <button @click=\"${() => this.dropdownTable()}\" class=\"btn\">\n          ${this.showFailureSummary ? html `- Hide Alerts -` : html `- Show Alerts -`}\n        </button>\n      ${this.showFailureSummary ? html `\n          <table class=\"dropdown-menu\">\n            <tr>\n              <th>Test Name</th>\n              <th># Fails</th>\n              <th>First Failed</th>\n              <th>Last Passed</th>\n            </tr>\n            ${map((_a = this.info) === null || _a === void 0 ? void 0 : _a.failuresSummary.topFailingTests, (test) => html `\n                <tr>\n                  <td>${test.displayName}</td>\n                  <td>${test.failCount}</td>\n                  <td>${test.passTimestamp}</td>\n                  <td>${test.failTimestamp}</td>\n                </tr>\n              `)}\n          </table>`\n            : ''}\n      </div>\n    `;\n    }\n    dropdownTable() {\n        this.showFailureSummary = !this.showFailureSummary;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridFailuresSummary",
+          "declaration": {
+            "name": "TestgridFailuresSummary",
+            "module": "out-tsc/src/testgrid-failures-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid-cell.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGridCell",
+          "default": "class TestgridGridCell extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.rowName = '';\n        this.buildId = '';\n        this.dashboardName = '';\n        this.tabName = '';\n        // store all pre-generated URLs\n        this.openTestUrl = '';\n        this.fileBugUrl = '';\n        this.attachBugUrl = '';\n    }\n    connectedCallback() {\n        super.connectedCallback();\n        // Generate URLs once when the cell is created\n        this.prepareUrls();\n    }\n    prepareUrls() {\n        this.openTestUrl = this.generateTestUrl();\n        this.fileBugUrl = this.generateFileBugUrl();\n        this.attachBugUrl = this.generateAttachToBugUrl();\n    }\n    handleMenuItemClick(e) {\n        const item = e.detail.value;\n        if (item.url) {\n            window.open(item.url, '_blank');\n        }\n    }\n    generateTestUrl() {\n        return `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;\n    }\n    generateFileBugUrl() {\n        const linkUrl = `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;\n        const title = encodeURIComponent(`E2E: ${this.rowName}`);\n        const body = encodeURIComponent(`${linkUrl}\\n`);\n        return `https://github.com/kubernetes/kubernetes/issues/new?title=${title}&body=${body}`;\n    }\n    generateAttachToBugUrl() {\n        const searchQuery = encodeURIComponent(`is:issue is:open ${this.rowName}`);\n        return `https://github.com/kubernetes/kubernetes/issues?q=${searchQuery}`;\n    }\n    getContextMenuItems() {\n        return [\n            {\n                text: 'Open Test',\n                url: this.openTestUrl\n            },\n            {\n                text: 'File a Bug',\n                url: this.fileBugUrl\n            },\n            {\n                text: 'Attach to Bug',\n                url: this.attachBugUrl\n            }\n        ];\n    }\n    render() {\n        const content = this.linkTemplate === undefined\n            ? html `<span>${this.icon}</span>`\n            : html `<a href=\"${this.linkTemplate.url.toString()}\"><span>${this.icon}</span></a>`;\n        return html `\n      <vaadin-context-menu\n        .items=\"${this.getContextMenuItems()}\"\n        @item-selected=\"${this.handleMenuItemClick}\">\n        ${content}\n      </vaadin-context-menu>\n    `;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGridCell",
+          "declaration": {
+            "name": "TestgridGridCell",
+            "module": "out-tsc/src/testgrid-grid-cell.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid-column-header.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGridColumnHeader",
+          "default": "class TestgridGridColumnHeader extends LitElement {\n    render() {\n        return html `<span>${this.value}</span>`;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGridColumnHeader",
+          "declaration": {
+            "name": "TestgridGridColumnHeader",
+            "module": "out-tsc/src/testgrid-grid-column-header.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid-header-row.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGridHeaderRow",
+          "default": "class TestgridGridHeaderRow extends LitElement {\n    render() {\n        const nameStyles = { background: '#ededed', zIndex: '20' };\n        return html `\n      <testgrid-grid-row-name .name=\"${this.name}\" style=${styleMap(nameStyles)}></testgrid-grid-row-name>\n      ${map(this.combinedHeaders, header => {\n            // TODO(michelle192837): Stop hardcoding header width.\n            const width = `${(header.count - 1) * (80 + 2) + 80}px`;\n            const styles = { width, minWidth: width, maxWidth: width };\n            return html `\n            <testgrid-grid-column-header\n              style=${styleMap(styles)}\n              .value=\"${header.value}\"\n            ></testgrid-grid-column-header>\n          `;\n        })}\n    `;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGridHeaderRow",
+          "declaration": {
+            "name": "TestgridGridHeaderRow",
+            "module": "out-tsc/src/testgrid-grid-header-row.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid-headers-block.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGridHeadersBlock",
+          "default": "class TestgridGridHeadersBlock extends LitElement {\n    render() {\n        var _a;\n        const builds = [];\n        const dates = [];\n        const times = [];\n        const extras = [];\n        for (const header of ((_a = this.headers) === null || _a === void 0 ? void 0 : _a.headers) || []) {\n            builds.push(header.build);\n            for (let i = 0; i < header.extra.length; i += 1) {\n                if (i >= extras.length) {\n                    extras[i] = [];\n                }\n                extras[i].push(header.extra[i]);\n            }\n            if (header.started === undefined) {\n                // This really shouldn't happen, but set a default value anyway to make that clear.\n                dates.push('-');\n                times.push('-');\n                // eslint-disable-next-line no-continue\n                continue;\n            }\n            const date = new Date(parseInt(header.started.seconds, 10) * 1000);\n            dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));\n            times.push(date.toLocaleString('en-US', {\n                hour12: false,\n                hour: '2-digit',\n                minute: 'numeric',\n            }));\n        }\n        return html `\n      <testgrid-grid-header-row\n        .name=\"start date\"\n        .combinedHeaders=\"${runLengthEncode(dates)}\"\n      ></testgrid-grid-header-row>\n      <testgrid-grid-header-row\n        .name=\"start time\"\n        .combinedHeaders=\"${runLengthEncode(times)}\"\n      ></testgrid-grid-header-row>\n      <testgrid-grid-header-row\n        .name=\"build ID\"\n        .combinedHeaders=\"${runLengthEncode(builds)}\"\n      ></testgrid-grid-header-row>\n      ${map(extras, extra => html `<testgrid-grid-header-row\n            .name=\"extra\"\n            .combinedHeaders=\"${runLengthEncode(extra)}\"\n          ></testgrid-grid-header-row>`)}\n    `;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGridHeadersBlock",
+          "declaration": {
+            "name": "TestgridGridHeadersBlock",
+            "module": "out-tsc/src/testgrid-grid-headers-block.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid-row-name.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGridRowName",
+          "default": "class TestgridGridRowName extends LitElement {\n    render() {\n        return html `${this.name}`;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGridRowName",
+          "declaration": {
+            "name": "TestgridGridRowName",
+            "module": "out-tsc/src/testgrid-grid-row-name.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid-row.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGridRow",
+          "default": "class TestgridGridRow extends LitElement {\n    constructor() {\n        super(...arguments);\n        // TODO(Mostafahassen1): Replace direct property passing with a Lit context structure.\n        this.buildIds = [];\n        this.dashboardName = '';\n        this.tabName = '';\n    }\n    render() {\n        var _a, _b;\n        return html `\n      <testgrid-grid-row-name\n        .name=\"${(_a = this.rowData) === null || _a === void 0 ? void 0 : _a.name}\"\n      ></testgrid-grid-row-name>\n      ${map((_b = this.rowData) === null || _b === void 0 ? void 0 : _b.cells, (cell, index) => {\n            // Use cell index to get corresponding build ID from column data\n            const buildId = this.buildIds[index + 1] || '';\n            return html `<testgrid-grid-cell\n          .icon=\"${cell.icon}\"\n          .status=\"${TestStatus[cell.result]}\"\n          .rowName=\"${this.rowData.name}\"\n          .buildId=\"${buildId}\"\n          .dashboardName=\"${this.dashboardName}\"\n          .tabName=\"${this.tabName}\"\n        ></testgrid-grid-cell>`;\n        })}\n    `;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGridRow",
+          "declaration": {
+            "name": "TestgridGridRow",
+            "module": "out-tsc/src/testgrid-grid-row.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-grid.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGrid",
+          "default": "class TestgridGrid extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardName = '';\n        this.tabName = '';\n        this.tabGridRows = [];\n        this.headersController = new APIController(this);\n        this.rowsController = new APIController(this);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when element properties are changed.\n     */\n    willUpdate(changedProperties) {\n        if (changedProperties.has('tabName')) {\n            this.fetchTabGrid();\n        }\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        var _a, _b;\n        const buildIds = ((_b = (_a = this.tabGridHeaders) === null || _a === void 0 ? void 0 : _a.headers) === null || _b === void 0 ? void 0 : _b.map(h => h.build)) || [];\n        return html `\n      <testgrid-grid-headers-block\n        .headers=\"${this.tabGridHeaders}\"\n      ></testgrid-grid-headers-block>\n      ${map(this.tabGridRows, (row) => html `<testgrid-grid-row\n            .name=\"${row.name}\"\n            .rowData=\"${row}\"\n            .buildIds=\"${buildIds}\"\n            .dashboardName=\"${this.dashboardName}\"\n            .tabName=\"${this.tabName}\"\n          ></testgrid-grid-row>`)}\n    `;\n    }\n    async fetchTabGrid() {\n        this.fetchTabGridRows();\n        this.fetchTabGridHeaders();\n    }\n    async fetchTabGridRows() {\n        this.tabGridRows = [];\n        try {\n            const data = await this.rowsController.fetch(`tab-rows-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabRows(this.dashboardName, this.tabName));\n            // eslint-disable-next-line camelcase\n            const rows = [];\n            data.rows.forEach(row => rows.push(row));\n            this.tabGridRows = rows;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid rows: ${error}`);\n        }\n    }\n    async fetchTabGridHeaders() {\n        try {\n            const data = await this.headersController.fetch(`tab-headers-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabHeaders(this.dashboardName, this.tabName));\n            this.tabGridHeaders = data;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid headers: ${error}`);\n        }\n    }\n}",
+          "description": "Class definition for `testgrid-grid` component.\nRenders the test results grid."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGrid",
+          "declaration": {
+            "name": "TestgridGrid",
+            "module": "out-tsc/src/testgrid-grid.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-group-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridGroupSummary"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridGroupSummary",
+          "declaration": {
+            "name": "TestgridGroupSummary",
+            "module": "out-tsc/src/testgrid-group-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-header.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridHeader",
+          "default": "class TestgridHeader extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.navigationState = defaultNavigationState;\n        this.searchValue = '';\n        this.searchResults = [];\n        this.showResults = false;\n        this.dashboards = null;\n        this.handleOutsideClick = (e) => {\n            const target = e.target;\n            if (target && !this.contains(target)) {\n                this.showResults = false;\n            }\n        };\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.loadDashboards();\n        document.addEventListener('click', this.handleOutsideClick);\n    }\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        document.removeEventListener('click', this.handleOutsideClick);\n    }\n    async loadDashboards() {\n        try {\n            this.dashboards = await apiClient.getDashboards();\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error('Failed to load dashboards for search:', error);\n        }\n    }\n    render() {\n        return html `\n      <header class=\"header\">\n        <div class=\"header-content\">\n          <div class=\"header-left\">\n            <a href=\"/\" class=\"logo\" @click=${this.handleLogoClick}>\n              <span class=\"logo-text\">TestGrid</span>\n            </a>\n            <nav class=\"breadcrumbs\" aria-label=\"Breadcrumb\">\n              ${map(this.navigationState.breadcrumbs, (item, index) => this.renderBreadcrumb(item, index, this.navigationState.breadcrumbs.length))}\n            </nav>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <div class=\"search-wrapper\">\n                <span class=\"search-icon\">search</span>\n                <input\n                  type=\"text\"\n                  class=\"search-input\"\n                  placeholder=\"Search dashboards and tabs...\"\n                  .value=${this.searchValue}\n                  @input=${this.handleSearchInput}\n                  @focus=${this.handleSearchFocus}\n                  @keydown=${this.handleSearchKeydown}\n                />\n              </div>\n              ${this.showResults && this.searchValue.length > 0 ? this.renderSearchResults() : nothing}\n            </div>\n            <theme-toggle></theme-toggle>\n          </div>\n        </div>\n      </header>\n    `;\n    }\n    renderSearchResults() {\n        if (this.searchResults.length === 0) {\n            return html `\n        <div class=\"search-results\">\n          <div class=\"search-result-empty\">No results found</div>\n        </div>\n      `;\n        }\n        return html `\n      <div class=\"search-results\">\n        ${map(this.searchResults, (result) => html `\n          <button\n            class=\"search-result-item\"\n            @click=${() => this.handleResultClick(result)}\n          >\n            <span class=\"result-name\">${result.name}</span>\n            ${result.dashboardGroupName ? html `<span class=\"result-parent\">in ${result.dashboardGroupName}</span>` : nothing}\n          </button>\n        `)}\n      </div>\n    `;\n    }\n    renderBreadcrumb(item, index, total) {\n        // Skip \"index\" type - TestGrid logo serves as home link\n        if (item.type === 'index') {\n            return '';\n        }\n        const isLast = index === total - 1;\n        const isFirst = index === 1; // First after home\n        return html `\n      ${!isFirst ? html `<span class=\"separator\">/</span>` : ''}\n      ${isLast\n            ? html `<span class=\"breadcrumb-current\">${item.label}</span>`\n            : html `<a\n            href=\"${item.path}\"\n            class=\"breadcrumb-link\"\n            @click=${(e) => this.handleBreadcrumbClick(e, item)}\n          >${item.label}</a>`}\n    `;\n    }\n    // eslint-disable-next-line class-methods-use-this\n    handleLogoClick(e) {\n        e.preventDefault();\n        window.history.pushState(null, '', '/');\n        window.dispatchEvent(new CustomEvent('location-changed'));\n    }\n    // eslint-disable-next-line class-methods-use-this\n    handleBreadcrumbClick(e, item) {\n        e.preventDefault();\n        const historyState = {\n            type: item.type === 'group' ? 'dashboard-group' : 'dashboard',\n            dashboardGroupName: item.dashboardGroupName\n        };\n        window.history.pushState(historyState, '', item.path);\n        window.dispatchEvent(new CustomEvent('location-changed'));\n    }\n    handleSearchInput(e) {\n        const input = e.target;\n        this.searchValue = input.value;\n        this.performSearch(this.searchValue);\n    }\n    handleSearchFocus() {\n        if (this.searchValue.length > 0) {\n            this.showResults = true;\n        }\n    }\n    handleSearchKeydown(e) {\n        if (e.key === 'Escape') {\n            this.showResults = false;\n        }\n        else if (e.key === 'Enter' && this.searchResults.length > 0) {\n            this.handleResultClick(this.searchResults[0]);\n        }\n    }\n    performSearch(query) {\n        if (!this.dashboards || query.length === 0) {\n            this.searchResults = [];\n            this.showResults = false;\n            return;\n        }\n        const lowerQuery = query.toLowerCase();\n        const results = [];\n        // Search dashboards\n        for (const dashboard of this.dashboards.dashboards) {\n            if (dashboard.name.toLowerCase().includes(lowerQuery)) {\n                results.push({\n                    name: dashboard.name,\n                    type: 'dashboard',\n                    dashboardGroupName: dashboard.dashboardGroupName || undefined\n                });\n            }\n        }\n        // Sort by name\n        results.sort((a, b) => a.name.localeCompare(b.name));\n        this.searchResults = results;\n        this.showResults = true;\n    }\n    handleResultClick(result) {\n        this.showResults = false;\n        this.searchValue = '';\n        navigateWithContext(result.name, 'dashboard', result.dashboardGroupName);\n    }\n}",
+          "description": "Global header component with logo, breadcrumbs, and search."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridHeader",
+          "declaration": {
+            "name": "TestgridHeader",
+            "module": "out-tsc/src/testgrid-header.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-healthiness-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridHealthinessSummary",
+          "default": "class TestgridHealthinessSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.showHealthinessSummary = false;\n    }\n    render() {\n        var _a;\n        return html `\n      <div class=\"dropdown-container\">\n        <button @click=\"${() => this.dropdownTable()}\" class=\"btn\">\n          ${this.showHealthinessSummary\n            ? html `- Hide Healthiness Report -`\n            : html `- Show Healthiness Report -`}\n        </button>\n        ${this.showHealthinessSummary\n            ? html ` <table class=\"dropdown-menu\">\n              <tr>\n                <th>Test Name</th>\n                <th>Flakiness (Previous)</th>\n                <th>Flakiness (Current)</th>\n                <th>Trend</th>\n                <th>Infra Failure Rate</th>\n                <th>Flaky Tests Count</th>\n              </tr>\n              ${map((_a = this.info) === null || _a === void 0 ? void 0 : _a.healthinessSummary.topFlakyTests, (test) => {\n                var _a, _b, _c, _d, _e, _f;\n                return html `\n                  <tr>\n                    <td>${test.displayName}</td>\n                    <td>\n                      ${(_b = (_a = this.info) === null || _a === void 0 ? void 0 : _a.healthinessSummary) === null || _b === void 0 ? void 0 : _b.healthinessStats.previousFlakiness}\n                    </td>\n                    <td>\n                      ${(_d = (_c = this.info) === null || _c === void 0 ? void 0 : _c.healthinessSummary) === null || _d === void 0 ? void 0 : _d.healthinessStats.averageFlakiness}\n                    </td>\n                    <td>N/A</td>\n                    <td>${test.flakiness}</td>\n                    <td>\n                      ${(_f = (_e = this.info) === null || _e === void 0 ? void 0 : _e.healthinessSummary) === null || _f === void 0 ? void 0 : _f.healthinessStats.numFlakyTests}\n                    </td>\n                  </tr>\n                `;\n            })}\n            </table>`\n            : ''}\n      </div>\n    `;\n    }\n    dropdownTable() {\n        this.showHealthinessSummary = !this.showHealthinessSummary;\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridHealthinessSummary",
+          "declaration": {
+            "name": "TestgridHealthinessSummary",
+            "module": "out-tsc/src/testgrid-healthiness-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-index.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridIndex"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridIndex",
+          "declaration": {
+            "name": "TestgridIndex",
+            "module": "out-tsc/src/testgrid-index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-router.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridRouter",
+          "default": "class TestgridRouter extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.router = new Router(this, [\n            {\n                path: '/:dashboard/*',\n                render: (params) => html `<testgrid-data-content\n          .dashboardName=${params.dashboard}\n          .tabName=${params[0]}\n          showTab\n        ></testgrid-data-content>`,\n            },\n            {\n                path: '/:name',\n                render: (params) => html `<testgrid-summary\n          .name=${params.name}\n        ></testgrid-summary>`,\n            },\n            {\n                path: '/',\n                render: () => html `<testgrid-index></testgrid-index>`,\n            },\n        ]);\n        this.goToCurrentPath = () => this.router.goto(window.location.pathname);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        window.addEventListener('location-changed', this.goToCurrentPath);\n        window.addEventListener('popstate', this.goToCurrentPath);\n        // Ensure initial render reflects current URL (including direct loads on nested paths)\n        this.goToCurrentPath();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is removed from the document's DOM.\n     */\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        window.removeEventListener('location-changed', this.goToCurrentPath);\n        window.removeEventListener('popstate', this.goToCurrentPath);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `${this.router.outlet()}`;\n    }\n}",
+          "description": "Class definition for the `testgrid-router` element.\nHandles the routing logic."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridRouter",
+          "declaration": {
+            "name": "TestgridRouter",
+            "module": "out-tsc/src/testgrid-router.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-status-indicator.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridStatusIndicator",
+          "default": "class TestgridStatusIndicator extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.status = '';\n    }\n    get iconName() {\n        return STATUS_ICONS.get(this.status) || 'help_outline';\n    }\n    get statusLabel() {\n        return STATUS_LABELS.get(this.status) || `Status: ${this.status}`;\n    }\n    render() {\n        return html `\n      <span\n        class=\"indicator\"\n        role=\"img\"\n        aria-label=${this.statusLabel}\n        title=${this.statusLabel}\n        tabindex=\"0\"\n      >\n        <i class=\"material-icons\" aria-hidden=\"true\">${this.iconName}</i>\n      </span>\n    `;\n    }\n}",
+          "description": "Status indicator with distinct icon shapes and colors.\nIcons are the primary differentiator (accessible to color-blind users).\nColors provide secondary reinforcement.\n\nHover/focus shows tooltip with status description."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridStatusIndicator",
+          "declaration": {
+            "name": "TestgridStatusIndicator",
+            "module": "out-tsc/src/testgrid-status-indicator.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/testgrid-summary.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "TestgridSummary",
+          "default": "class TestgridSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardGroupsController = new APIController(this);\n        this.dashboardsController = new APIController(this);\n        this.name = '';\n        this.summaryType = 'unknown';\n        this.isLoading = true;\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.determineSummaryType();\n    }\n    willUpdate(changedProperties) {\n        if (changedProperties.has('name')) {\n            this.isLoading = true;\n            this.determineSummaryType();\n        }\n    }\n    async determineSummaryType() {\n        var _a, _b;\n        const historyState = window.history.state;\n        if (historyState && historyState.type) {\n            this.summaryType = historyState.type;\n            this.isLoading = false;\n            return;\n        }\n        try {\n            const [groupsResponse, dashboardsResponse] = await Promise.all([\n                this.dashboardGroupsController.fetch('dashboard-groups', () => apiClient.getDashboardGroups()),\n                this.dashboardsController.fetch('dashboards', () => apiClient.getDashboards())\n            ]);\n            const isGroup = (_a = groupsResponse.dashboardGroups) === null || _a === void 0 ? void 0 : _a.some(g => g.name === this.name);\n            if (isGroup) {\n                this.summaryType = 'dashboard-group';\n                this.isLoading = false;\n                return;\n            }\n            const isDashboard = (_b = dashboardsResponse.dashboards) === null || _b === void 0 ? void 0 : _b.some(d => d.name === this.name);\n            if (isDashboard) {\n                this.summaryType = 'dashboard';\n                this.isLoading = false;\n                return;\n            }\n            this.isLoading = false;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error('Failed to determine summary type:', error);\n            this.isLoading = false;\n        }\n    }\n    render() {\n        if (this.isLoading) {\n            return html `<div class=\"loading\">Loading...</div>`;\n        }\n        switch (this.summaryType) {\n            case 'dashboard-group':\n                return html `<testgrid-group-summary .groupName=${this.name}></testgrid-group-summary>`;\n            case 'dashboard':\n                return html `<testgrid-data-content .dashboardName=${this.name}></testgrid-data-content>`;\n            default:\n                return html `\n          <div class=\"not-found\">\n            <div>Not found: ${this.name}</div>\n            <div class=\"not-found-subtitle\">\n              The requested dashboard or group could not be found.\n            </div>\n          </div>\n        `;\n        }\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TestgridSummary",
+          "declaration": {
+            "name": "TestgridSummary",
+            "module": "out-tsc/src/testgrid-summary.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "out-tsc/stories/tab-summary.stories.js",
       "declarations": [
         {
@@ -2971,460 +3518,238 @@
     },
     {
       "kind": "javascript-module",
-      "path": "out-tsc/src/APIClient.js",
+      "path": "src/components/theme-toggle.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Theme toggle button with sun/moon icon.\nCycles through: system -> light -> dark -> system",
+          "name": "ThemeToggle",
+          "members": [
+            {
+              "kind": "field",
+              "name": "theme",
+              "type": {
+                "text": "Theme"
+              },
+              "privacy": "private",
+              "default": "'system'"
+            },
+            {
+              "kind": "field",
+              "name": "resolvedTheme",
+              "type": {
+                "text": "'light' | 'dark'"
+              },
+              "privacy": "private",
+              "default": "'light'"
+            },
+            {
+              "kind": "field",
+              "name": "mediaQuery",
+              "type": {
+                "text": "MediaQueryList | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "handleSystemChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "resolveTheme",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "'light' | 'dark'"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "theme-toggle",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ThemeToggle",
+          "declaration": {
+            "name": "ThemeToggle",
+            "module": "src/components/theme-toggle.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "theme-toggle",
+          "declaration": {
+            "name": "ThemeToggle",
+            "module": "src/components/theme-toggle.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/contexts/navigation-context.ts",
       "declarations": [
         {
           "kind": "variable",
-          "name": "apiClient",
-          "default": "new APIClient()"
+          "name": "defaultNavigationState",
+          "type": {
+            "text": "NavigationState"
+          },
+          "default": "{\n  breadcrumbs: [{ label: 'Index', path: '/', type: 'index' }],\n  searchQuery: '',\n}",
+          "description": "Default navigation state"
+        },
+        {
+          "kind": "variable",
+          "name": "navigationContext",
+          "description": "Context for sharing navigation state across the app"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "defaultNavigationState",
+          "declaration": {
+            "name": "defaultNavigationState",
+            "module": "src/contexts/navigation-context.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "navigationContext",
+          "declaration": {
+            "name": "navigationContext",
+            "module": "src/contexts/navigation-context.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/contexts/theme-context.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "themeContext"
+        },
+        {
+          "kind": "variable",
+          "name": "defaultThemeState",
+          "type": {
+            "text": "ThemeState"
+          },
+          "default": "{\n  theme: 'system',\n  resolvedTheme: 'light'\n}"
         },
         {
           "kind": "function",
-          "name": "createApiClient",
+          "name": "initializeTheme",
+          "return": {
+            "type": {
+              "text": "'light' | 'dark'"
+            }
+          },
+          "description": "Initialize theme on page load. Call inline in <head> to prevent FOUC.\nReturns the resolved theme for initial state."
+        },
+        {
+          "kind": "function",
+          "name": "setTheme",
+          "return": {
+            "type": {
+              "text": "'light' | 'dark'"
+            }
+          },
           "parameters": [
             {
-              "name": "baseUrl"
+              "name": "theme",
+              "type": {
+                "text": "Theme"
+              }
             }
-          ]
+          ],
+          "description": "Set theme and update DOM. Returns the new resolved theme."
+        },
+        {
+          "kind": "function",
+          "name": "getStoredTheme",
+          "return": {
+            "type": {
+              "text": "Theme"
+            }
+          },
+          "description": "Get current theme from localStorage or default to 'system'."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "apiClient",
+          "name": "themeContext",
           "declaration": {
-            "name": "apiClient",
-            "module": "out-tsc/src/APIClient.js"
+            "name": "themeContext",
+            "module": "src/contexts/theme-context.ts"
           }
         },
         {
           "kind": "js",
-          "name": "createApiClient",
+          "name": "defaultThemeState",
           "declaration": {
-            "name": "createApiClient",
-            "module": "out-tsc/src/APIClient.js"
+            "name": "defaultThemeState",
+            "module": "src/contexts/theme-context.ts"
           }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/tab-summary.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TabSummary",
-          "default": "class TabSummary extends LitElement {\n    render() {\n        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;\n        return html `\n      <div class=\"tab\">\n        <div class=\"left\">\n          <testgrid-status-indicator status=\"${(_a = this.info) === null || _a === void 0 ? void 0 : _a.overallStatus}\"></testgrid-status-indicator>\n        </div>\n        <div class=\"mid\">\n          <div\n            @click=${() => this.changeTab()}\n            @keydown=${this.handleKeyDown}\n            class=\"tab-name\"\n            tabindex=\"0\"\n            role=\"button\"\n            aria-label=\"Select tab ${(_b = this.info) === null || _b === void 0 ? void 0 : _b.name}\"\n          >\n            ${(_c = this.info) === null || _c === void 0 ? void 0 : _c.name}: ${(_d = this.info) === null || _d === void 0 ? void 0 : _d.overallStatus}\n          </div>\n          <div class=\"detailed-status\">${(_e = this.info) === null || _e === void 0 ? void 0 : _e.detailedStatusMsg}</div>\n        </div>\n        <div class=\"right\">\n          <div class=\"stats\">\n            Last update: ${(_f = this.info) === null || _f === void 0 ? void 0 : _f.lastUpdateTimestamp}\n          </div>\n          <div class=\"stats\">\n            Tests last ran: ${(_g = this.info) === null || _g === void 0 ? void 0 : _g.lastRunTimestamp}\n          </div>\n          <div class=\"stats\">\n            Last green run: ${(_h = this.info) === null || _h === void 0 ? void 0 : _h.latestGreenBuild}\n          </div>\n        </div>\n      </div>\n      ${((_j = this.info) === null || _j === void 0 ? void 0 : _j.failuresSummary) !== undefined\n            ? html `<testgrid-failures-summary .info=${this.info}>\n          </testgrid-failures-summary>`\n            : ''}\n      ${((_k = this.info) === null || _k === void 0 ? void 0 : _k.healthinessSummary) !== undefined\n            ? html `<testgrid-healthiness-summary .info=${this.info}>\n          </testgrid-healthiness-summary>`\n            : ''}\n    `;\n    }\n    /**\n     * Handles keyboard events for accessibility\n     */\n    handleKeyDown(event) {\n        if (event.key === 'Enter' || event.key === ' ') {\n            event.preventDefault();\n            this.changeTab();\n        }\n    }\n    /**\n     * Lets the data content element know that the tab changed\n     *\n     * @fires tab-changed\n     * @param tabName string\n     */\n    changeTab() {\n        var _a;\n        window.dispatchEvent(new CustomEvent('tab-changed', {\n            detail: {\n                tabName: (_a = this.info) === null || _a === void 0 ? void 0 : _a.name,\n            },\n        }));\n    }\n}"
-        }
-      ],
-      "exports": [
+        },
         {
           "kind": "js",
-          "name": "TabSummary",
+          "name": "initializeTheme",
           "declaration": {
-            "name": "TabSummary",
-            "module": "out-tsc/src/tab-summary.js"
+            "name": "initializeTheme",
+            "module": "src/contexts/theme-context.ts"
           }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-app.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridApp",
-          "default": "class TestgridApp extends LitElement {\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `<testgrid-router></testgrid-router>`;\n    }\n}",
-          "description": "Class definition for the `testgrid-app` element.\nApplication root element."
-        }
-      ],
-      "exports": [
+        },
         {
           "kind": "js",
-          "name": "TestgridApp",
+          "name": "setTheme",
           "declaration": {
-            "name": "TestgridApp",
-            "module": "out-tsc/src/testgrid-app.js"
+            "name": "setTheme",
+            "module": "src/contexts/theme-context.ts"
           }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-context-menu.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridContextMenu",
-          "default": "class TestgridContextMenu extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.menuItems = [];\n        this.x = 0;\n        this.y = 0;\n    }\n    firstUpdated() {\n        this.adjustPosition();\n    }\n    updated() {\n        this.adjustPosition();\n    }\n    adjustPosition() {\n        const rect = this.getBoundingClientRect();\n        const viewportWidth = window.innerWidth;\n        const viewportHeight = window.innerHeight;\n        let adjustedX = this.x;\n        let adjustedY = this.y;\n        if (this.x + rect.width > viewportWidth) {\n            adjustedX = viewportWidth - rect.width - 10;\n        }\n        if (this.y + rect.height > viewportHeight) {\n            adjustedY = viewportHeight - rect.height - 10;\n        }\n        this.style.left = `${adjustedX}px`;\n        this.style.top = `${adjustedY}px`;\n    }\n    render() {\n        if (!this.menuItems || this.menuItems.length === 0)\n            return html ``;\n        return html `\n      ${this.menuItems.map(item => html `\n        <a\n          class=\"menu-item\"\n          href=\"${item.url}\"\n          target=\"_blank\"\n          @click=\"${this.handleClick}\"\n        >\n          ${item.label}\n        </a>\n      `)}\n    `;\n    }\n    handleClick() {\n        this.dispatchEvent(new CustomEvent('menu-close'));\n    }\n}"
-        }
-      ],
-      "exports": [
+        },
         {
           "kind": "js",
-          "name": "TestgridContextMenu",
+          "name": "getStoredTheme",
           "declaration": {
-            "name": "TestgridContextMenu",
-            "module": "out-tsc/src/testgrid-context-menu.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-context.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "linkContext"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "linkContext",
-          "declaration": {
-            "name": "linkContext",
-            "module": "out-tsc/src/testgrid-context.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-dashboard-summary.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridDashboardSummary",
-          "default": "class TestgridDashboardSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardName = '';\n        this.tabSummariesInfo = [];\n        this.tabSummariesController = new APIController(this);\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.fetchTabSummaries();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `\n      ${map(this.tabSummariesInfo, (ts) => html `<tab-summary .info=${ts}></tab-summary>`)}\n  `;\n    }\n    // fetch the tab summaries and tab names to populate the tab bar\n    async fetchTabSummaries() {\n        try {\n            const data = await this.tabSummariesController.fetch(`tab-summaries-${this.dashboardName}`, () => apiClient.getTabSummaries(this.dashboardName));\n            const tabSummaries = [];\n            data.tabSummaries.forEach(ts => {\n                const si = convertResponse(ts);\n                tabSummaries.push(si);\n            });\n            this.tabSummariesInfo = tabSummaries;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get tab summaries: ${error}`);\n        }\n    }\n}",
-          "description": "Class definition for the `testgrid-dashboard-summary` element.\nRenders the dashboard summary (summary of dashboard tabs)."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridDashboardSummary",
-          "declaration": {
-            "name": "TestgridDashboardSummary",
-            "module": "out-tsc/src/testgrid-dashboard-summary.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-data-content.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridDataContent",
-          "default": "class TestgridDataContent extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.tabNames = [];\n        this.activeIndex = 0;\n        this.showTab = false;\n        this.dashboardName = '';\n        this.linkTemplate = { url: new URL('https://prow.k8s.io/') };\n        this.tabsController = new APIController(this);\n        this.handleTabChanged = (evt) => {\n            this.tabName = evt.detail.tabName;\n            this.showTab = !this.showTab;\n            this.highlightIndex(this.tabName);\n            navigateTab(this.dashboardName, this.tabName);\n        };\n    }\n    // set the functionality when any tab is clicked on\n    onTabActivated(event) {\n        var _a, _b;\n        const tabIndex = (_a = event.target.activeTabIndex) !== null && _a !== void 0 ? _a : (_b = event.detail) === null || _b === void 0 ? void 0 : _b.index;\n        if (tabIndex === this.activeIndex) {\n            return;\n        }\n        this.tabName = this.tabNames[tabIndex];\n        if (this.activeIndex === 0 || tabIndex === 0) {\n            this.showTab = !this.showTab;\n        }\n        this.activeIndex = tabIndex;\n        navigateTab(this.dashboardName, this.tabName);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.fetchTabNames();\n        window.addEventListener('tab-changed', this.handleTabChanged);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is removed from the document's DOM.\n     */\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        window.removeEventListener('tab-changed', this.handleTabChanged);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        const tabBar = html `${\n        // make sure we only render the tabs when there are tabs\n        when(this.tabNames.length > 0, () => html ` <md-tabs\n          style=\"width: 100vw\"\n          .activeIndex=${this.activeIndex}\n          @change=\"${this.onTabActivated}\"\n        >\n          ${map(this.tabNames, (name) => html `<md-primary-tab>${name}</md-primary-tab>`)}\n        </md-tabs>`)}`;\n        return html `\n      ${tabBar}\n      ${!this.showTab\n            ? html `<testgrid-dashboard-summary\n            .dashboardName=${this.dashboardName}\n          ></testgrid-dashboard-summary>`\n            : html `<testgrid-grid\n            .dashboardName=${this.dashboardName}\n            .tabName=${this.tabName}\n          ></testgrid-grid>`}\n    `;\n    }\n    // fetch the tab names to populate the tab bar\n    async fetchTabNames() {\n        try {\n            const data = await this.tabsController.fetch(`dashboard-tabs-${this.dashboardName}`, () => apiClient.getDashboardTabs(this.dashboardName));\n            const tabNames = ['Summary'];\n            data.dashboardTabs.forEach(tab => {\n                tabNames.push(tab.name);\n            });\n            this.tabNames = tabNames;\n            this.highlightIndex(this.tabName);\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get dashboard tabs: ${error}`);\n        }\n    }\n    // identify which tab to highlight on the tab bar\n    highlightIndex(tabName) {\n        if (tabName === undefined) {\n            this.activeIndex = 0;\n            return;\n        }\n        const index = this.tabNames.indexOf(tabName);\n        if (index > -1) {\n            this.activeIndex = index;\n        }\n    }\n}",
-          "description": "Class definition for the `testgrid-data-content` element.\nActs as a container for dashboard summary or grid data."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridDataContent",
-          "declaration": {
-            "name": "TestgridDataContent",
-            "module": "out-tsc/src/testgrid-data-content.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-failures-summary.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridFailuresSummary",
-          "default": "class TestgridFailuresSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.showFailureSummary = false;\n    }\n    render() {\n        var _a;\n        return html `\n    <div class=\"dropdown-container\">\n        <button @click=\"${() => this.dropdownTable()}\" class=\"btn\">\n          ${this.showFailureSummary ? html `- Hide Alerts -` : html `- Show Alerts -`}\n        </button>\n      ${this.showFailureSummary ? html `\n          <table class=\"dropdown-menu\">\n            <tr>\n              <th>Test Name</th>\n              <th># Fails</th>\n              <th>First Failed</th>\n              <th>Last Passed</th>\n            </tr>\n            ${map((_a = this.info) === null || _a === void 0 ? void 0 : _a.failuresSummary.topFailingTests, (test) => html `\n                <tr>\n                  <td>${test.displayName}</td>\n                  <td>${test.failCount}</td>\n                  <td>${test.passTimestamp}</td>\n                  <td>${test.failTimestamp}</td>\n                </tr>\n              `)}\n          </table>`\n            : ''}\n      </div>\n    `;\n    }\n    dropdownTable() {\n        this.showFailureSummary = !this.showFailureSummary;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridFailuresSummary",
-          "declaration": {
-            "name": "TestgridFailuresSummary",
-            "module": "out-tsc/src/testgrid-failures-summary.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-cell.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridCell",
-          "default": "class TestgridGridCell extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.rowName = '';\n        this.buildId = '';\n        this.dashboardName = '';\n        this.tabName = '';\n        // store all pre-generated URLs\n        this.openTestUrl = '';\n        this.fileBugUrl = '';\n        this.attachBugUrl = '';\n    }\n    connectedCallback() {\n        super.connectedCallback();\n        // Generate URLs once when the cell is created\n        this.prepareUrls();\n    }\n    prepareUrls() {\n        this.openTestUrl = this.generateTestUrl();\n        this.fileBugUrl = this.generateFileBugUrl();\n        this.attachBugUrl = this.generateAttachToBugUrl();\n    }\n    handleMenuItemClick(e) {\n        const item = e.detail.value;\n        if (item.url) {\n            window.open(item.url, '_blank');\n        }\n    }\n    generateTestUrl() {\n        return `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;\n    }\n    generateFileBugUrl() {\n        const linkUrl = `https://prow.k8s.io/view/gs/kubernetes-ci-logs/logs/${this.tabName}/${this.buildId}`;\n        const title = encodeURIComponent(`E2E: ${this.rowName}`);\n        const body = encodeURIComponent(`${linkUrl}\\n`);\n        return `https://github.com/kubernetes/kubernetes/issues/new?title=${title}&body=${body}`;\n    }\n    generateAttachToBugUrl() {\n        const searchQuery = encodeURIComponent(`is:issue is:open ${this.rowName}`);\n        return `https://github.com/kubernetes/kubernetes/issues?q=${searchQuery}`;\n    }\n    getContextMenuItems() {\n        return [\n            {\n                text: 'Open Test',\n                url: this.openTestUrl\n            },\n            {\n                text: 'File a Bug',\n                url: this.fileBugUrl\n            },\n            {\n                text: 'Attach to Bug',\n                url: this.attachBugUrl\n            }\n        ];\n    }\n    render() {\n        const content = this.linkTemplate === undefined\n            ? html `<span>${this.icon}</span>`\n            : html `<a href=\"${this.linkTemplate.url.toString()}\"><span>${this.icon}</span></a>`;\n        return html `\n      <vaadin-context-menu\n        .items=\"${this.getContextMenuItems()}\"\n        @item-selected=\"${this.handleMenuItemClick}\">\n        ${content}\n      </vaadin-context-menu>\n    `;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridCell",
-          "declaration": {
-            "name": "TestgridGridCell",
-            "module": "out-tsc/src/testgrid-grid-cell.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-column-header.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridColumnHeader",
-          "default": "class TestgridGridColumnHeader extends LitElement {\n    render() {\n        return html `<span>${this.value}</span>`;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridColumnHeader",
-          "declaration": {
-            "name": "TestgridGridColumnHeader",
-            "module": "out-tsc/src/testgrid-grid-column-header.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-header-row.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridHeaderRow",
-          "default": "class TestgridGridHeaderRow extends LitElement {\n    render() {\n        const nameStyles = { background: '#ededed', zIndex: '20' };\n        return html `\n      <testgrid-grid-row-name .name=\"${this.name}\" style=${styleMap(nameStyles)}></testgrid-grid-row-name>\n      ${map(this.combinedHeaders, header => {\n            // TODO(michelle192837): Stop hardcoding header width.\n            const width = `${(header.count - 1) * (80 + 2) + 80}px`;\n            const styles = { width, minWidth: width, maxWidth: width };\n            return html `\n            <testgrid-grid-column-header\n              style=${styleMap(styles)}\n              .value=\"${header.value}\"\n            ></testgrid-grid-column-header>\n          `;\n        })}\n    `;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridHeaderRow",
-          "declaration": {
-            "name": "TestgridGridHeaderRow",
-            "module": "out-tsc/src/testgrid-grid-header-row.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-headers-block.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridHeadersBlock",
-          "default": "class TestgridGridHeadersBlock extends LitElement {\n    render() {\n        var _a;\n        const builds = [];\n        const dates = [];\n        const times = [];\n        const extras = [];\n        for (const header of ((_a = this.headers) === null || _a === void 0 ? void 0 : _a.headers) || []) {\n            builds.push(header.build);\n            for (let i = 0; i < header.extra.length; i += 1) {\n                if (i >= extras.length) {\n                    extras[i] = [];\n                }\n                extras[i].push(header.extra[i]);\n            }\n            if (header.started === undefined) {\n                // This really shouldn't happen, but set a default value anyway to make that clear.\n                dates.push('-');\n                times.push('-');\n                // eslint-disable-next-line no-continue\n                continue;\n            }\n            const date = new Date(parseInt(header.started.seconds, 10) * 1000);\n            dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));\n            times.push(date.toLocaleString('en-US', {\n                hour12: false,\n                hour: '2-digit',\n                minute: 'numeric',\n            }));\n        }\n        return html `\n      <testgrid-grid-header-row\n        .name=\"start date\"\n        .combinedHeaders=\"${runLengthEncode(dates)}\"\n      ></testgrid-grid-header-row>\n      <testgrid-grid-header-row\n        .name=\"start time\"\n        .combinedHeaders=\"${runLengthEncode(times)}\"\n      ></testgrid-grid-header-row>\n      <testgrid-grid-header-row\n        .name=\"build ID\"\n        .combinedHeaders=\"${runLengthEncode(builds)}\"\n      ></testgrid-grid-header-row>\n      ${map(extras, extra => html `<testgrid-grid-header-row\n            .name=\"extra\"\n            .combinedHeaders=\"${runLengthEncode(extra)}\"\n          ></testgrid-grid-header-row>`)}\n    `;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridHeadersBlock",
-          "declaration": {
-            "name": "TestgridGridHeadersBlock",
-            "module": "out-tsc/src/testgrid-grid-headers-block.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-row-name.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridRowName",
-          "default": "class TestgridGridRowName extends LitElement {\n    render() {\n        return html `${this.name}`;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridRowName",
-          "declaration": {
-            "name": "TestgridGridRowName",
-            "module": "out-tsc/src/testgrid-grid-row-name.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid-row.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGridRow",
-          "default": "class TestgridGridRow extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.buildIds = [];\n        this.dashboardName = '';\n        this.tabName = '';\n    }\n    render() {\n        var _a, _b;\n        return html `\n      <testgrid-grid-row-name\n        .name=\"${(_a = this.rowData) === null || _a === void 0 ? void 0 : _a.name}\"\n      ></testgrid-grid-row-name>\n      ${map((_b = this.rowData) === null || _b === void 0 ? void 0 : _b.cells, (cell, index) => {\n            // Use cell index to get corresponding build ID from column data\n            const buildId = this.buildIds[index + 1] || '';\n            return html `<testgrid-grid-cell\n          .icon=\"${cell.icon}\"\n          .status=\"${TestStatus[cell.result]}\"\n          .rowName=\"${this.rowData.name}\"\n          .buildId=\"${buildId}\"\n          .dashboardName=\"${this.dashboardName}\"\n          .tabName=\"${this.tabName}\"\n        ></testgrid-grid-cell>`;\n        })}\n    `;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGridRow",
-          "declaration": {
-            "name": "TestgridGridRow",
-            "module": "out-tsc/src/testgrid-grid-row.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-grid.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGrid",
-          "default": "class TestgridGrid extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardName = '';\n        this.tabName = '';\n        this.tabGridRows = [];\n        this.headersController = new APIController(this);\n        this.rowsController = new APIController(this);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when element properties are changed.\n     */\n    willUpdate(changedProperties) {\n        if (changedProperties.has('tabName')) {\n            this.fetchTabGrid();\n        }\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        var _a, _b;\n        const buildIds = ((_b = (_a = this.tabGridHeaders) === null || _a === void 0 ? void 0 : _a.headers) === null || _b === void 0 ? void 0 : _b.map(h => h.build)) || [];\n        return html `\n      <testgrid-grid-headers-block\n        .headers=\"${this.tabGridHeaders}\"\n      ></testgrid-grid-headers-block>\n      ${map(this.tabGridRows, (row) => html `<testgrid-grid-row\n            .name=\"${row.name}\"\n            .rowData=\"${row}\"\n            .buildIds=\"${buildIds}\"\n            .dashboardName=\"${this.dashboardName}\"\n            .tabName=\"${this.tabName}\"\n          ></testgrid-grid-row>`)}\n    `;\n    }\n    async fetchTabGrid() {\n        this.fetchTabGridRows();\n        this.fetchTabGridHeaders();\n    }\n    async fetchTabGridRows() {\n        this.tabGridRows = [];\n        try {\n            const data = await this.rowsController.fetch(`tab-rows-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabRows(this.dashboardName, this.tabName));\n            // eslint-disable-next-line camelcase\n            const rows = [];\n            data.rows.forEach(row => rows.push(row));\n            this.tabGridRows = rows;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid rows: ${error}`);\n        }\n    }\n    async fetchTabGridHeaders() {\n        try {\n            const data = await this.headersController.fetch(`tab-headers-${this.dashboardName}-${this.tabName}`, () => apiClient.getTabHeaders(this.dashboardName, this.tabName));\n            this.tabGridHeaders = data;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error(`Could not get grid headers: ${error}`);\n        }\n    }\n}",
-          "description": "Class definition for `testgrid-grid` component.\nRenders the test results grid."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGrid",
-          "declaration": {
-            "name": "TestgridGrid",
-            "module": "out-tsc/src/testgrid-grid.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-group-summary.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridGroupSummary"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridGroupSummary",
-          "declaration": {
-            "name": "TestgridGroupSummary",
-            "module": "out-tsc/src/testgrid-group-summary.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-healthiness-summary.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridHealthinessSummary",
-          "default": "class TestgridHealthinessSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.showHealthinessSummary = false;\n    }\n    render() {\n        var _a;\n        return html `\n      <div class=\"dropdown-container\">\n        <button @click=\"${() => this.dropdownTable()}\" class=\"btn\">\n          ${this.showHealthinessSummary\n            ? html `- Hide Healthiness Report -`\n            : html `- Show Healthiness Report -`}\n        </button>\n        ${this.showHealthinessSummary\n            ? html ` <table class=\"dropdown-menu\">\n              <tr>\n                <th>Test Name</th>\n                <th>Flakiness (Previous)</th>\n                <th>Flakiness (Current)</th>\n                <th>Trend</th>\n                <th>Infra Failure Rate</th>\n                <th>Flaky Tests Count</th>\n              </tr>\n              ${map((_a = this.info) === null || _a === void 0 ? void 0 : _a.healthinessSummary.topFlakyTests, (test) => {\n                var _a, _b, _c, _d, _e, _f;\n                return html `\n                  <tr>\n                    <td>${test.displayName}</td>\n                    <td>\n                      ${(_b = (_a = this.info) === null || _a === void 0 ? void 0 : _a.healthinessSummary) === null || _b === void 0 ? void 0 : _b.healthinessStats.previousFlakiness}\n                    </td>\n                    <td>\n                      ${(_d = (_c = this.info) === null || _c === void 0 ? void 0 : _c.healthinessSummary) === null || _d === void 0 ? void 0 : _d.healthinessStats.averageFlakiness}\n                    </td>\n                    <td>N/A</td>\n                    <td>${test.flakiness}</td>\n                    <td>\n                      ${(_f = (_e = this.info) === null || _e === void 0 ? void 0 : _e.healthinessSummary) === null || _f === void 0 ? void 0 : _f.healthinessStats.numFlakyTests}\n                    </td>\n                  </tr>\n                `;\n            })}\n            </table>`\n            : ''}\n      </div>\n    `;\n    }\n    dropdownTable() {\n        this.showHealthinessSummary = !this.showHealthinessSummary;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridHealthinessSummary",
-          "declaration": {
-            "name": "TestgridHealthinessSummary",
-            "module": "out-tsc/src/testgrid-healthiness-summary.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-index.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridIndex"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridIndex",
-          "declaration": {
-            "name": "TestgridIndex",
-            "module": "out-tsc/src/testgrid-index.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-router.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridRouter",
-          "default": "class TestgridRouter extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.router = new Router(this, [\n            {\n                path: '/:dashboard/*',\n                render: (params) => html `<testgrid-data-content\n          .dashboardName=${params.dashboard}\n          .tabName=${params[0]}\n          showTab\n        ></testgrid-data-content>`,\n            },\n            {\n                path: '/:name',\n                render: (params) => html `<testgrid-summary\n          .name=${params.name}\n        ></testgrid-summary>`,\n            },\n            {\n                path: '/',\n                render: () => html `<testgrid-index></testgrid-index>`,\n            },\n        ]);\n        this.goToCurrentPath = () => this.router.goto(window.location.pathname);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is added to the document's DOM.\n     */\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        window.addEventListener('location-changed', this.goToCurrentPath);\n        window.addEventListener('popstate', this.goToCurrentPath);\n        // Ensure initial render reflects current URL (including direct loads on nested paths)\n        this.goToCurrentPath();\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked when a component is removed from the document's DOM.\n     */\n    disconnectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.disconnectedCallback();\n        window.removeEventListener('location-changed', this.goToCurrentPath);\n        window.removeEventListener('popstate', this.goToCurrentPath);\n    }\n    /**\n     * Lit-element lifecycle method.\n     * Invoked on each update to perform rendering tasks.\n     */\n    render() {\n        return html `${this.router.outlet()}`;\n    }\n}",
-          "description": "Class definition for the `testgrid-router` element.\nHandles the routing logic."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridRouter",
-          "declaration": {
-            "name": "TestgridRouter",
-            "module": "out-tsc/src/testgrid-router.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-status-indicator.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridStatusIndicator",
-          "default": "class TestgridStatusIndicator extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.status = '';\n    }\n    get iconName() {\n        return STATUS_ICONS.get(this.status) || 'help_outline';\n    }\n    render() {\n        return html `\n      <i class=\"material-icons\" aria-label=\"Status: ${this.status}\">${this.iconName}</i>\n    `;\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridStatusIndicator",
-          "declaration": {
-            "name": "TestgridStatusIndicator",
-            "module": "out-tsc/src/testgrid-status-indicator.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "out-tsc/src/testgrid-summary.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "TestgridSummary",
-          "default": "class TestgridSummary extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.dashboardGroupsController = new APIController(this);\n        this.dashboardsController = new APIController(this);\n        this.name = '';\n        this.summaryType = 'unknown';\n        this.isLoading = true;\n    }\n    connectedCallback() {\n        // eslint-disable-next-line wc/guard-super-call\n        super.connectedCallback();\n        this.determineSummaryType();\n    }\n    willUpdate(changedProperties) {\n        if (changedProperties.has('name')) {\n            this.isLoading = true;\n            this.determineSummaryType();\n        }\n    }\n    async determineSummaryType() {\n        var _a, _b;\n        const historyState = window.history.state;\n        if (historyState && historyState.type) {\n            this.summaryType = historyState.type;\n            this.isLoading = false;\n            return;\n        }\n        try {\n            const [groupsResponse, dashboardsResponse] = await Promise.all([\n                this.dashboardGroupsController.fetch('dashboard-groups', () => apiClient.getDashboardGroups()),\n                this.dashboardsController.fetch('dashboards', () => apiClient.getDashboards())\n            ]);\n            const isGroup = (_a = groupsResponse.dashboardGroups) === null || _a === void 0 ? void 0 : _a.some(g => g.name === this.name);\n            if (isGroup) {\n                this.summaryType = 'dashboard-group';\n                this.isLoading = false;\n                return;\n            }\n            const isDashboard = (_b = dashboardsResponse.dashboards) === null || _b === void 0 ? void 0 : _b.some(d => d.name === this.name);\n            if (isDashboard) {\n                this.summaryType = 'dashboard';\n                this.isLoading = false;\n                return;\n            }\n            this.isLoading = false;\n        }\n        catch (error) {\n            // eslint-disable-next-line no-console\n            console.error('Failed to determine summary type:', error);\n            this.isLoading = false;\n        }\n    }\n    render() {\n        if (this.isLoading) {\n            return html `<div class=\"loading\">Loading...</div>`;\n        }\n        switch (this.summaryType) {\n            case 'dashboard-group':\n                return html `<testgrid-group-summary .groupName=${this.name}></testgrid-group-summary>`;\n            case 'dashboard':\n                return html `<testgrid-data-content .dashboardName=${this.name}></testgrid-data-content>`;\n            default:\n                return html `\n          <div class=\"not-found\">\n            <div>Not found: ${this.name}</div>\n            <div class=\"not-found-subtitle\">\n              The requested dashboard or group could not be found.\n            </div>\n          </div>\n        `;\n        }\n    }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TestgridSummary",
-          "declaration": {
-            "name": "TestgridSummary",
-            "module": "out-tsc/src/testgrid-summary.js"
+            "name": "getStoredTheme",
+            "module": "src/contexts/theme-context.ts"
           }
         }
       ]
@@ -3526,21 +3851,62 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/styles/shared-styles.ts",
+      "path": "src/utils/date-format.ts",
       "declarations": [
         {
-          "kind": "variable",
-          "name": "sharedStyles",
-          "default": "css`\n  :host {\n    --font-family: Roboto, Verdana, sans-serif;\n\n    --font-size-xs: 0.75rem;\n    --font-size-sm: 0.875rem;\n    --font-size-md: 1rem;\n    --font-size-lg: 1.125rem;\n    --font-size-icon: 2em;\n\n    /* Colors */\n    --tg-primary: #707df1;\n    --tg-secondary: #9e60eb;\n    --tg-border: #e0e0e0;\n    --tg-border-light: #ddd;\n    --tg-border-lighter: #cbcbcb;\n    --tg-surface: #fff;\n    --tg-text: #333;\n\n    /* Test status colors */\n    --tg-status-pass: #4caf50;\n    --tg-status-fail: #f44336;\n    --tg-status-broken: #e91e63;\n    --tg-status-flaky: #ff9800;\n    --tg-status-unknown: #9e9e9e;\n    --tg-status-stale: #9e9e9e;\n    --tg-status-pending: #2196f3;\n    --tg-status-acceptable: #8bc34a;\n  }\n`"
+          "kind": "function",
+          "name": "formatDate",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "date",
+              "type": {
+                "text": "Date"
+              },
+              "description": "The date to format"
+            }
+          ],
+          "description": "Formats a Date object into a human-readable string.\nShows relative time for recent dates and absolute time for older ones."
+        },
+        {
+          "kind": "function",
+          "name": "formatTimestamp",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "isoString",
+              "type": {
+                "text": "string"
+              },
+              "description": "The ISO timestamp string"
+            }
+          ],
+          "description": "Formats an ISO timestamp string into a human-readable string."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "sharedStyles",
+          "name": "formatDate",
           "declaration": {
-            "name": "sharedStyles",
-            "module": "src/styles/shared-styles.ts"
+            "name": "formatDate",
+            "module": "src/utils/date-format.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "formatTimestamp",
+          "declaration": {
+            "name": "formatTimestamp",
+            "module": "src/utils/date-format.ts"
           }
         }
       ]
@@ -3618,6 +3984,14 @@
                 "text": "'dashboard-group' | 'dashboard'"
               },
               "description": "The type of item being navigated to"
+            },
+            {
+              "name": "dashboardGroupName",
+              "optional": true,
+              "type": {
+                "text": "string"
+              },
+              "description": "Optional parent group name for dashboards"
             }
           ],
           "description": "Navigates application to a specified page with context about the item type."
@@ -3640,7 +4014,7 @@
               }
             }
           ],
-          "description": "Changes the URL without reloading"
+          "description": "Changes the URL without reloading, preserving navigation context"
         }
       ],
       "exports": [
@@ -3666,6 +4040,95 @@
           "declaration": {
             "name": "navigateTab",
             "module": "src/utils/navigation.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles/shared-styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "tailwindBase",
+          "default": "css`\n  @tailwind base;\n  @tailwind utilities;\n`",
+          "description": "Tailwind base and utilities - processed by postcss-lit at build time.\nComponents import this to get Tailwind classes working in Shadow DOM."
+        },
+        {
+          "kind": "variable",
+          "name": "shadowDOMVars",
+          "default": "css`\n  :host {\n    /* Border and ring defaults for Tailwind utilities */\n    --tw-border-style: solid;\n    --tw-ring-color: oklch(0.7 0.15 250 / 0.5);\n    --tw-ring-offset-width: 0px;\n    --tw-ring-offset-color: #fff;\n    --tw-ring-inset: ;\n    --tw-ring-offset-shadow: 0 0 #0000;\n    --tw-ring-shadow: 0 0 #0000;\n\n    /* Shadow defaults */\n    --tw-shadow: 0 0 #0000;\n    --tw-shadow-colored: 0 0 #0000;\n\n    /* Transform defaults */\n    --tw-translate-x: 0;\n    --tw-translate-y: 0;\n    --tw-rotate: 0;\n    --tw-skew-x: 0;\n    --tw-skew-y: 0;\n    --tw-scale-x: 1;\n    --tw-scale-y: 1;\n\n    /* Inherit semantic tokens from :root (these cascade into Shadow DOM) */\n    color: var(--foreground);\n    background-color: var(--background);\n  }\n`",
+          "description": "Shadow DOM CSS variable declarations.\nRequired because Tailwind v4's @property declarations don't inherit into Shadow DOM.\nThese must be declared on :host for Tailwind utilities to work.\nSee: RESEARCH.md Pitfall 1"
+        },
+        {
+          "kind": "variable",
+          "name": "legacyVars",
+          "default": "css`\n  :host {\n    /* Font family - unchanged */\n    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n\n    /* Font sizes - unchanged */\n    --font-size-xs: 0.75rem;\n    --font-size-sm: 0.875rem;\n    --font-size-md: 1rem;\n    --font-size-lg: 1.125rem;\n    --font-size-icon: 2em;\n\n    /* Map old --tg-* to new semantic tokens */\n    --tg-primary: var(--primary);\n    --tg-secondary: var(--accent);\n    --tg-border: var(--border);\n    --tg-border-light: var(--border);\n    --tg-border-lighter: var(--border);\n    --tg-surface: var(--background);\n    --tg-text: var(--foreground);\n\n    /* Header colors */\n    --tg-header-bg: var(--header-bg);\n    --tg-header-text: var(--header-text);\n    --tg-header-height: 56px;\n    --tg-breadcrumb-separator: var(--muted-foreground);\n    --tg-link-color: var(--primary);\n    --tg-link-hover-color: var(--primary);\n\n    /* Status colors - map to new tokens */\n    --tg-status-pass: var(--status-pass);\n    --tg-status-fail: var(--status-fail);\n    --tg-status-broken: var(--status-broken);\n    --tg-status-flaky: var(--status-flaky);\n    --tg-status-unknown: var(--status-unknown);\n    --tg-status-stale: var(--status-stale);\n    --tg-status-pending: var(--status-pending);\n    --tg-status-acceptable: var(--status-acceptable);\n  }\n`",
+          "description": "Legacy variable aliases for backward compatibility during migration.\nMaps old --tg-* names to new semantic tokens.\nCan be removed once all components are updated."
+        },
+        {
+          "kind": "variable",
+          "name": "sharedStyles",
+          "type": {
+            "text": "CSSResultGroup"
+          },
+          "default": "[tailwindBase, shadowDOMVars, legacyVars]",
+          "description": "Combined shared styles for all components.\nImport as: static styles = [sharedStyles, css`...`];"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "tailwindBase",
+          "declaration": {
+            "name": "tailwindBase",
+            "module": "src/styles/shared-styles.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "shadowDOMVars",
+          "declaration": {
+            "name": "shadowDOMVars",
+            "module": "src/styles/shared-styles.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "legacyVars",
+          "declaration": {
+            "name": "legacyVars",
+            "module": "src/styles/shared-styles.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sharedStyles",
+          "declaration": {
+            "name": "sharedStyles",
+            "module": "src/styles/shared-styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/components/theme-toggle.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "ThemeToggle",
+          "default": "class ThemeToggle extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.theme = 'system';\n        this.resolvedTheme = 'light';\n        this.mediaQuery = null;\n        this.handleSystemChange = () => {\n            if (this.theme === 'system') {\n                this.resolvedTheme = setTheme('system');\n            }\n        };\n    }\n    connectedCallback() {\n        super.connectedCallback();\n        this.theme = getStoredTheme();\n        this.resolvedTheme = this.resolveTheme();\n        // Listen for system preference changes\n        this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');\n        this.mediaQuery.addEventListener('change', this.handleSystemChange);\n    }\n    disconnectedCallback() {\n        var _a;\n        super.disconnectedCallback();\n        (_a = this.mediaQuery) === null || _a === void 0 ? void 0 : _a.removeEventListener('change', this.handleSystemChange);\n    }\n    resolveTheme() {\n        if (this.theme === 'system') {\n            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';\n        }\n        return this.theme;\n    }\n    toggle() {\n        // Cycle: system -> light -> dark -> system\n        const next = this.theme === 'system' ? 'light'\n            : this.theme === 'light' ? 'dark'\n                : 'system';\n        this.theme = next;\n        this.resolvedTheme = setTheme(next);\n    }\n    get icon() {\n        // Show what mode is currently active\n        return this.resolvedTheme === 'dark' ? 'light_mode' : 'dark_mode';\n    }\n    get label() {\n        const modeLabels = {\n            system: 'Using system theme',\n            light: 'Light mode',\n            dark: 'Dark mode'\n        };\n        return modeLabels[this.theme];\n    }\n    render() {\n        return html `\n      <button\n        @click=${this.toggle}\n        aria-label=${this.label}\n        title=${this.label}\n        class=\"toggle-btn\"\n      >\n        <span class=\"material-icons\" aria-hidden=\"true\">${this.icon}</span>\n      </button>\n    `;\n    }\n}",
+          "description": "Theme toggle button with sun/moon icon.\nCycles through: system -> light -> dark -> system"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ThemeToggle",
+          "declaration": {
+            "name": "ThemeToggle",
+            "module": "out-tsc/src/components/theme-toggle.js"
           }
         }
       ]
@@ -3745,17 +4208,237 @@
       "declarations": [
         {
           "kind": "variable",
+          "name": "tailwindBase",
+          "default": "css `\n  @tailwind base;\n  @tailwind utilities;\n`",
+          "description": "Tailwind base and utilities - processed by postcss-lit at build time.\nComponents import this to get Tailwind classes working in Shadow DOM."
+        },
+        {
+          "kind": "variable",
+          "name": "shadowDOMVars",
+          "default": "css `\n  :host {\n    /* Border and ring defaults for Tailwind utilities */\n    --tw-border-style: solid;\n    --tw-ring-color: oklch(0.7 0.15 250 / 0.5);\n    --tw-ring-offset-width: 0px;\n    --tw-ring-offset-color: #fff;\n    --tw-ring-inset: ;\n    --tw-ring-offset-shadow: 0 0 #0000;\n    --tw-ring-shadow: 0 0 #0000;\n\n    /* Shadow defaults */\n    --tw-shadow: 0 0 #0000;\n    --tw-shadow-colored: 0 0 #0000;\n\n    /* Transform defaults */\n    --tw-translate-x: 0;\n    --tw-translate-y: 0;\n    --tw-rotate: 0;\n    --tw-skew-x: 0;\n    --tw-skew-y: 0;\n    --tw-scale-x: 1;\n    --tw-scale-y: 1;\n\n    /* Inherit semantic tokens from :root (these cascade into Shadow DOM) */\n    color: var(--foreground);\n    background-color: var(--background);\n  }\n`",
+          "description": "Shadow DOM CSS variable declarations.\nRequired because Tailwind v4's @property declarations don't inherit into Shadow DOM.\nThese must be declared on :host for Tailwind utilities to work.\nSee: RESEARCH.md Pitfall 1"
+        },
+        {
+          "kind": "variable",
+          "name": "legacyVars",
+          "default": "css `\n  :host {\n    /* Font family - unchanged */\n    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n\n    /* Font sizes - unchanged */\n    --font-size-xs: 0.75rem;\n    --font-size-sm: 0.875rem;\n    --font-size-md: 1rem;\n    --font-size-lg: 1.125rem;\n    --font-size-icon: 2em;\n\n    /* Map old --tg-* to new semantic tokens */\n    --tg-primary: var(--primary);\n    --tg-secondary: var(--accent);\n    --tg-border: var(--border);\n    --tg-border-light: var(--border);\n    --tg-border-lighter: var(--border);\n    --tg-surface: var(--background);\n    --tg-text: var(--foreground);\n\n    /* Header colors */\n    --tg-header-bg: var(--header-bg);\n    --tg-header-text: var(--header-text);\n    --tg-header-height: 56px;\n    --tg-breadcrumb-separator: var(--muted-foreground);\n    --tg-link-color: var(--primary);\n    --tg-link-hover-color: var(--primary);\n\n    /* Status colors - map to new tokens */\n    --tg-status-pass: var(--status-pass);\n    --tg-status-fail: var(--status-fail);\n    --tg-status-broken: var(--status-broken);\n    --tg-status-flaky: var(--status-flaky);\n    --tg-status-unknown: var(--status-unknown);\n    --tg-status-stale: var(--status-stale);\n    --tg-status-pending: var(--status-pending);\n    --tg-status-acceptable: var(--status-acceptable);\n  }\n`",
+          "description": "Legacy variable aliases for backward compatibility during migration.\nMaps old --tg-* names to new semantic tokens.\nCan be removed once all components are updated."
+        },
+        {
+          "kind": "variable",
           "name": "sharedStyles",
-          "default": "css `\n  :host {\n    --font-family: Roboto, Verdana, sans-serif;\n\n    --font-size-xs: 0.75rem;\n    --font-size-sm: 0.875rem;\n    --font-size-md: 1rem;\n    --font-size-lg: 1.125rem;\n    --font-size-icon: 2em;\n\n    /* Colors */\n    --tg-primary: #707df1;\n    --tg-secondary: #9e60eb;\n    --tg-border: #e0e0e0;\n    --tg-border-light: #ddd;\n    --tg-border-lighter: #cbcbcb;\n    --tg-surface: #fff;\n    --tg-text: #333;\n\n    /* Test status colors */\n    --tg-status-pass: #4caf50;\n    --tg-status-fail: #f44336;\n    --tg-status-broken: #e91e63;\n    --tg-status-flaky: #ff9800;\n    --tg-status-unknown: #9e9e9e;\n    --tg-status-stale: #9e9e9e;\n    --tg-status-pending: #2196f3;\n    --tg-status-acceptable: #8bc34a;\n  }\n`"
+          "type": {
+            "text": "array"
+          },
+          "default": "[tailwindBase, shadowDOMVars, legacyVars]",
+          "description": "Combined shared styles for all components.\nImport as: static styles = [sharedStyles, css`...`];"
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "tailwindBase",
+          "declaration": {
+            "name": "tailwindBase",
+            "module": "out-tsc/src/styles/shared-styles.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "shadowDOMVars",
+          "declaration": {
+            "name": "shadowDOMVars",
+            "module": "out-tsc/src/styles/shared-styles.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "legacyVars",
+          "declaration": {
+            "name": "legacyVars",
+            "module": "out-tsc/src/styles/shared-styles.js"
+          }
+        },
         {
           "kind": "js",
           "name": "sharedStyles",
           "declaration": {
             "name": "sharedStyles",
             "module": "out-tsc/src/styles/shared-styles.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/contexts/navigation-context.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "defaultNavigationState",
+          "type": {
+            "text": "object"
+          },
+          "default": "{\n    breadcrumbs: [{ label: 'Index', path: '/', type: 'index' }],\n    searchQuery: '',\n}",
+          "description": "Default navigation state"
+        },
+        {
+          "kind": "variable",
+          "name": "navigationContext",
+          "description": "Context for sharing navigation state across the app"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "defaultNavigationState",
+          "declaration": {
+            "name": "defaultNavigationState",
+            "module": "out-tsc/src/contexts/navigation-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "navigationContext",
+          "declaration": {
+            "name": "navigationContext",
+            "module": "out-tsc/src/contexts/navigation-context.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/contexts/theme-context.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "themeContext"
+        },
+        {
+          "kind": "variable",
+          "name": "defaultThemeState",
+          "type": {
+            "text": "object"
+          },
+          "default": "{\n    theme: 'system',\n    resolvedTheme: 'light'\n}"
+        },
+        {
+          "kind": "function",
+          "name": "initializeTheme",
+          "description": "Initialize theme on page load. Call inline in <head> to prevent FOUC.\nReturns the resolved theme for initial state."
+        },
+        {
+          "kind": "function",
+          "name": "setTheme",
+          "parameters": [
+            {
+              "name": "theme"
+            }
+          ],
+          "description": "Set theme and update DOM. Returns the new resolved theme."
+        },
+        {
+          "kind": "function",
+          "name": "getStoredTheme",
+          "description": "Get current theme from localStorage or default to 'system'."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "themeContext",
+          "declaration": {
+            "name": "themeContext",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "defaultThemeState",
+          "declaration": {
+            "name": "defaultThemeState",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "initializeTheme",
+          "declaration": {
+            "name": "initializeTheme",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setTheme",
+          "declaration": {
+            "name": "setTheme",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getStoredTheme",
+          "declaration": {
+            "name": "getStoredTheme",
+            "module": "out-tsc/src/contexts/theme-context.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "out-tsc/src/utils/date-format.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "formatDate",
+          "parameters": [
+            {
+              "name": "date",
+              "description": "The date to format"
+            }
+          ],
+          "description": "Formats a Date object into a human-readable string.\nShows relative time for recent dates and absolute time for older ones.",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "formatTimestamp",
+          "parameters": [
+            {
+              "name": "isoString",
+              "description": "The ISO timestamp string"
+            }
+          ],
+          "description": "Formats an ISO timestamp string into a human-readable string.",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "formatDate",
+          "declaration": {
+            "name": "formatDate",
+            "module": "out-tsc/src/utils/date-format.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "formatTimestamp",
+          "declaration": {
+            "name": "formatTimestamp",
+            "module": "out-tsc/src/utils/date-format.js"
           }
         }
       ]
@@ -3822,6 +4505,13 @@
               "type": {
                 "text": "'dashboard-group' | 'dashboard'"
               }
+            },
+            {
+              "name": "dashboardGroupName",
+              "description": "Optional parent group name for dashboards",
+              "type": {
+                "text": "string"
+              }
             }
           ],
           "description": "Navigates application to a specified page with context about the item type."
@@ -3843,7 +4533,7 @@
               }
             }
           ],
-          "description": "Changes the URL without reloading"
+          "description": "Changes the URL without reloading, preserving navigation context"
         }
       ],
       "exports": [
@@ -3869,27 +4559,6 @@
           "declaration": {
             "name": "navigateTab",
             "module": "out-tsc/src/utils/navigation.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/gen/google/protobuf/timestamp.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Timestamp",
-          "default": "new Timestamp$Type()"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Timestamp",
-          "declaration": {
-            "name": "Timestamp",
-            "module": "src/gen/google/protobuf/timestamp.ts"
           }
         }
       ]
@@ -3942,6 +4611,11 @@
           "kind": "variable",
           "name": "GCSConfig",
           "default": "new GCSConfig$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "ResultStoreConfig",
+          "default": "new ResultStoreConfig$Type()"
         },
         {
           "kind": "variable",
@@ -4094,6 +4768,14 @@
           "name": "GCSConfig",
           "declaration": {
             "name": "GCSConfig",
+            "module": "src/gen/pb/config/config.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ResultStoreConfig",
+          "declaration": {
+            "name": "ResultStoreConfig",
             "module": "src/gen/pb/config/config.ts"
           }
         },
@@ -4558,6 +5240,27 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/gen/google/protobuf/timestamp.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Timestamp",
+          "default": "new Timestamp$Type()"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Timestamp",
+          "declaration": {
+            "name": "Timestamp",
+            "module": "src/gen/google/protobuf/timestamp.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "out-tsc/src/gen/google/protobuf/timestamp.js",
       "declarations": [
         {
@@ -4647,6 +5350,11 @@
           "kind": "variable",
           "name": "GCSConfig",
           "default": "new GCSConfig$Type()"
+        },
+        {
+          "kind": "variable",
+          "name": "ResultStoreConfig",
+          "default": "new ResultStoreConfig$Type()"
         },
         {
           "kind": "variable",
@@ -4839,6 +5547,14 @@
           "name": "GCSConfig",
           "declaration": {
             "name": "GCSConfig",
+            "module": "out-tsc/src/gen/pb/config/config.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ResultStoreConfig",
+          "declaration": {
+            "name": "ResultStoreConfig",
             "module": "out-tsc/src/gen/pb/config/config.js"
           }
         },

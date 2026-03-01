@@ -56,29 +56,3 @@
   --spacing-8: 2rem;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --primary: oklch(0.65 0.18 265);
-  --primary-foreground: oklch(0.145 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.25 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.65 0.2 25);
-  --border: oklch(0.25 0 0);
-  --ring: oklch(0.65 0.18 265);
-
-  /* Status colors - adjusted for dark mode legibility */
-  --status-pass: oklch(0.7 0.18 145);
-  --status-fail: oklch(0.65 0.22 25);
-  --status-flaky: oklch(0.75 0.16 70);
-  --status-broken: oklch(0.65 0.25 350);
-  --status-pending: oklch(0.7 0.15 250);
-  --status-stale: oklch(0.65 0 0);
-  --status-acceptable: oklch(0.72 0.16 130);
-  --status-unknown: oklch(0.65 0 0);
-
-  /* Header in dark mode stays same */
-  --header-bg: oklch(0.15 0.02 265);
-}
